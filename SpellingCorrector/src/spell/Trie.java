@@ -13,6 +13,7 @@ public class Trie implements ITrie {
 	@Override
 	public void add(String word) {
 		// Adds words to trie and increments frequency count
+		System.out.println(word);
 	}
 
 	@Override
@@ -70,27 +71,40 @@ public class Trie implements ITrie {
 
 	@Override
 	public boolean equals(Object o) {
+		if (o == this)
+			return true;
 
-		// check for null
-		// check for this
-		// check the classes
+		if (o == null)
+			return false;
+
+		if (getClass() != o.getClass()) {
+			return false;
+		}
 
 		Trie otherTrie = (Trie)o;
-		// check nodeCount and wordCount are equal
 
-		return equalsHelper(root, otherTrie.root);	// FIXME
+		if (wordCount != otherTrie.getWordCount()) {
+			return false;
+		}
+
+		if (nodeCount != otherTrie.getNodeCount()) {
+			return false;
+		}
+
+		return equalsHelper(root, otherTrie.root);
 	}
 
 	public boolean equalsHelper(Node trie1, Node trie2) {
 		// Compare the two trees and see if they have exactly the same structure.
 
-		// If the two nodes are identical (), traverse their children.
-		// Compare valueCounts
+		// Compare valueCounts of the two nodes
 		if (trie1.getValue() != trie2.getValue()) {
 			return false;
 		}
 
 		// Check if they have non-null children in the same spots (ex: one has an A child, other doesn't)
+
+		// Recursively compare the children
 
 		return true;	// FIXME
 	}

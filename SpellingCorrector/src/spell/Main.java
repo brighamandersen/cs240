@@ -17,8 +17,7 @@ public class Main {
 		String dictionaryFileName = args[0];
 		String inputWord = args[1];
 
-//		ISpellCorrector corrector = null;
-		SpellCorrector spellCorrector = new SpellCorrector();
+		ISpellCorrector spellCorrector = new SpellCorrector();
 
 		try {
 			spellCorrector.useDictionary(dictionaryFileName);
@@ -32,7 +31,7 @@ public class Main {
 		if (suggestion == null) {
 		    suggestion = "No similar word found";
 		}
-		
+
 		System.out.println("Suggestion is: " + suggestion);
 	}
 

@@ -24,7 +24,7 @@ public class Node implements INode {
 		return children;
 	}
 
-//	// Nathan's fns below
+//	// N's fns below
 //
 //	@Override
 //	public boolean equals(Object obj) {
