@@ -8,14 +8,10 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class SpellCorrector implements ISpellCorrector {
-	private Trie trie;	// = new Trie(); - FIXME - moved to constructor
+	private Trie trie = new Trie();
 	private List<String> possibleWords = new ArrayList<String>();
 	private List<String> wrongWords = new ArrayList<String>();
 //	private boolean distance1;	// FIXME - What is this used for?
-
-	public SpellCorrector() {
-		trie = new Trie();
-	}
 
 	@Override
 	public void useDictionary(String dictionaryFileName) throws IOException {
@@ -31,7 +27,9 @@ public class SpellCorrector implements ISpellCorrector {
 
 	@Override
 	public String suggestSimilarWord(String inputWord) {
-		INode foundNode = trie.find(inputWord);
+		String lowerCaseWord = inputWord.toLowerCase();
+		INode foundNode = trie.find(lowerCaseWord);
+
 		if (foundNode == null) {
 			return null;
 		}

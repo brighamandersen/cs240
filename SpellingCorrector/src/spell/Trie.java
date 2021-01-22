@@ -1,19 +1,23 @@
 package spell;
 
 public class Trie implements ITrie {
-	private Node root;
+	private Node root = new Node();
 	private int wordCount = 0;
 	private int nodeCount = 1;
 	// private int hashValue = 0 // FIXME - Only use if needed
-
-	public Trie() {
-		root = new Node();
-	}
 
 	@Override
 	public void add(String word) {
 		// Adds words to trie and increments frequency count
 		System.out.println(word);
+
+		INode wordNode = find(word);
+		if (wordNode == null) {	// If word is not found
+			// FIXME - Add word to trie
+			wordNode.incrementValue();	// Increment word count
+		}
+
+
 	}
 
 	@Override

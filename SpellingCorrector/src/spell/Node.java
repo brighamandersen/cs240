@@ -1,12 +1,9 @@
 package spell;
 
 public class Node implements INode {
+	static private final int LETTERS_IN_ALPHABET = 26;
 	private int valueCount = 0;
-	private Node[] children;
-
-	public Node() {
-		children = new Node[26];
-	}
+	private Node[] children = new Node[LETTERS_IN_ALPHABET];
 
 	@Override
 	public int getValue() {

@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2de8c568-192d-4dbc-89cf-628c1084af4e" name="Default Changelist" comment="Basic setup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpellingCorrector/spell/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpellingCorrector/spell/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SpellingCorrector/spell/SpellCorrector.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpellingCorrector/spell/SpellCorrector.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpellingCorrector/spell/Trie.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpellingCorrector/spell/Trie.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spell/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spell/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/spell/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spell/Node.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/spell/SpellCorrector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spell/SpellCorrector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/spell/Trie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spell/Trie.java" afterDir="false" />
