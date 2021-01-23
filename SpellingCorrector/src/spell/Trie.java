@@ -2,20 +2,41 @@ package spell;
 
 public class Trie implements ITrie {
 	private Node root = new Node();
-	private int wordCount = 0;
 	private int nodeCount = 1;
-	// private int hashValue = 0 // FIXME - Only use if needed
+	private int wordCount = 0;
 
 	@Override
 	public void add(String word) {
 		// Adds words to trie and increments frequency count
-		System.out.println(word);
+//		System.out.println(word);
 
-		INode wordNode = find(word);
-		if (wordNode == null) {	// If word is not found
-			// FIXME - Add word to trie
-			wordNode.incrementValue();	// Increment word count
+		char curLetter;
+		int curIndex;
+
+		for (int i = 0; i < word.length(); i++) {
+			curLetter = word.charAt(i);
+			curIndex = curLetter - 'a';
+
+
+			// If letter doesn't exists
+			if (root.getChildren()[word.charAt(i) - 'a'] == null) {
+				// Add new node for the letter
+				root.addChild(curIndex);
+				// Increment nodeCount
+			} else {	// If letter does exist
+				// add
+			}
+//			System.out.println(root.getChildren()[curIndex]);
 		}
+//		System.out.println(root.printCharsInAlphabet());
+//		System.out.println(toString());
+		// Increment wordCount
+
+//		INode wordNode = find(word);
+//		if (wordNode == null) {	// If word is not found
+//			// FIXME - Add word to trie
+//			wordNode.incrementValue();	// Increment word count
+//		}
 
 
 	}
@@ -46,15 +67,14 @@ public class Trie implements ITrie {
 		return output.toString();
 	}
 
-	private void toStringHelper(Node node, StringBuilder curWord, StringBuilder output) {
+	private void toStringHelper(INode node, StringBuilder curWord, StringBuilder output) {
 		if (node.getValue() > 0) {
 			output.append(curWord.toString());
 			output.append("\n");
 		}
 
-		for (int i = 0; i < node.getChildren().length; ++i) {
-			Node child = (Node) node.getChildren()[i];	// FIXME - Is this right?
-//			INode child = node.getChildren()[i];	// FIXME - Or is this?
+		for (int i = 0; i < node.getChildren().length; i++) {
+			INode child = node.getChildren()[i];
 
 			if (child != null) {
 				char childLetter = (char)('a' + i);
