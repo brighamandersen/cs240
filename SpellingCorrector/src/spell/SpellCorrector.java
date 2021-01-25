@@ -9,8 +9,8 @@ import java.util.Scanner;
 public class SpellCorrector implements ISpellCorrector {
 	private Trie trie = new Trie();
 	private List<String> possibleWords = new ArrayList<String>();
-	private List<String> wrongWords = new ArrayList<String>();
-	static final int LETTERS_IN_ALPHABET = 26;
+	private String bestSuggestion = "";
+	private int bestSuggestionFrequency = 0;
 
 	@Override
 	public void useDictionary(String dictionaryFileName) throws IOException {
@@ -28,29 +28,33 @@ public class SpellCorrector implements ISpellCorrector {
 	@Override
 	public String suggestSimilarWord(String inputWord) {
 		inputWord = inputWord.toLowerCase();
-		INode matchNode = trie.find(inputWord);
 
-		// If word was found in dictionary
+		// Check for an exact match with the input word
+		INode matchNode = trie.find(inputWord);
 		if (matchNode != null) {
-			return matchNode.toString();
+			return inputWord;
 		}
 
-		// Run d1 checks
-		runDistanceCheck(inputWord);
+		// Run d1 check
+		generateDistanceOnes(inputWord);
+		generateBestSuggestion();
 
-		// If d1 has no suggested word, run d2
-//		if (possibleWords == null) {
-//			runDistanceCheck();
-//		}
+		// If best suggestion is generated from d1, give it
+		if (bestSuggestion != "") {
+			return bestSuggestion;
+		}
+
+		// If no suggestions are found from d1 check, run d2
+		generateDistanceTwos();
+		generateBestSuggestion();
+
+		// If suggestions are generated from d2, give the best one
+		if (bestSuggestion != "") {
+			return bestSuggestion;
+		}
 
 		// if it wasn't directly found, has no d1 words, and has no d2 words, then return no suggestion
 		return null;
-	}
-
-	// N's fns below
-
-	public String findPrecedence() {
-		return "FIXME";
 	}
 
 	public void deletion(String inputWord) {
@@ -112,13 +116,59 @@ public class SpellCorrector implements ISpellCorrector {
 		}
 	}
 
-	public void runDistanceCheck(String inputWord) {
+	public void generateDistanceOnes(String inputWord) {
 		deletion(inputWord);
 		transposition(inputWord);
 		alteration(inputWord);
 		insertion(inputWord);
 
 		printPossibleWords();
+	}
+
+	public void generateBestSuggestion() {
+		INode matchNode = new Node();
+		for (String possibleWord : possibleWords) {
+			matchNode = trie.find(possibleWord);
+			if (matchNode != null) {
+				processNewSuggestion(matchNode, possibleWord);
+			}
+		}
+	}
+
+	public String processNewSuggestion(INode newMatchNode, String newSuggestion) {
+		int newFrequency = newMatchNode.getValue();
+
+		// If there isn't already a suggestion, automatically add newSuggestion
+		if (bestSuggestion == "") {
+			replaceBestSuggestion(newSuggestion, newFrequency);
+		}
+
+		// If newSuggestion's frequency is greater than the current, add newSuggestion;
+		if (newFrequency > bestSuggestionFrequency) {
+			replaceBestSuggestion(newSuggestion, newFrequency);
+		}
+
+		// If the newSuggestion's frequency is equal to the current and it is sooner alphabetically, add new Suggestion
+		if (newFrequency == bestSuggestionFrequency && newSuggestion.compareTo(bestSuggestion) < 0) {
+			replaceBestSuggestion(newSuggestion, newFrequency);
+		}
+
+		// Otherwise keep with the current suggestion
+		return bestSuggestion;
+	}
+
+	public void replaceBestSuggestion(String newSuggestion, int newFrequency) {
+		bestSuggestion = newSuggestion;
+		bestSuggestionFrequency = newFrequency;
+	}
+
+	public void generateDistanceTwos() {
+		List<String> tempPossibleWords = new ArrayList<String>(possibleWords);	// Clone possible words
+		possibleWords.clear();
+
+		for (String tempPossibleWord : tempPossibleWords) {
+			generateDistanceOnes(tempPossibleWord);
+		}
 	}
 
 	public void printPossibleWords() {
