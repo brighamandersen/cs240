@@ -7,10 +7,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SpellCorrector implements ISpellCorrector {
-	private Trie trie = new Trie();
-	private List<String> possibleWords = new ArrayList<String>();
-	private String bestSuggestion = "";
-	private int bestSuggestionFrequency = 0;
+	private Trie trie;
+	private List<String> possibleWords;
+	private String bestSuggestion;
+	private int bestSuggestionFrequency;
+
+	public SpellCorrector() {
+		trie = new Trie();
+		possibleWords = new ArrayList<String>();
+		bestSuggestion = "";
+		bestSuggestionFrequency = 0;
+	}
 
 	@Override
 	public void useDictionary(String dictionaryFileName) throws IOException {
@@ -57,7 +64,7 @@ public class SpellCorrector implements ISpellCorrector {
 		return null;
 	}
 
-	public void deletion(String inputWord) {
+	public void delete(String inputWord) {
 		String wordToAdd;
 
 		for (int i = 0; i < inputWord.length(); i++) {
@@ -67,7 +74,7 @@ public class SpellCorrector implements ISpellCorrector {
 		}
 	}
 
-	public void transposition(String inputWord) {
+	public void transpose(String inputWord) {
 		String wordToAdd;
 		char char1;
 		char char2;
@@ -85,7 +92,7 @@ public class SpellCorrector implements ISpellCorrector {
 		}
 	}
 
-	public void alteration(String inputWord) {
+	public void alter(String inputWord) {
 		String wordToAdd;
 		char curChar;
 
@@ -103,7 +110,7 @@ public class SpellCorrector implements ISpellCorrector {
 		}
 	}
 
-	public void insertion(String inputWord) {
+	public void insert(String inputWord) {
 		String wordToAdd;
 
 		for (int i = 0; i < inputWord.length() + 1; i++) {
@@ -117,12 +124,10 @@ public class SpellCorrector implements ISpellCorrector {
 	}
 
 	public void generateDistanceOnes(String inputWord) {
-		deletion(inputWord);
-		transposition(inputWord);
-		alteration(inputWord);
-		insertion(inputWord);
-
-//		printPossibleWords();
+		delete(inputWord);
+		transpose(inputWord);
+		alter(inputWord);
+		insert(inputWord);
 	}
 
 	public void generateBestSuggestion() {

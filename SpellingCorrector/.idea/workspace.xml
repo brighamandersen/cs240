@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2de8c568-192d-4dbc-89cf-628c1084af4e" name="Default Changelist" comment="Basic setup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/spell/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spell/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/spell/SpellCorrector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spell/SpellCorrector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/spell/Trie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spell/Trie.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,11 +53,11 @@
       <recent name="C:\Coding\cs240\SpellingCorrector\src" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TrieTest.testDuplicateNodes">
+  <component name="RunManager" selected="JUnit.SpellTest">
     <configuration name="Default" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="spell.Main" />
       <module name="SpellingCorrector" />
-      <option name="PROGRAM_PARAMETERS" value="words.txt flsoa" />
+      <option name="PROGRAM_PARAMETERS" value="words.txt bbig" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -75,7 +77,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SpellTest.testValidWord" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SpellTest.testBigFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpellingCorrector" />
       <extension name="coverage">
         <pattern>
@@ -85,13 +87,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="passoff" />
       <option name="MAIN_CLASS_NAME" value="passoff.SpellTest" />
-      <option name="METHOD_NAME" value="testValidWord" />
+      <option name="METHOD_NAME" value="testBigFile" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TrieTest.testDuplicateNodes" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TrieTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpellingCorrector" />
       <extension name="coverage">
         <pattern>
@@ -101,13 +103,12 @@
       </extension>
       <option name="PACKAGE_NAME" value="passoff" />
       <option name="MAIN_CLASS_NAME" value="passoff.TrieTest" />
-      <option name="METHOD_NAME" value="testDuplicateNodes" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TrieTest.testLargeTrie" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TrieTest.testEquals" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpellingCorrector" />
       <extension name="coverage">
         <pattern>
@@ -117,13 +118,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="passoff" />
       <option name="MAIN_CLASS_NAME" value="passoff.TrieTest" />
-      <option name="METHOD_NAME" value="testLargeTrie" />
+      <option name="METHOD_NAME" value="testEquals" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TrieTest.testToString" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TrieTest.testMoreHashCode" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpellingCorrector" />
       <extension name="coverage">
         <pattern>
@@ -133,7 +134,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="passoff" />
       <option name="MAIN_CLASS_NAME" value="passoff.TrieTest" />
-      <option name="METHOD_NAME" value="testToString" />
+      <option name="METHOD_NAME" value="testMoreHashCode" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -141,19 +142,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.Default" />
-      <item itemvalue="JUnit.TrieTest.testToString" />
-      <item itemvalue="JUnit.TrieTest.testLargeTrie" />
-      <item itemvalue="JUnit.TrieTest.testDuplicateNodes" />
+      <item itemvalue="JUnit.TrieTest.testMoreHashCode" />
+      <item itemvalue="JUnit.TrieTest" />
+      <item itemvalue="JUnit.TrieTest.testEquals" />
       <item itemvalue="JUnit.SpellTest" />
-      <item itemvalue="JUnit.SpellTest.testValidWord" />
+      <item itemvalue="JUnit.SpellTest.testBigFile" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TrieTest.testDuplicateNodes" />
-        <item itemvalue="JUnit.SpellTest.testValidWord" />
         <item itemvalue="JUnit.SpellTest" />
-        <item itemvalue="JUnit.TrieTest.testLargeTrie" />
-        <item itemvalue="JUnit.TrieTest.testToString" />
+        <item itemvalue="JUnit.TrieTest.testEquals" />
+        <item itemvalue="JUnit.TrieTest" />
+        <item itemvalue="JUnit.SpellTest.testBigFile" />
+        <item itemvalue="JUnit.TrieTest.testMoreHashCode" />
       </list>
     </recent_temporary>
   </component>
@@ -197,21 +198,18 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/spell/SpellCorrector.java</url>
-          <line>29</line>
+          <line>36</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/spell/SpellCorrector.java</url>
-          <line>134</line>
+          <line>139</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/passoff/TrieTest.java</url>
-          <line>234</line>
-          <properties class="passoff.TrieTest" method="add">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="3" />
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/spell/Trie.java</url>
+          <line>143</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

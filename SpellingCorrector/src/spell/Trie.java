@@ -2,8 +2,16 @@ package spell;
 
 public class Trie implements ITrie {
 	private Node root = new Node();
-	private int nodeCount = 1;
-	private int wordCount = 0;
+	private int nodeCount;
+	private int wordCount;
+	private int firstNonNullIndex;
+
+	public Trie() {
+		root = new Node();
+		nodeCount = 1;
+		wordCount = 0;
+		firstNonNullIndex = 0;
+	}
 
 	@Override
 	public void add(String word) {	// Adds words to trie and increments frequency count
@@ -16,6 +24,10 @@ public class Trie implements ITrie {
 			curIndex = curLetter - 'a';
 
 			if (!curNode.hasChild(curIndex)) {	// If node for letter doesn't exist
+				if (curIndex < firstNonNullIndex) {
+					firstNonNullIndex = curIndex;
+				}
+
 				curNode.addChild(curIndex);
 				nodeCount++;
 			}
@@ -47,6 +59,12 @@ public class Trie implements ITrie {
 				return null;
 			}
 		}
+
+		// Do not return back the word is found if it's a node but not a word in the dictionary
+		if (curNode == null || curNode.getValue() == 0) {
+			return null;
+		}
+
 		// Return the final Node
 		return curNode;
 	}
@@ -93,8 +111,8 @@ public class Trie implements ITrie {
 
 	@Override
 	public int hashCode() {
-		return 31 * nodeCount * wordCount;
-		//	return (nodeCount * wordCount + sumOfNonNullRootChildIndexes);
+		return (nodeCount * wordCount);
+//		return (nodeCount * wordCount + firstNonNullIndex);
 	}
 
 	@Override
@@ -123,17 +141,23 @@ public class Trie implements ITrie {
 	}
 
 	public boolean equalsHelper(Node trie1, Node trie2) {
-		// Compare the two trees and see if they have exactly the same structure.
-
-		// Compare valueCounts of the two nodes
+		// Compare frequency of the two nodes
 		if (trie1.getValue() != trie2.getValue()) {
 			return false;
 		}
 
 		// Check if they have non-null children in the same spots (ex: one has an A child, other doesn't)
+		for (int i = 0; i < Node.LETTERS_IN_ALPHABET; i++) {
+			// Check if one has a child in a spot that the other doesn't
+			if (trie1.hasChild(i) && !trie2.hasChild(i) || trie2.hasChild(i) && !trie1.hasChild(i)) {
+				return false;
+			}
 
-		// Recursively compare the children
-
-		return true;	// FIXME
+			// If both have children in a spot, recurse down trie
+			if (trie1.hasChild(i) && trie2.hasChild(i)) {
+				equalsHelper(trie1.getChild(i), trie2.getChild(i));		// Recursively compare the children
+			}
+		}
+		return true;
 	}
 }
