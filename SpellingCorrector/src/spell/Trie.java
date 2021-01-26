@@ -6,10 +6,8 @@ public class Trie implements ITrie {
 	private int wordCount = 0;
 
 	@Override
-	public void add(String word) {
-		// Adds words to trie and increments frequency count
-//		System.out.println(word);
-
+	public void add(String word) {	// Adds words to trie and increments frequency count
+		Node curNode = root;
 		char curLetter;
 		int curIndex;
 
@@ -17,34 +15,41 @@ public class Trie implements ITrie {
 			curLetter = word.charAt(i);
 			curIndex = curLetter - 'a';
 
-
-			// If letter doesn't exists
-			if (root.getChildren()[word.charAt(i) - 'a'] == null) {
-				// Add new node for the letter
-				root.addChild(curIndex);
-				// Increment nodeCount
-			} else {	// If letter does exist
-				// add
+			if (!curNode.hasChild(curIndex)) {	// If node for letter doesn't exist
+				curNode.addChild(curIndex);
+				nodeCount++;
 			}
-//			System.out.println(root.getChildren()[curIndex]);
+			curNode = curNode.getChild(curIndex);
+
 		}
+
+		wordCount++;
+		curNode.incrementValue();
+
+//			System.out.println(root.getChildren()[curIndex]);
 //		System.out.println(root.printCharsInAlphabet());
 //		System.out.println(toString());
-		// Increment wordCount
-
-//		INode wordNode = find(word);
-//		if (wordNode == null) {	// If word is not found
-//			// FIXME - Add word to trie
-//			wordNode.incrementValue();	// Increment word count
-//		}
-
-
 	}
 
 	@Override
-	public INode find(String word) {
-		// Searches trie to find word
-		return null;
+	public INode find(String word) {	// Searches trie to find word
+		Node curNode = root;
+		char curLetter;
+		int curIndex;
+
+		for (int i = 0; i < word.length(); i++) {
+			curLetter = word.charAt(i);
+			curIndex = curLetter - 'a';
+
+			// If curNode has a child at index
+			if (curNode.hasChild(curIndex)) {
+				curNode = curNode.getChild(curIndex);    // Set curNode to equal child at index		(move down trie)
+			} else {
+				return null;
+			}
+		}
+		// Return the final Node
+		return curNode;
 	}
 
 	@Override

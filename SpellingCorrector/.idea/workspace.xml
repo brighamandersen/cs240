@@ -5,8 +5,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SpellingCorrector/spell/Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpellingCorrector/spell/Node.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SpellingCorrector/spell/SpellCorrector.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpellingCorrector/spell/SpellCorrector.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpellingCorrector/spell/Trie.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpellingCorrector/spell/Trie.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/spell/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spell/Node.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/spell/SpellCorrector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spell/SpellCorrector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/spell/Trie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spell/Trie.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +60,7 @@
     <configuration name="Default" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="spell.Main" />
       <module name="SpellingCorrector" />
-      <option name="PROGRAM_PARAMETERS" value="words.txt ask" />
+      <option name="PROGRAM_PARAMETERS" value="words.txt flsoa" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -122,5 +124,21 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Basic setup" />
     <option name="LAST_COMMIT_MESSAGE" value="Basic setup" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/spell/SpellCorrector.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/spell/SpellCorrector.java</url>
+          <line>134</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

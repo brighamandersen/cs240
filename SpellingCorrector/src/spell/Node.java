@@ -20,8 +20,20 @@ public class Node implements INode {
 		return children;
 	}
 
+	public Node getChild(int index) {
+		return children[index];
+	}
+
 	public void addChild(int index) {
 		children[index] = new Node();
+	}
+
+	public boolean hasChild(int index) {
+		if (children[index] != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public String printCharsInAlphabet() {

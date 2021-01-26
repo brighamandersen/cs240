@@ -122,7 +122,7 @@ public class SpellCorrector implements ISpellCorrector {
 		alteration(inputWord);
 		insertion(inputWord);
 
-		printPossibleWords();
+//		printPossibleWords();
 	}
 
 	public void generateBestSuggestion() {
