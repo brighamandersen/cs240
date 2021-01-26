@@ -4,13 +4,11 @@ public class Trie implements ITrie {
 	private Node root = new Node();
 	private int nodeCount;
 	private int wordCount;
-	private int firstNonNullIndex;
 
 	public Trie() {
 		root = new Node();
 		nodeCount = 1;
 		wordCount = 0;
-		firstNonNullIndex = Node.LETTERS_IN_ALPHABET;
 	}
 
 	@Override
@@ -24,9 +22,6 @@ public class Trie implements ITrie {
 			curIndex = curLetter - 'a';
 
 			if (!curNode.hasChild(curIndex)) {	// If node for letter doesn't exist
-				if (i == 1 && curIndex < firstNonNullIndex) {
-					firstNonNullIndex = curIndex;
-				}
 
 				curNode.addChild(curIndex);
 				nodeCount++;
@@ -111,12 +106,15 @@ public class Trie implements ITrie {
 
 	@Override
 	public int hashCode() {
+		int firstNonNullIndex = 0;
+
 		for (int i = 0; i < Node.LETTERS_IN_ALPHABET; i++) {
 			if (root.hasChild(i)) {
 				firstNonNullIndex = i + 1;
 				break;
 			}
 		}
+
 		return (nodeCount * wordCount + firstNonNullIndex);
 	}
 

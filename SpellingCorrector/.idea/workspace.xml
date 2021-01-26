@@ -51,7 +51,7 @@
       <recent name="C:\Coding\cs240\SpellingCorrector\src" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.SpellTest">
+  <component name="RunManager" selected="JUnit.TrieTest">
     <configuration name="Default" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="spell.Main" />
       <module name="SpellingCorrector" />
@@ -148,8 +148,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.SpellTest" />
         <item itemvalue="JUnit.TrieTest" />
+        <item itemvalue="JUnit.SpellTest" />
         <item itemvalue="JUnit.TrieTest.testEquals" />
         <item itemvalue="JUnit.TrieTest.testMoreHashCode" />
         <item itemvalue="JUnit.SpellTest.testBigFile" />
@@ -194,11 +194,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/spell/Trie.java</url>
-          <line>25</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/passoff/TrieTest.java</url>
           <line>81</line>
