@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2de8c568-192d-4dbc-89cf-628c1084af4e" name="Default Changelist" comment="Basic setup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spell/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spell/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spell/SpellCorrector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spell/SpellCorrector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/spell/Trie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spell/Trie.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,7 +55,7 @@
     <configuration name="Default" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="spell.Main" />
       <module name="SpellingCorrector" />
-      <option name="PROGRAM_PARAMETERS" value="words.txt bbig" />
+      <option name="PROGRAM_PARAMETERS" value="notsobig.txt cooool" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -151,10 +149,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.SpellTest" />
-        <item itemvalue="JUnit.TrieTest.testEquals" />
         <item itemvalue="JUnit.TrieTest" />
-        <item itemvalue="JUnit.SpellTest.testBigFile" />
+        <item itemvalue="JUnit.TrieTest.testEquals" />
         <item itemvalue="JUnit.TrieTest.testMoreHashCode" />
+        <item itemvalue="JUnit.SpellTest.testBigFile" />
       </list>
     </recent_temporary>
   </component>
@@ -197,19 +195,17 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/spell/SpellCorrector.java</url>
-          <line>36</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/spell/SpellCorrector.java</url>
-          <line>139</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/spell/Trie.java</url>
-          <line>143</line>
-          <option name="timeStamp" value="6" />
+          <line>25</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/passoff/TrieTest.java</url>
+          <line>81</line>
+          <properties class="passoff.TrieTest" method="testEquals">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

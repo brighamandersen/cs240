@@ -10,7 +10,7 @@ public class Trie implements ITrie {
 		root = new Node();
 		nodeCount = 1;
 		wordCount = 0;
-		firstNonNullIndex = 0;
+		firstNonNullIndex = Node.LETTERS_IN_ALPHABET;
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class Trie implements ITrie {
 			curIndex = curLetter - 'a';
 
 			if (!curNode.hasChild(curIndex)) {	// If node for letter doesn't exist
-				if (curIndex < firstNonNullIndex) {
+				if (i == 1 && curIndex < firstNonNullIndex) {
 					firstNonNullIndex = curIndex;
 				}
 
@@ -111,8 +111,13 @@ public class Trie implements ITrie {
 
 	@Override
 	public int hashCode() {
-		return (nodeCount * wordCount);
-//		return (nodeCount * wordCount + firstNonNullIndex);
+		for (int i = 0; i < Node.LETTERS_IN_ALPHABET; i++) {
+			if (root.hasChild(i)) {
+				firstNonNullIndex = i + 1;
+				break;
+			}
+		}
+		return (nodeCount * wordCount + firstNonNullIndex);
 	}
 
 	@Override
@@ -155,7 +160,9 @@ public class Trie implements ITrie {
 
 			// If both have children in a spot, recurse down trie
 			if (trie1.hasChild(i) && trie2.hasChild(i)) {
-				equalsHelper(trie1.getChild(i), trie2.getChild(i));		// Recursively compare the children
+				if (!equalsHelper(trie1.getChild(i), trie2.getChild(i))) {	// Recursively compare the children
+					return false;
+				}
 			}
 		}
 		return true;
