@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2de8c568-192d-4dbc-89cf-628c1084af4e" name="Default Changelist" comment="Basic setup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spell/Trie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spell/Trie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/spell/SpellCorrector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spell/SpellCorrector.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +55,7 @@
     <configuration name="Default" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="spell.Main" />
       <module name="SpellingCorrector" />
-      <option name="PROGRAM_PARAMETERS" value="notsobig.txt cooool" />
+      <option name="PROGRAM_PARAMETERS" value="words.txt flaot" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -75,7 +75,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SpellTest.testBigFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SpellTest.testTransposition" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SpellingCorrector" />
       <extension name="coverage">
         <pattern>
@@ -85,7 +85,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="passoff" />
       <option name="MAIN_CLASS_NAME" value="passoff.SpellTest" />
-      <option name="METHOD_NAME" value="testBigFile" />
+      <option name="METHOD_NAME" value="testTransposition" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -144,15 +144,15 @@
       <item itemvalue="JUnit.TrieTest" />
       <item itemvalue="JUnit.TrieTest.testEquals" />
       <item itemvalue="JUnit.SpellTest" />
-      <item itemvalue="JUnit.SpellTest.testBigFile" />
+      <item itemvalue="JUnit.SpellTest.testTransposition" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.TrieTest" />
         <item itemvalue="JUnit.SpellTest" />
+        <item itemvalue="JUnit.SpellTest.testTransposition" />
         <item itemvalue="JUnit.TrieTest.testEquals" />
         <item itemvalue="JUnit.TrieTest.testMoreHashCode" />
-        <item itemvalue="JUnit.SpellTest.testBigFile" />
       </list>
     </recent_temporary>
   </component>
@@ -201,6 +201,21 @@
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/spell/SpellCorrector.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/spell/SpellCorrector.java</url>
+          <line>25</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/passoff/SpellTest.java</url>
+          <line>106</line>
+          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

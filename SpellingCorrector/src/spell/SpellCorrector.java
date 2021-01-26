@@ -35,6 +35,9 @@ public class SpellCorrector implements ISpellCorrector {
 	@Override
 	public String suggestSimilarWord(String inputWord) {
 		inputWord = inputWord.toLowerCase();
+		possibleWords.clear();
+		bestSuggestion = "";
+		bestSuggestionFrequency = 0;
 
 		// Check for an exact match with the input word
 		INode matchNode = trie.find(inputWord);
