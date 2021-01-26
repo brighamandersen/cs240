@@ -3,11 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2de8c568-192d-4dbc-89cf-628c1084af4e" name="Default Changelist" comment="Basic setup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpellingCorrector/spell/Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpellingCorrector/spell/Node.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpellingCorrector/spell/SpellCorrector.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpellingCorrector/spell/SpellCorrector.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpellingCorrector/spell/Trie.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpellingCorrector/spell/Trie.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spell/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spell/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spell/SpellCorrector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spell/SpellCorrector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/spell/Trie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spell/Trie.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,7 +51,7 @@
       <recent name="C:\Coding\cs240\SpellingCorrector\src" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Default">
+  <component name="RunManager" selected="JUnit.TrieTest.testDuplicateNodes">
     <configuration name="Default" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="spell.Main" />
       <module name="SpellingCorrector" />
@@ -80,13 +75,85 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SpellTest.testValidWord" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpellingCorrector" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoff.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoff" />
+      <option name="MAIN_CLASS_NAME" value="passoff.SpellTest" />
+      <option name="METHOD_NAME" value="testValidWord" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TrieTest.testDuplicateNodes" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpellingCorrector" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoff.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoff" />
+      <option name="MAIN_CLASS_NAME" value="passoff.TrieTest" />
+      <option name="METHOD_NAME" value="testDuplicateNodes" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TrieTest.testLargeTrie" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpellingCorrector" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoff.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoff" />
+      <option name="MAIN_CLASS_NAME" value="passoff.TrieTest" />
+      <option name="METHOD_NAME" value="testLargeTrie" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TrieTest.testToString" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpellingCorrector" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoff.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoff" />
+      <option name="MAIN_CLASS_NAME" value="passoff.TrieTest" />
+      <option name="METHOD_NAME" value="testToString" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.Default" />
+      <item itemvalue="JUnit.TrieTest.testToString" />
+      <item itemvalue="JUnit.TrieTest.testLargeTrie" />
+      <item itemvalue="JUnit.TrieTest.testDuplicateNodes" />
       <item itemvalue="JUnit.SpellTest" />
+      <item itemvalue="JUnit.SpellTest.testValidWord" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TrieTest.testDuplicateNodes" />
+        <item itemvalue="JUnit.SpellTest.testValidWord" />
         <item itemvalue="JUnit.SpellTest" />
+        <item itemvalue="JUnit.TrieTest.testLargeTrie" />
+        <item itemvalue="JUnit.TrieTest.testToString" />
       </list>
     </recent_temporary>
   </component>
@@ -137,6 +204,14 @@
           <url>file://$PROJECT_DIR$/src/spell/SpellCorrector.java</url>
           <line>134</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/passoff/TrieTest.java</url>
+          <line>234</line>
+          <properties class="passoff.TrieTest" method="add">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

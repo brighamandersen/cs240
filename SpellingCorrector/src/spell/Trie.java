@@ -20,15 +20,14 @@ public class Trie implements ITrie {
 				nodeCount++;
 			}
 			curNode = curNode.getChild(curIndex);
-
 		}
 
-		wordCount++;
-		curNode.incrementValue();
+		// Increment wordCount if word is unique to dictionary
+		if (curNode.getValue() == 0) {
+			wordCount++;
+		}
 
-//			System.out.println(root.getChildren()[curIndex]);
-//		System.out.println(root.printCharsInAlphabet());
-//		System.out.println(toString());
+		curNode.incrementValue();
 	}
 
 	@Override
@@ -94,7 +93,7 @@ public class Trie implements ITrie {
 
 	@Override
 	public int hashCode() {
-		return nodeCount * wordCount;
+		return 31 * nodeCount * wordCount;
 		//	return (nodeCount * wordCount + sumOfNonNullRootChildIndexes);
 	}
 
