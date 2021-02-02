@@ -7,27 +7,31 @@ import java.util.Scanner;
 public class EvilHangman {
 
     public static void main(String[] args) {
-        File dictionary = new File(args[0]);
-        int wordLength = Integer.parseInt(args[1]);
-        int guesses = Integer.parseInt(args[2]);
+        File DICTIONARY = new File(args[0]);
+        int WORD_LENGTH = Integer.parseInt(args[1]);
+        int NUM_GUESSES = Integer.parseInt(args[2]);
 
-        IEvilHangmanGame evilHangmanGame = new EvilHangmanGame();
+        // Set up game
+        EvilHangmanGame evilHangmanGame = new EvilHangmanGame();
 
         try {
-            evilHangmanGame.startGame(dictionary, wordLength);
+            evilHangmanGame.startGame(DICTIONARY, WORD_LENGTH);
+            evilHangmanGame.setGuessesRemaining(NUM_GUESSES);
         } catch (IOException | EmptyDictionaryException ex) {
-            ex.printStackTrace();
+            System.out.println(ex.toString());
+            return;
         }
 
-        while (guesses > 0) {
+        // Play game rounds
+        while (evilHangmanGame.getGuessesRemaining() > 0) {
 
-            System.out.println("You have " + guesses + " guesses left");
+            System.out.println("You have " + evilHangmanGame.getGuessesRemaining() + " guesses left");
 
             System.out.print("Used letters: ");
             System.out.println(evilHangmanGame.getGuessedLetters());
 
             System.out.print("Word: ");
-            System.out.println(); // ?????????????
+            System.out.println(evilHangmanGame.getWordProgress());
 
             System.out.print("Enter a guess: ");
             Scanner scanner = new Scanner(System.in);
@@ -39,10 +43,12 @@ public class EvilHangman {
             try {
                 evilHangmanGame.makeGuess(guess);
             } catch (GuessAlreadyMadeException ex) {
-                ex.printStackTrace();
+                System.out.println(ex.toString());
             }
-            guesses--;
+            System.out.println();
         }
+
+        // Handle end outcome
         // FIXME - Add logic in case they win
         System.out.println("You lose!");
         // FIXME - Add new correct word
