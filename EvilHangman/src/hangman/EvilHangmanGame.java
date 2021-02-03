@@ -7,13 +7,14 @@ import java.util.*;
 public class EvilHangmanGame implements IEvilHangmanGame {
     SortedSet<Character> guessedLetters;
     Set<String> hangmanDictionary;
-    int guessesRemaining;
-    // add map for partitions
+    Map<String, Set<String>> partitionMap;
+    String largestSubsetKey;
 
     public EvilHangmanGame() {
         guessedLetters = new TreeSet<Character>();
         hangmanDictionary = new HashSet<String>();
-        guessesRemaining = 0;
+        partitionMap = new HashMap<String, Set<String>>();
+        largestSubsetKey = "";
     }
 
     @Override
@@ -41,6 +42,12 @@ public class EvilHangmanGame implements IEvilHangmanGame {
         if (hangmanDictionary.size() == 0) {
             throw new EmptyDictionaryException("No words in dictionary are that length.");
         }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < wordLength; i++) {
+            sb.insert(i, '_');
+        }
+        largestSubsetKey = sb.toString();
     }
 
     @Override
@@ -48,21 +55,16 @@ public class EvilHangmanGame implements IEvilHangmanGame {
         if (guessedLetters.contains(guess)) {
             throw new GuessAlreadyMadeException("You already guessed that letter.");
         }
+        guessedLetters.add(guess);
 
-        // If good guess
-        if (guess >= 'a' && guess <= 'm') {     // FIXME - Switch this logic, just for testing
-            System.out.println("Yes, there is {frequency} " + guess);
-        } else {    // If bad guess
-            guessedLetters.add(guess);
-            guessesRemaining--;
-            System.out.println("Sorry, there are no " + guess + "\'s");
-        }
+        // Program partitions hangmanDictionary relative to guessed letter
+        partitionDictionary(guess);
+        // Largest subset in the partition becomes the new hangmanDictionary
+            // hangmanDictionary = largestSubset;
+        // If words in the hangmanDictionary contain the guessed letter,
+            // display each occurrence of the letter in the word.
 
-
-
-        // set dictionary value equal to largest partition in map
-
-        return null;    //
+        return hangmanDictionary;
     }
 
     @Override
@@ -70,16 +72,34 @@ public class EvilHangmanGame implements IEvilHangmanGame {
         return guessedLetters;
     }
 
-    public int getGuessesRemaining() {
-        return guessesRemaining;
+    public void partitionDictionary(char guess) {   // Creates subsets based on current dictionary and guess
+        // Loop through letters in word
+            // Loop through hangmanDictionary
+
+                // If hangmanDictionary at index contains char, add subset to partitionMap
+        Set<String> set = new HashSet<>(Arrays.asList("tar", "tap", "tan"));
+
+        partitionMap.put("t__", set);
     }
 
-    public void setGuessesRemaining(int guessesRemaining) {
-        this.guessesRemaining = guessesRemaining;
-    }
-
-    public String getWordProgress() {
+    public String getLargestSubsetKey() {
         // FIXME - Replace this so that it returns the key value within the map for the largest partition
-        return "_FIX_ME_";
+
+        Set<String> set1 = new HashSet<>(Arrays.asList("tar", "tap", "tan"));
+        Set<String> set2 = new HashSet<>(Arrays.asList("bat", "cat"));
+        partitionMap.put("t__", set1);
+        partitionMap.put("__t", set2);
+
+        int largestSize = 0;
+        for (Map.Entry<String, Set<String>> subset : partitionMap.entrySet()) {
+//            System.out.println(subset.getKey() + "\t\t" + subset.getValue());
+
+            if (subset.getValue().size() > largestSize) {
+                largestSubsetKey = subset.getKey();
+                largestSize = subset.getValue().size();
+            }
+        }
+
+        return largestSubsetKey;
     }
 }
