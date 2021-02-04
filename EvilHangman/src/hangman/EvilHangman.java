@@ -3,7 +3,6 @@ package hangman;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -43,7 +42,7 @@ public class EvilHangman {
 
             // Check if letterGuessed is valid, otherwise loop again
             if (letterGuessed < 'a' || letterGuessed > 'z') {
-                System.out.println("Invalid character.  Try again.\n");
+                System.out.println("Invalid input.  Try again.\n");
                 continue;
             }
 
@@ -61,7 +60,7 @@ public class EvilHangman {
                 guessesLeft--;
             } else {
                 // If they won
-                if (possibleWords.size() == 1) {    // FIXME
+                if (!evilHangmanGame.getLargestSubsetKey().contains("_")) {
                     System.out.println("You win!  The word was " + possibleWords.toString());
                     return;
                 }

@@ -56,6 +56,8 @@ public class EvilHangmanGame implements IEvilHangmanGame {
 
         guessedLetters.add(guess);
 
+        String test = combineKeys("_l_", "a__");
+
         // Program partitions hangmanDictionary relative to guessed letter
         partitionDictionary(guess);
 
@@ -72,9 +74,13 @@ public class EvilHangmanGame implements IEvilHangmanGame {
 
     public void partitionDictionary(char guess) {   // Creates subsets based on current dictionary and guess
         for (String word : hangmanDictionary) {
+            String blankString = makeBlankString(word.length());
+            boolean gotAdded = false;
+
             for (int i = 0; i < word.length(); i++) {
                 if (word.charAt(i) == guess) {
                     String key = makeKey(word, i);
+                    gotAdded = true;
 
                     // CASE 1 - if key in map, add word to end of set
                     if (partitionMap.containsKey(key)) {
@@ -84,6 +90,16 @@ public class EvilHangmanGame implements IEvilHangmanGame {
                         newSet.add(word);
                         partitionMap.put(key, newSet);
                     }
+                }
+            }
+            // Case 3 - If none were created for the word, add to blank subset
+            if (!gotAdded) {
+                if (partitionMap.containsKey(blankString)) {
+                    partitionMap.get(blankString).add(word);
+                } else {
+                    Set<String> newSet = new HashSet<String>();
+                    newSet.add(word);
+                    partitionMap.put(blankString, newSet);
                 }
             }
         }
@@ -96,13 +112,26 @@ public class EvilHangmanGame implements IEvilHangmanGame {
         for (Map.Entry<String, Set<String>> subset : partitionMap.entrySet()) {
 //            System.out.println(subset.getKey() + "\t\t" + subset.getValue());
 
+            // If subset is larger
             if (subset.getValue().size() > largestSize) {
                 largestSubsetWords = subset.getValue();
-                largestSubsetKey = subset.getKey();
+                largestSubsetKey = combineKeys(largestSubsetKey, subset.getKey());
                 largestSize = subset.getValue().size();
+            }
+
+            // If subset is same size
+            if (subset.getValue().size() == largestSize) {
+//                subset.getKey(largestSubsetKey).
+                // Tiebreakers
+                // 1 Priority - Group which the letter doesn't appear at all
+                // 2 Priority - Group with the fewest letters (ex: a__ over aa_)
+                // 3 Priority - Group with rightmost letter (ex: _e_e over e__e)
+                // repeat over and over
+
             }
         }
         hangmanDictionary = largestSubsetWords;
+        partitionMap.clear();
     }
 
     public String makeKey(String word, int index) {
@@ -133,4 +162,16 @@ public class EvilHangmanGame implements IEvilHangmanGame {
         }
         return numMatches;
     }
+
+    public String combineKeys(String key1, String key2) {
+        StringBuilder sb = new StringBuilder(key1);
+        for (int i = 0; i < key1.length(); i++) {
+            // If one key is blank
+            if (key1.charAt(i) == '_' && key2.charAt(i) != '_') {
+                sb.setCharAt(i, key2.charAt(i));
+            }
+        }
+        return sb.toString();
+    }
+
 }
