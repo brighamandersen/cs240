@@ -56,13 +56,11 @@ public class EvilHangmanGame implements IEvilHangmanGame {
 
         guessedLetters.add(guess);
 
-        String test = combineKeys("_l_", "a__");
-
         // Program partitions hangmanDictionary relative to guessed letter
         partitionDictionary(guess);
 
         // Largest subset in the partition becomes the new hangmanDictionary
-        reduceDictionary();
+        reduceDictionary(guess);
 
         return hangmanDictionary;
     }
@@ -105,7 +103,7 @@ public class EvilHangmanGame implements IEvilHangmanGame {
         }
     }
 
-    public void reduceDictionary() {    // Makes largest partition the new hangmanDictionary
+    public void reduceDictionary(char guess) {    // Makes largest partition the new hangmanDictionary
         int largestSize = 0;
         Set<String> largestSubsetWords = new HashSet<String>();
 
@@ -121,10 +119,18 @@ public class EvilHangmanGame implements IEvilHangmanGame {
 
             // If subset is same size
             if (subset.getValue().size() == largestSize) {
-//                subset.getKey(largestSubsetKey).
                 // Tiebreakers
+
                 // 1 Priority - Group which the letter doesn't appear at all
+                int largestGuessCount = largestSubsetKey.length() - largestSubsetKey.replaceAll(String.valueOf(guess),"").length();
+                int curSubsetGuessCount = subset.getKey().length() - subset.getKey().replaceAll(String.valueOf(guess),"").length();
+
+                if (curSubsetGuessCount < largestGuessCount) {
+                    largestSubsetKey = combineKeys(largestSubsetKey, subset.getKey());
+                }
+
                 // 2 Priority - Group with the fewest letters (ex: a__ over aa_)
+
                 // 3 Priority - Group with rightmost letter (ex: _e_e over e__e)
                 // repeat over and over
 
