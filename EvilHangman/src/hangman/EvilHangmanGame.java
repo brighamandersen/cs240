@@ -43,26 +43,24 @@ public class EvilHangmanGame implements IEvilHangmanGame {
             throw new EmptyDictionaryException("No words in dictionary are that length.");
         }
 
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < wordLength; i++) {
-            sb.insert(i, '_');
-        }
-        largestSubsetKey = sb.toString();
+        largestSubsetKey = makeBlankString(wordLength);
     }
 
     @Override
     public Set<String> makeGuess(char guess) throws GuessAlreadyMadeException {
+        guess = Character.toLowerCase(guess);
+
         if (guessedLetters.contains(guess)) {
             throw new GuessAlreadyMadeException("You already guessed that letter.");
         }
+
         guessedLetters.add(guess);
 
         // Program partitions hangmanDictionary relative to guessed letter
         partitionDictionary(guess);
+
         // Largest subset in the partition becomes the new hangmanDictionary
-            // hangmanDictionary = largestSubset;
-        // If words in the hangmanDictionary contain the guessed letter,
-            // display each occurrence of the letter in the word.
+        reduceDictionary();
 
         return hangmanDictionary;
     }
@@ -73,33 +71,66 @@ public class EvilHangmanGame implements IEvilHangmanGame {
     }
 
     public void partitionDictionary(char guess) {   // Creates subsets based on current dictionary and guess
-        // Loop through letters in word
-            // Loop through hangmanDictionary
+        for (String word : hangmanDictionary) {
+            for (int i = 0; i < word.length(); i++) {
+                if (word.charAt(i) == guess) {
+                    String key = makeKey(word, i);
 
-                // If hangmanDictionary at index contains char, add subset to partitionMap
-        Set<String> set = new HashSet<>(Arrays.asList("tar", "tap", "tan"));
-
-        partitionMap.put("t__", set);
+                    // CASE 1 - if key in map, add word to end of set
+                    if (partitionMap.containsKey(key)) {
+                        partitionMap.get(key).add(word);
+                    } else {    // CASE 2 - if key not in map, create a new key value pair, add single word to set
+                        Set<String> newSet = new HashSet<String>();
+                        newSet.add(word);
+                        partitionMap.put(key, newSet);
+                    }
+                }
+            }
+        }
     }
 
-    public String getLargestSubsetKey() {
-        // FIXME - Replace this so that it returns the key value within the map for the largest partition
-
-        Set<String> set1 = new HashSet<>(Arrays.asList("tar", "tap", "tan"));
-        Set<String> set2 = new HashSet<>(Arrays.asList("bat", "cat"));
-        partitionMap.put("t__", set1);
-        partitionMap.put("__t", set2);
-
+    public void reduceDictionary() {    // Makes largest partition the new hangmanDictionary
         int largestSize = 0;
+        Set<String> largestSubsetWords = new HashSet<String>();
+
         for (Map.Entry<String, Set<String>> subset : partitionMap.entrySet()) {
 //            System.out.println(subset.getKey() + "\t\t" + subset.getValue());
 
             if (subset.getValue().size() > largestSize) {
+                largestSubsetWords = subset.getValue();
                 largestSubsetKey = subset.getKey();
                 largestSize = subset.getValue().size();
             }
         }
+        hangmanDictionary = largestSubsetWords;
+    }
 
+    public String makeKey(String word, int index) {
+        StringBuilder sb = new StringBuilder(makeBlankString(word.length()));
+        sb.setCharAt(index, word.charAt(index));
+        return sb.toString();
+    }
+
+    public String makeBlankString(int length) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            sb.insert(i, "_");
+        }
+        return sb.toString();
+    }
+
+    public String getLargestSubsetKey() {
         return largestSubsetKey;
+    }
+
+    public int checkMatches(Set<String> possibleWords, char letterGuessed) {
+        int numMatches = 0;
+
+        for (String word : possibleWords) {
+            if (word.contains(String.valueOf(letterGuessed))) {
+                numMatches++;
+            }
+        }
+        return numMatches;
     }
 }

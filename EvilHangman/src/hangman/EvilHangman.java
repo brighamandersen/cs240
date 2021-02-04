@@ -48,29 +48,33 @@ public class EvilHangman {
             }
 
             try {
-                evilHangmanGame.makeGuess(letterGuessed);
+                possibleWords = evilHangmanGame.makeGuess(letterGuessed);
             } catch (GuessAlreadyMadeException ex) {
                 System.out.println(ex.toString() + "\n");
                 continue;
             }
 
-            // If good guess
-            if (letterGuessed >= 'a' && letterGuessed <= 'm') {     // FIXME - Switch this logic, just for testing
-                System.out.println("Yes, there is {frequency} " + letterGuessed + "\n");
-
-                // Check if user won (word is completely filled out)
-//                if (!...contains("_")) {
-//                    System.out.println("You win!  The word was FIXME");
-//                }
-
-            } else {    // If bad guess (if words in new hangmanDictionary do not contain the guessed letter)
+            int matches = evilHangmanGame.checkMatches(possibleWords, letterGuessed);
+            // If bad guess
+            if (matches == 0) {
                 System.out.println("Sorry, there are no " + letterGuessed + "\'s\n");
                 guessesLeft--;
-            }
+            } else {
+                // If they won
+                if (possibleWords.size() == 1) {    // FIXME
+                    System.out.println("You win!  The word was " + possibleWords.toString());
+                    return;
+                }
 
+                if (matches == 1) {
+                    System.out.println("Yes, there is " + matches + " " + letterGuessed + "\n");
+                } else {
+                    System.out.println("Yes, there are " + matches + " " + letterGuessed + "'s\n");
+                }
+
+            }
         }
 
         System.out.println("You lose!\nThe word was: FIXME");
     }
-
 }
