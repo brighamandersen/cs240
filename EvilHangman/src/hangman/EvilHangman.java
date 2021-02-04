@@ -42,7 +42,7 @@ public class EvilHangman {
 
             // Check if letterGuessed is valid, otherwise loop again
             if (letterGuessed < 'a' || letterGuessed > 'z') {
-                System.out.println("Invalid input.  Try again.\n");
+                System.out.println("Invalid input.  Try again\n");
                 continue;
             }
 
@@ -53,27 +53,26 @@ public class EvilHangman {
                 continue;
             }
 
-            int matches = evilHangmanGame.checkMatches(possibleWords, letterGuessed);
             // If bad guess
-            if (matches == 0) {
+            if (evilHangmanGame.getTimesFound() == 0) {
                 System.out.println("Sorry, there are no " + letterGuessed + "\'s\n");
                 guessesLeft--;
             } else {
                 // If they won
                 if (!evilHangmanGame.getLargestSubsetKey().contains("_")) {
-                    System.out.println("You win!  The word was " + possibleWords.toString());
+                    System.out.println("You win!  The word was " + possibleWords.iterator().next());
                     return;
                 }
 
-                if (matches == 1) {
-                    System.out.println("Yes, there is " + matches + " " + letterGuessed + "\n");
+                if (evilHangmanGame.getTimesFound() == 1) {
+                    System.out.println("Yes, there is " + evilHangmanGame.getTimesFound() + " " + letterGuessed + "\n");
                 } else {
-                    System.out.println("Yes, there are " + matches + " " + letterGuessed + "'s\n");
+                    System.out.println("Yes, there are " + evilHangmanGame.getTimesFound() + " " + letterGuessed + "'s\n");
                 }
 
             }
         }
 
-        System.out.println("You lose!\nThe word was: FIXME");
+        System.out.println("You lose!\nThe word was: " + possibleWords.iterator().next());
     }
 }

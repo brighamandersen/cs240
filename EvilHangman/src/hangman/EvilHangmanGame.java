@@ -9,26 +9,30 @@ public class EvilHangmanGame implements IEvilHangmanGame {
     Set<String> hangmanDictionary;
     Map<String, Set<String>> partitionMap;
     String largestSubsetKey;
+    int timesFound;
 
     public EvilHangmanGame() {
         guessedLetters = new TreeSet<>();
         hangmanDictionary = new HashSet<>();
-        partitionMap = new HashMap<>();
+        partitionMap = new HashMap<String, Set<String>>();
         largestSubsetKey = "";
+        int timesFound = 0;
     }
 
     @Override
     public void startGame(File dictionary, int wordLength) throws IOException, EmptyDictionaryException {
         if (dictionary == null) {
-            throw new IOException("Dictionary does not exist.");
+            throw new IOException("Dictionary does not exist");
         }
 
         if (dictionary.length() == 0) {
-            throw new EmptyDictionaryException("Dictionary does not contain any words.");
+            throw new EmptyDictionaryException("Dictionary does not contain any words");
         }
 
         Scanner scanner = new Scanner(dictionary);
         String curWord;
+
+        hangmanDictionary.clear();
 
         while (scanner.hasNext()) {
             curWord = scanner.next().toLowerCase();
@@ -40,7 +44,7 @@ public class EvilHangmanGame implements IEvilHangmanGame {
         scanner.close();
 
         if (hangmanDictionary.size() == 0) {
-            throw new EmptyDictionaryException("No words in dictionary are that length.");
+            throw new EmptyDictionaryException("No words in dictionary are that length");
         }
 
         largestSubsetKey = makeBlankString(wordLength);
@@ -49,9 +53,10 @@ public class EvilHangmanGame implements IEvilHangmanGame {
     @Override
     public Set<String> makeGuess(char guess) throws GuessAlreadyMadeException {
         guess = Character.toLowerCase(guess);
+        timesFound = 0;
 
         if (guessedLetters.contains(guess)) {
-            throw new GuessAlreadyMadeException("You already guessed that letter.");
+            throw new GuessAlreadyMadeException("You already guessed that letter");
         }
 
         guessedLetters.add(guess);
@@ -61,6 +66,8 @@ public class EvilHangmanGame implements IEvilHangmanGame {
 
         // Largest subset in the partition becomes the new hangmanDictionary
         reduceDictionary(guess);
+
+        timesFound = getLetterCount(largestSubsetKey, guess);
 
         return hangmanDictionary;
     }
@@ -119,8 +126,11 @@ public class EvilHangmanGame implements IEvilHangmanGame {
         // Handle tiebreakers
         for (Map.Entry<String, Set<String>> subset : partitionMap.entrySet()) {
             if (subset.getValue().size() == hangmanDictionary.size()) {
-                int largestGuessCount = newLargestSubsetKey.length() - newLargestSubsetKey.replaceAll(String.valueOf(guess), "").length();
-                int curSubsetGuessCount = subset.getKey().length() - subset.getKey().replaceAll(String.valueOf(guess), "").length();
+//                int largestGuessCount = newLargestSubsetKey.length() - newLargestSubsetKey.replaceAll(String.valueOf(guess), "").length();
+//                int curSubsetGuessCount = subset.getKey().length() - subset.getKey().replaceAll(String.valueOf(guess), "").length();
+
+                int largestGuessCount = getLetterCount(newLargestSubsetKey, guess);
+                int curSubsetGuessCount = getLetterCount(subset.getKey(), guess);
 
                 // 1 Priority - Group which the letter doesn't appear at all
                 // 2 Priority - Group with the fewest letters (ex: a__ over aa_)
@@ -133,10 +143,14 @@ public class EvilHangmanGame implements IEvilHangmanGame {
                 // repeat over and over
                 if (curSubsetGuessCount == largestGuessCount) {
                     String tempKey = newLargestSubsetKey;
-                    for (int i = newLargestSubsetKey.length(); i > 0; i--) {
-                        if (subset.getKey().charAt(i) != '_' && newLargestSubsetKey.charAt(i) == '_') {
-                            hangmanDictionary = subset.getValue();
-                            tempKey = subset.getKey();
+                    for (int i = newLargestSubsetKey.length() - 1; i >= 0; i--) {
+                        if (subset.getKey().charAt(i) != tempKey.charAt(i)) {
+                            if (subset.getKey().charAt(i) != '_' && tempKey.charAt(i) == '_') {
+                                hangmanDictionary = subset.getValue();
+                                tempKey = subset.getKey();
+                            } else {
+                                break;
+                            }
                         }
                     }
                     newLargestSubsetKey = tempKey;
@@ -144,7 +158,9 @@ public class EvilHangmanGame implements IEvilHangmanGame {
             }
         }
         largestSubsetKey = combineKeys(largestSubsetKey, newLargestSubsetKey);
-        partitionMap.clear();
+        if (!partitionMap.isEmpty()) {
+            partitionMap.clear();
+        }
     }
 
     public String convertToKey(String word, char guess) {
@@ -165,20 +181,16 @@ public class EvilHangmanGame implements IEvilHangmanGame {
         return sb.toString();
     }
 
-    public String getLargestSubsetKey() {
-        return largestSubsetKey;
-    }
-
-    public int checkMatches(Set<String> possibleWords, char letterGuessed) {
-        int numMatches = 0;
-
-        for (String word : possibleWords) {
-            if (word.contains(String.valueOf(letterGuessed))) {
-                numMatches++;
-            }
-        }
-        return numMatches;
-    }
+//    public int checkMatches(Set<String> possibleWords, char letterGuessed) {
+//        int numMatches = 0;
+//
+//        for (String word : possibleWords) {
+//            if (word.contains(String.valueOf(letterGuessed))) {
+//                numMatches++;
+//            }
+//        }
+//        return numMatches;
+//    }
 
     public String combineKeys(String key1, String key2) {
         StringBuilder sb = new StringBuilder(key1);
@@ -191,4 +203,21 @@ public class EvilHangmanGame implements IEvilHangmanGame {
         return sb.toString();
     }
 
+    public int getLetterCount(String word, char letter) {
+        int count = 0;
+        for (int i = 0; i < word.length(); i++) {
+            if (word.charAt(i) == letter) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public String getLargestSubsetKey() {
+        return largestSubsetKey;
+    }
+
+    public int getTimesFound() {
+        return timesFound;
+    }
 }
