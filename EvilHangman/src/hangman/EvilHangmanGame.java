@@ -14,7 +14,7 @@ public class EvilHangmanGame implements IEvilHangmanGame {
     public EvilHangmanGame() {
         guessedLetters = new TreeSet<>();
         hangmanDictionary = new HashSet<>();
-        partitionMap = new HashMap<String, Set<String>>();
+        partitionMap = new HashMap<>();
         largestSubsetKey = "";
         int timesFound = 0;
     }
@@ -180,17 +180,6 @@ public class EvilHangmanGame implements IEvilHangmanGame {
         }
         return sb.toString();
     }
-
-//    public int checkMatches(Set<String> possibleWords, char letterGuessed) {
-//        int numMatches = 0;
-//
-//        for (String word : possibleWords) {
-//            if (word.contains(String.valueOf(letterGuessed))) {
-//                numMatches++;
-//            }
-//        }
-//        return numMatches;
-//    }
 
     public String combineKeys(String key1, String key2) {
         StringBuilder sb = new StringBuilder(key1);
