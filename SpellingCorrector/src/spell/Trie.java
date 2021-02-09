@@ -1,7 +1,7 @@
 package spell;
 
 public class Trie implements ITrie {
-	private Node root = new Node();
+	private Node root;
 	private int nodeCount;
 	private int wordCount;
 

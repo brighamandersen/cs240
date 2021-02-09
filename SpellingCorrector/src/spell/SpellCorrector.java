@@ -14,7 +14,7 @@ public class SpellCorrector implements ISpellCorrector {
 
 	public SpellCorrector() {
 		trie = new Trie();
-		possibleWords = new ArrayList<String>();
+		possibleWords = new ArrayList<>();
 		bestSuggestion = "";
 		bestSuggestionFrequency = 0;
 	}
