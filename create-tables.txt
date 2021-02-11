@@ -1,0 +1,46 @@
+CREATE TABLE IF NOT EXISTS User (
+	username TEXT PRIMARY KEY,
+	password TEXT NOT NULL,
+    email TEXT NOT NULL,
+    firstName TEXT NOT NULL,
+    lastName TEXT NOT NULL,
+    gender TEXT CHECK (gender in ('m', 'f')),
+	personID TEXT NOT NULL UNIQUE,
+	FOREIGN KEY (personID) REFERENCES Person(personID)
+ );
+ 
+CREATE TABLE IF NOT EXISTS AuthToken (
+ 	token TEXT PRIMARY KEY,
+ 	timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	associatedUsername TEXT NOT NULL UNIQUE,
+ 	FOREIGN KEY (associatedUsername) REFERENCES User(username)
+);
+
+CREATE TABLE IF NOT EXISTS Person (
+	personID TEXT PRIMARY KEY,
+	associatedUsername TEXT UNIQUE,
+	firstName TEXT NOT NULL,
+	lastName TEXT NOT NULL,
+	gender TEXT CHECK (gender in ('m', 'f')),
+	fatherID TEXT,
+	motherID TEXT,
+	spouseID TEXT,
+ 	FOREIGN KEY (associatedUsername) REFERENCES User(username),
+	FOREIGN KEY (fatherID) REFERENCES Person(personID),
+	FOREIGN KEY (motherID) REFERENCES Person(personID),
+	FOREIGN KEY (spouseID) REFERENCES Person(personID)
+);
+
+CREATE TABLE IF NOT EXISTS Event (
+	eventID TEXT PRIMARY KEY,
+	associatedUsername TEXT,
+	personID TEXT NOT NULL,
+	latitude REAL NOT NULL,
+	longitude REAL NOT NULL,
+	country TEXT NOT NULL,
+	city TEXT NOT NULL,
+	eventType TEXT NOT NULL,
+	year INT NOT NULL,
+	FOREIGN KEY (associatedUsername) REFERENCES User(username),
+	FOREIGN KEY (personID) REFERENCES Person(personID)
+);
