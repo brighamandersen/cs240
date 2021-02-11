@@ -1,10 +1,10 @@
 CREATE TABLE IF NOT EXISTS User (
 	username TEXT PRIMARY KEY,
 	password TEXT NOT NULL,
-    email TEXT NOT NULL,
-    firstName TEXT NOT NULL,
-    lastName TEXT NOT NULL,
-    gender TEXT CHECK (gender in ('m', 'f')),
+	email TEXT NOT NULL,
+	firstName TEXT NOT NULL,
+	lastName TEXT NOT NULL,
+	gender TEXT CHECK (gender in ('m', 'f')),
 	personID TEXT NOT NULL UNIQUE,
 	FOREIGN KEY (personID) REFERENCES Person(personID)
  );
