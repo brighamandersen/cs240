@@ -1,4 +1,4 @@
-package data_access;
+package daos;
 
 public class EventDao {
 }
