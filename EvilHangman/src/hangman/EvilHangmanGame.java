@@ -7,14 +7,14 @@ import java.util.*;
 public class EvilHangmanGame implements IEvilHangmanGame {
     SortedSet<Character> guessedLetters;
     Set<String> hangmanDictionary;
-    Map<String, Set<String>> partitionMap;
+    Map<String, Set<String>> partitions;
     String largestSubsetKey;
     int timesFound;
 
     public EvilHangmanGame() {
         guessedLetters = new TreeSet<>();
         hangmanDictionary = new HashSet<>();
-        partitionMap = new HashMap<>();
+        partitions = new HashMap<>();
         largestSubsetKey = "";
         int timesFound = 0;
     }
@@ -29,10 +29,9 @@ public class EvilHangmanGame implements IEvilHangmanGame {
             throw new EmptyDictionaryException("Dictionary does not contain any words");
         }
 
+        hangmanDictionary.clear();
         Scanner scanner = new Scanner(dictionary);
         String curWord;
-
-        hangmanDictionary.clear();
 
         while (scanner.hasNext()) {
             curWord = scanner.next().toLowerCase();
@@ -56,7 +55,7 @@ public class EvilHangmanGame implements IEvilHangmanGame {
         timesFound = 0;
 
         if (guessedLetters.contains(guess)) {
-            throw new GuessAlreadyMadeException("You already guessed that letter");
+            throw new GuessAlreadyMadeException("Guess already made!");
         }
 
         guessedLetters.add(guess);
@@ -67,7 +66,7 @@ public class EvilHangmanGame implements IEvilHangmanGame {
         // Largest subset in the partition becomes the new hangmanDictionary
         reduceDictionary(guess);
 
-        timesFound = getLetterCount(largestSubsetKey, guess);
+        timesFound = getNumMatches(largestSubsetKey, guess);
 
         return hangmanDictionary;
     }
@@ -78,92 +77,66 @@ public class EvilHangmanGame implements IEvilHangmanGame {
     }
 
     public void partitionDictionary(char guess) {   // Creates subsets based on current dictionary and guess
+        String key;
+
         for (String word : hangmanDictionary) {
-            String blankString = makeBlankString(word.length());
-            boolean gotAdded = false;
+            key = createKey(word, guess);
 
-            for (int i = 0; i < word.length(); i++) {
-                if (word.charAt(i) == guess) {
-                    gotAdded = true;
-                    String key = convertToKey(word, guess);
-
-                    // CASE 1 - if key in map, add word to end of set
-                    if (partitionMap.containsKey(key)) {
-                        partitionMap.get(key).add(word);
-                    } else {    // CASE 2 - if key not in map, create a new key value pair, add single word to set
-                        Set<String> newSet = new HashSet<>();
-                        newSet.add(word);
-                        partitionMap.put(key, newSet);
-                    }
-                }
-            }
-            // Case 3 - If none were created for the word, add to blank subset
-            if (!gotAdded) {
-                if (partitionMap.containsKey(blankString)) {
-                    partitionMap.get(blankString).add(word);
-                } else {
-                    Set<String> newSet = new HashSet<>();
-                    newSet.add(word);
-                    partitionMap.put(blankString, newSet);
-                }
+            if (partitions.containsKey(key)) {
+                partitions.get(key).add(word);
+            } else {
+                Set<String> newSet = new HashSet<>();
+                newSet.add(word);
+                partitions.put(key, newSet);
             }
         }
+        hangmanDictionary.clear();
     }
 
     public void reduceDictionary(char guess) {    // Makes largest partition the new hangmanDictionary
-        hangmanDictionary.clear();
-        String newLargestSubsetKey = "";
+        String tempLargestSubsetKey = makeBlankString(largestSubsetKey.length());
 
-        // Get largest subset
-        for (Map.Entry<String, Set<String>> subset : partitionMap.entrySet()) {
-            if (subset.getValue().size() > hangmanDictionary.size()) {  // Update hangmanDictionary if subset has more words
+        // Get biggest subset first
+        for (Map.Entry<String, Set<String>> subset : partitions.entrySet()) {
+            if (subset.getValue().size() > hangmanDictionary.size()) {
                 hangmanDictionary = subset.getValue();
-                newLargestSubsetKey = subset.getKey();
+                tempLargestSubsetKey = subset.getKey();
             }
         }
-        partitionMap.remove(newLargestSubsetKey);
+        partitions.remove(tempLargestSubsetKey);
+
 
         // Handle tiebreakers
-        for (Map.Entry<String, Set<String>> subset : partitionMap.entrySet()) {
+        for (Map.Entry<String, Set<String>> subset : partitions.entrySet()) {
             if (subset.getValue().size() == hangmanDictionary.size()) {
-//                int largestGuessCount = newLargestSubsetKey.length() - newLargestSubsetKey.replaceAll(String.valueOf(guess), "").length();
-//                int curSubsetGuessCount = subset.getKey().length() - subset.getKey().replaceAll(String.valueOf(guess), "").length();
+                int curSubsetMatches = getNumMatches(subset.getKey(), guess);
+                int largestSubsetMatches = getNumMatches(tempLargestSubsetKey, guess);
 
-                int largestGuessCount = getLetterCount(newLargestSubsetKey, guess);
-                int curSubsetGuessCount = getLetterCount(subset.getKey(), guess);
-
-                // 1 Priority - Group which the letter doesn't appear at all
-                // 2 Priority - Group with the fewest letters (ex: a__ over aa_)
-                if (curSubsetGuessCount < largestGuessCount) {
+                if (curSubsetMatches < largestSubsetMatches) {
                     hangmanDictionary = subset.getValue();
-                    newLargestSubsetKey = subset.getKey();
+                    tempLargestSubsetKey = subset.getKey();
                 }
 
-                // 3 Priority - Group with rightmost letter (ex: _e_e over e__e)
-                // repeat over and over
-                if (curSubsetGuessCount == largestGuessCount) {
-                    String tempKey = newLargestSubsetKey;
-                    for (int i = newLargestSubsetKey.length() - 1; i >= 0; i--) {
-                        if (subset.getKey().charAt(i) != tempKey.charAt(i)) {
-                            if (subset.getKey().charAt(i) != '_' && tempKey.charAt(i) == '_') {
+                if (curSubsetMatches == largestSubsetMatches) {
+                    for (int i = tempLargestSubsetKey.length() - 1; i >= 0; i--) {
+                        if (subset.getKey().charAt(i) != tempLargestSubsetKey.charAt(i)) {
+                            if (subset.getKey().charAt(i) != '_' && tempLargestSubsetKey.charAt(i) == '_') {
                                 hangmanDictionary = subset.getValue();
-                                tempKey = subset.getKey();
+                                tempLargestSubsetKey = subset.getKey();
                             } else {
                                 break;
                             }
                         }
                     }
-                    newLargestSubsetKey = tempKey;
                 }
             }
         }
-        largestSubsetKey = combineKeys(largestSubsetKey, newLargestSubsetKey);
-        if (!partitionMap.isEmpty()) {
-            partitionMap.clear();
-        }
+
+        largestSubsetKey = combineKeys(largestSubsetKey, tempLargestSubsetKey);
+        partitions.clear();
     }
 
-    public String convertToKey(String word, char guess) {
+    public String createKey(String word, char guess) {
         StringBuilder sb = new StringBuilder((makeBlankString(word.length())));
         for (int i = 0; i < word.length(); i++) {
             if (word.charAt(i) == guess) {
@@ -181,18 +154,17 @@ public class EvilHangmanGame implements IEvilHangmanGame {
         return sb.toString();
     }
 
-    public String combineKeys(String key1, String key2) {
-        StringBuilder sb = new StringBuilder(key1);
-        for (int i = 0; i < key1.length(); i++) {
-            // If one key is blank
-            if (key1.charAt(i) == '_' && key2.charAt(i) != '_') {
-                sb.setCharAt(i, key2.charAt(i));
+    public String combineKeys(String origKey, String mergeKey) {
+        StringBuilder sb = new StringBuilder(origKey);
+        for (int i = 0; i < origKey.length(); i++) {
+            if (origKey.charAt(i) == '_' && mergeKey.charAt(i) != '_') {
+                sb.setCharAt(i, mergeKey.charAt(i));
             }
         }
         return sb.toString();
     }
 
-    public int getLetterCount(String word, char letter) {
+    public int getNumMatches(String word, char letter) {
         int count = 0;
         for (int i = 0; i < word.length(); i++) {
             if (word.charAt(i) == letter) {
