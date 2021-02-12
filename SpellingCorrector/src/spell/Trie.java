@@ -22,7 +22,6 @@ public class Trie implements ITrie {
 			curIndex = curLetter - 'a';
 
 			if (!curNode.hasChild(curIndex)) {	// If node for letter doesn't exist
-
 				curNode.addChild(curIndex);
 				nodeCount++;
 			}
@@ -40,27 +39,21 @@ public class Trie implements ITrie {
 	@Override
 	public INode find(String word) {	// Searches trie to find word
 		Node curNode = root;
-		char curLetter;
-		int curIndex;
 
 		for (int i = 0; i < word.length(); i++) {
-			curLetter = word.charAt(i);
-			curIndex = curLetter - 'a';
+			char curLetter = word.charAt(i);
+			int curIndex = curLetter - 'a';
 
-			// If curNode has a child at index
-			if (curNode.hasChild(curIndex)) {
-				curNode = curNode.getChild(curIndex);    // Set curNode to equal child at index		(move down trie)
-			} else {
+			if (!curNode.hasChild(curIndex)) {
 				return null;
 			}
+			curNode = curNode.getChild(curIndex);
 		}
 
-		// Do not return back the word is found if it's a node but not a word in the dictionary
-		if (curNode == null || curNode.getValue() == 0) {
+		if (curNode.getValue() == 0) {
 			return null;
 		}
 
-		// Return the final Node
 		return curNode;
 	}
 

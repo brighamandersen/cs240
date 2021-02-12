@@ -34,20 +34,9 @@ public class Node implements INode {
 	}
 
 	public boolean hasChild(int index) {
-		if (children[index] != null) {
-			return true;
-		} else {
+		if (children[index] == null) {
 			return false;
 		}
-	}
-
-	public String printCharsInAlphabet() {
-		String outStr = "Level 1: ";
-		for (int i = 0; i < LETTERS_IN_ALPHABET; i++) {
-			if (children[i] != null) {
-				outStr += (char)(i + 'a') + ", ";
-			}
-		}
-		return outStr;
+		return true;
 	}
 }

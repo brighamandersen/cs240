@@ -22,6 +22,11 @@ public class SpellCorrector implements ISpellCorrector {
 	@Override
 	public void useDictionary(String dictionaryFileName) throws IOException {
 		File file = new File(dictionaryFileName);
+
+		if (file == null) {
+			throw new IOException("File does not exist");
+		}
+
 		Scanner scanner = new Scanner(file);
 		String curWord;
 
@@ -67,76 +72,64 @@ public class SpellCorrector implements ISpellCorrector {
 		return null;
 	}
 
-	public void delete(String inputWord) {
-		String wordToAdd;
-
-		for (int i = 0; i < inputWord.length(); i++) {
-			StringBuilder sb = new StringBuilder(inputWord);
-			wordToAdd = sb.deleteCharAt(i).toString();
-			possibleWords.add(wordToAdd);
+	public void delete(String word) {
+		for (int i = 0; i < word.length(); i++) {
+			StringBuilder sb = new StringBuilder(word);
+			sb.deleteCharAt(i);
+			possibleWords.add(sb.toString());
 		}
 	}
 
-	public void transpose(String inputWord) {
-		String wordToAdd;
-		char char1;
-		char char2;
+	public void transpose(String word) {
+		for (int i = 0; i < word.length() - 1; i++) {
+			StringBuilder sb = new StringBuilder(word);
 
-		for (int i = 0; i < inputWord.length() - 1; i++) {
-			StringBuilder sb = new StringBuilder(inputWord);
-			char1 = sb.charAt(i);
-			char2 = sb.charAt(i + 1);
+			char char1 = word.charAt(i);
+			char char2 = word.charAt(i + 1);
 
 			sb.setCharAt(i, char2);
 			sb.setCharAt(i + 1, char1);
 
-			wordToAdd = sb.toString();
-			possibleWords.add(wordToAdd);
+			possibleWords.add(sb.toString());
 		}
 	}
 
-	public void alter(String inputWord) {
-		String wordToAdd;
-		char curChar;
-
-		for (int i = 0; i < inputWord.length(); i++) {
-			StringBuilder sb = new StringBuilder(inputWord);
-
-			curChar = sb.charAt(i);
+	public void alter(String word) {
+		for (int i = 0; i < word.length(); i++) {
 			for (char letter = 'a'; letter <= 'z'; letter++) {
-				if (letter != curChar) {
+				StringBuilder sb = new StringBuilder(word);
+
+				if (letter != word.charAt(i)) {
 					sb.setCharAt(i, letter);
-					wordToAdd = sb.toString();
-					possibleWords.add(wordToAdd);
+					possibleWords.add(sb.toString());
 				}
 			}
 		}
 	}
 
-	public void insert(String inputWord) {
-		String wordToAdd;
-
-		for (int i = 0; i < inputWord.length() + 1; i++) {
+	public void insert(String word) {
+		for (int i = 0; i < word.length() + 1; i++) {
 			for (char letter = 'a'; letter <= 'z'; letter++) {
-				StringBuilder sb = new StringBuilder(inputWord);
+				StringBuilder sb = new StringBuilder(word);
+
 				sb.insert(i, letter);
-				wordToAdd = sb.toString();
-				possibleWords.add(wordToAdd);
+				possibleWords.add(sb.toString());
 			}
 		}
 	}
 
-	public void generateDistanceOnes(String inputWord) {
-		delete(inputWord);
-		transpose(inputWord);
-		alter(inputWord);
-		insert(inputWord);
+	public void generateDistanceOnes(String word) {
+		delete(word);
+		transpose(word);
+		alter(word);
+		insert(word);
 	}
 
 	public void generateBestSuggestion() {
-		INode matchNode = new Node();
+		INode matchNode;
 		for (String possibleWord : possibleWords) {
 			matchNode = trie.find(possibleWord);
+
 			if (matchNode != null) {
 				processNewSuggestion(matchNode, possibleWord);
 			}
@@ -176,12 +169,6 @@ public class SpellCorrector implements ISpellCorrector {
 
 		for (String tempPossibleWord : tempPossibleWords) {
 			generateDistanceOnes(tempPossibleWord);
-		}
-	}
-
-	public void printPossibleWords() {
-		for (String possibleWord : possibleWords) {
-			System.out.println("Possible word: " + possibleWord);
 		}
 	}
 }
