@@ -1,12 +1,36 @@
 package models;
 
+/**
+ * Holds family server person data when it's in RAM (when it's not in database).
+ */
 public class PersonModel {
+    /**
+     * Unique identifier for person.
+     */
     private String personID;
+    /**
+     * Username of person if they are also a user.
+     */
     private String associatedUsername;
+    /**
+     * First name of person.
+     */
     private String firstName;
+    /**
+     * Last name of person.
+     */
     private String lastName;
+    /**
+     * Gender of person. (either 'f' or 'm')
+     */
     private char gender;    // FIXME? Change to String if needed
+    /**
+     * ID of person's father if one exists.
+     */
     private String fatherID;
+    /**
+     * ID of person's spouse if one exists.
+     */
     private String spouseID;
 
     public PersonModel(String personID, String associatedUsername, String firstName,

@@ -1,12 +1,36 @@
 package models;
 
+/**
+ * Holds family server user data when it's in RAM (when it's not in database).
+ */
 public class UserModel {
+    /**
+     * Unique username of user.
+     */
     private String username;
+    /**
+     * Password of user used for security when logging in.
+     */
     private String password;
+    /**
+     * Email address of user.
+     */
     private String email;
+    /**
+     * First name of user.
+     */
     private String firstName;
+    /**
+     * Last name of user.
+     */
     private String lastName;
+    /**
+     * Gender of user. (either 'f' or 'm')
+     */
     private char gender;    // FIXME? Change to String if needed
+    /**
+     * Person identifier of user.
+     */
     private String personID;
 
     public UserModel(String username, String password, String email,

@@ -1,14 +1,44 @@
 package models;
 
+/**
+ * Holds family server event data when it's in RAM (when it's not in database).
+ */
 public class EventModel {
+    /**
+     * Unique identifier for event.
+     */
     private String eventID;
+    /**
+     * Username of user to which event belongs.
+     */
     private String associatedUsername;
+    /**
+     * ID of person to which event belongs.
+     */
     private String personID;
+    /**
+     * Latitude coordinate of where event took place.
+     */
     private double latitude;
+    /**
+     * Longitude coordinate of where event took place.
+     */
     private double longitude;
+    /**
+     * Country in which event occurred.
+     */
     private String country;
+    /**
+     * City in which event occurred.
+     */
     private String city;
+    /**
+     * Type of event (birth, baptism, christening, marriage, death, etc.).
+     */
     private String eventType;
+    /**
+     * Year in which event occurred.
+     */
     private int year;
 
     public EventModel(String eventID, String associatedUsername, String personID, double latitude,
