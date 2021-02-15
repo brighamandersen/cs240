@@ -1,4 +1,4 @@
 package results;
 
-public class FillResult {
+public class FillResult extends Result {
 }

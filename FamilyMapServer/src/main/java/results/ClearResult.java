@@ -1,4 +1,4 @@
 package results;
 
-public class ClearResult {
+public class ClearResult extends Result {
 }

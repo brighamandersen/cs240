@@ -1,4 +1,4 @@
 package results;
 
-public class RegisterResult {
+public class RegisterResult extends Result {
 }

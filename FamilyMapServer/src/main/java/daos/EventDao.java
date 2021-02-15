@@ -8,14 +8,14 @@ import models.EventModel;
 public class EventDao {
     /**
      * Adds new event to the database.
-     * @param event
+     * @param event Major event which happened to a person.
      */
     public void addEvent(EventModel event) {
     }
 
     /**
      * Deletes event from the database.
-     * @param event
+     * @param event Major event which happened to a person.
      */
     public void deleteEvent(EventModel event) {
     }

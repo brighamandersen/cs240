@@ -1,4 +1,4 @@
 package results;
 
-public class LoginResult {
+public class LoginResult extends Result {
 }

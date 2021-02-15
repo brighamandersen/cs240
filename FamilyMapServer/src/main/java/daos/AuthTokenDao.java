@@ -8,14 +8,14 @@ import models.AuthTokenModel;
 public class AuthTokenDao {
     /**
      * Adds new authToken to the database.
-     * @param authToken
+     * @param authToken Unique token which allows user access to program.
      */
     public void addAuthToken(AuthTokenModel authToken) {
     }
 
     /**
      * Deletes authToken from the database.
-     * @param authToken
+     * @param authToken Unique token which allows user access to program.
      */
     public void deleteAuthToken(AuthTokenModel authToken) {
     }
