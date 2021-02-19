@@ -1,4 +1,7 @@
 package results;
 
-public class LoadResult {
+/**
+ * Houses response data returned from load API endpoint call.
+ */
+public class LoadResult extends Result {
 }

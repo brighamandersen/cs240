@@ -80,6 +80,6 @@ public class EventDAO {
      * Deletes event from the database.
      * @param event Major event which happened to a person.
      */
-    public void deleteEvent(Event event) {
+    public void delete(Event event) {
     }
 }
