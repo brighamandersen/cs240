@@ -2,10 +2,7 @@ package daos;
 
 import models.Event;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * Interfaces with Event database to provide specific operations.
@@ -20,10 +17,11 @@ public class EventDAO {
     /**
      * Adds new event to the database.
      * @param event Major event which happened to a person.
+     * @throws DataAccessException
      */
     public void insert(Event event) throws DataAccessException {
-        String sql = "INSERT INTO Events (EventID, AssociatedUsername, PersonID, Latitude, Longitude, " +
-                "Country, City, EventType, Year) VALUES(?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Event (eventID, associatedUsername, personID, latitude, longitude, " +
+                "country, city, eventType, year) VALUES (?,?,?,?,?,?,?,?,?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, event.getEventID());
             stmt.setString(2, event.getAssociatedUsername());
@@ -45,19 +43,20 @@ public class EventDAO {
      * Finds event within the database.
      * @param eventID Unique identifier for event.
      * @return Event Event associated with the eventID given.
+     * @throws DataAccessException
      */
     public Event find(String eventID) throws DataAccessException {
         Event event;
         ResultSet rs = null;
-        String sql = "SELECT * FROM Events WHERE EventID = ?;";
+        String sql = "SELECT * FROM Event WHERE eventID = ?;";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, eventID);
             rs = stmt.executeQuery();
             if (rs.next()) {
-                event = new Event(rs.getString("EventID"), rs.getString("AssociatedUsername"),
-                        rs.getString("PersonID"), rs.getFloat("Latitude"), rs.getFloat("Longitude"),
-                        rs.getString("Country"), rs.getString("City"), rs.getString("EventType"),
-                        rs.getInt("Year"));
+                event = new Event(rs.getString("eventID"), rs.getString("associatedUsername"),
+                        rs.getString("personID"), rs.getFloat("latitude"), rs.getFloat("longitude"),
+                        rs.getString("country"), rs.getString("city"), rs.getString("eventType"),
+                        rs.getInt("year"));
                 return event;
             }
         } catch (SQLException e) {
@@ -77,9 +76,14 @@ public class EventDAO {
     }
 
     /**
-     * Deletes event from the database.
-     * @param event Major event which happened to a person.
+     * Clears all events from the database.
      */
-    public void delete(Event event) {
+    public void clear() throws DataAccessException {
+        try (Statement stmt = conn.createStatement()){
+            String sql = "DELETE FROM Event";
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL Error encountered while clearing tables");
+        }
     }
 }

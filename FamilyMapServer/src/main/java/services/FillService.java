@@ -1,14 +1,17 @@
 package services;
 
-import requests.FillRequest;
-import results.FillResult;
+import results.Result;
 
 /**
  * Implements the fill functionality of the server's web API.
- * Populates the server's database with generated data for the specified username.
  */
 public class FillService {
-    FillResult fill(FillRequest r) {
+    /**
+     * Populates the server's database with generated data for the specified username.
+     * @param numGenerations The number of generations to populate.
+     * @return Fill response data
+     */
+    public Result fill(int numGenerations) {
         return null;
     }
 }

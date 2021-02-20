@@ -5,16 +5,20 @@ package results;
  */
 public class Result {
     /**
-     * Signifies whether a request was successful or not.
-     */
-    boolean success;
-    /**
      * Response message to a request (if null, it won't be serialized).
      */
     String message;
+    /**
+     * Signifies whether a request was successful or not.
+     */
+    boolean success;
 
-    public Result() {
-        success = false;
-        message = null;
+    /**
+     * Generates a generic response body (works for success or error).
+     * @param message Message returned from request
+     */
+    public Result(String message, boolean success) {
+        this.message = message;
+        this.success = success;
     }
 }

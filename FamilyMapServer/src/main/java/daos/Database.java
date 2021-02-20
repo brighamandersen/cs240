@@ -60,13 +60,20 @@ public class Database {
             throw new DataAccessException("Unable to close database connection");
         }
     }
-
     public void clearTables() throws DataAccessException {
         try (Statement stmt = conn.createStatement()){
-            String sql = "DELETE FROM Events";
+            String sql = "DELETE FROM Event";
+            // FIXME - ADD this back
+            //  +
+//                    "DELETE FROM AuthToken" +
+//                    "DELETE FROM User" +
+//                    "DELETE FROM Person";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             throw new DataAccessException("SQL Error encountered while clearing tables");
         }
     }
+
+
+
 }

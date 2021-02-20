@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javax.xml.crypto.Data;
 import java.sql.Connection;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -66,5 +67,14 @@ public class EventDAOTest {
         //of this class. All you need to know is that this line of code runs the code that
         //comes after the "()->" and expects it to throw an instance of the class in the first parameter.
         assertThrows(DataAccessException.class, ()-> eventDao.insert(bestEvent));
+    }
+
+    @Test
+    public void clearPass() throws DataAccessException {
+        eventDao.clear();
+    }
+
+    @Test void clearFail() throws DataAccessException {
+
     }
 }

@@ -4,10 +4,13 @@ import results.PersonFamilyResult;
 
 /**
  * Implements the person family functionality of the server's web API.
- * Returns ALL family members of the current user.
  */
 public class PersonFamilyService {
-    PersonFamilyResult personFamily() {
+    /**
+     * Returns ALL family members of the current user.
+     * @return Person family data
+     */
+    public PersonFamilyResult personFamily() {
         return null;
     }
 }
