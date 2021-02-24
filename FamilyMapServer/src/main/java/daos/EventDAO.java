@@ -10,14 +10,18 @@ import java.sql.*;
 public class EventDAO {
     private final Connection conn;
 
+    /**
+     * Constructor used to initialize database connection
+     * @param conn Connection to database
+     */
     public EventDAO(Connection conn) {
         this.conn = conn;
     }
 
     /**
      * Adds new event to the database.
-     * @param event Major event which happened to a person.
-     * @throws DataAccessException
+     * @param event Event to add
+     * @throws DataAccessException Exception if event couldn't be inserted.
      */
     public void insert(Event event) throws DataAccessException {
         String sql = "INSERT INTO Event (eventID, associatedUsername, personID, latitude, longitude, " +
@@ -41,9 +45,9 @@ public class EventDAO {
 
     /**
      * Finds event within the database.
-     * @param eventID Unique identifier for event.
-     * @return Event Event associated with the eventID given.
-     * @throws DataAccessException
+     * @param eventID ID of event to find
+     * @return Event Event object associated with the eventID given.
+     * @throws DataAccessException Exception if event couldn't be found.
      */
     public Event find(String eventID) throws DataAccessException {
         Event event;
@@ -77,6 +81,7 @@ public class EventDAO {
 
     /**
      * Clears all events from the database.
+     * @throws DataAccessException Exception if event(s) couldn't be cleared.
      */
     public void clear() throws DataAccessException {
         try (Statement stmt = conn.createStatement()){

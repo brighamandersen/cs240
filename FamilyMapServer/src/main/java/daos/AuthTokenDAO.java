@@ -12,23 +12,27 @@ import java.sql.Statement;
 public class AuthTokenDAO {
     private final Connection conn;
 
+    /**
+     * Constructor used to initialize database connection
+     * @param conn Connection to database
+     */
     public AuthTokenDAO(Connection conn) {
         this.conn = conn;
     }
 
     /**
      * Adds new authToken to the database.
-     * @param authToken Unique token which allows user access to program.
-     * @throws DataAccessException
+     * @param authToken Auth token to add
+     * @throws DataAccessException Exception if auth token couldn't be inserted.
      */
     public void insert(AuthToken authToken) throws DataAccessException {
     }
 
     /**
      * Finds authToken within the database.
-     * @param token Unique identifier for a token.
+     * @param token Auth token to find
      * @return AuthToken AuthToken which has the unique identifier.
-     * @throws DataAccessException
+     * @throws DataAccessException Exception if auth token couldn't be found.
      */
     public AuthToken find(String token) throws DataAccessException {
         return null;
@@ -36,6 +40,7 @@ public class AuthTokenDAO {
 
     /**
      * Clears all tokens from the database.
+     * @throws DataAccessException Exception if auth token(s) couldn't be cleared.
      */
     public void clear() throws DataAccessException {
         try (Statement stmt = conn.createStatement()){

@@ -12,23 +12,27 @@ import java.sql.Statement;
 public class UserDAO {
     private final Connection conn;
 
+    /**
+     * Constructor used to initialize database connection
+     * @param conn Connection to database
+     */
     public UserDAO(Connection conn) {
         this.conn = conn;
     }
 
     /**
      * Adds new user to the database.
-     * @param user User of the Family Map.
-     * @throws DataAccessException
+     * @param user User to add
+     * @throws DataAccessException Exception if user couldn't be inserted.
      */
     public void insert(User user) throws DataAccessException {
     }
 
     /**
      * Finds user within the database.
-     * @param username Username of user of the Family Map.
+     * @param username Username of User to find
      * @return User User who has the username searched.
-     * @throws DataAccessException
+     * @throws DataAccessException Exception if user couldn't be found.
      */
     public User find(String username) throws DataAccessException {
         return null;
@@ -36,6 +40,7 @@ public class UserDAO {
 
     /**
      * Clears all users from the database.
+     * @throws DataAccessException Exception if event(s) couldn't be cleared.
      */
     public void clear() throws DataAccessException {
         try (Statement stmt = conn.createStatement()){

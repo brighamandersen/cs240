@@ -4,9 +4,20 @@ package requests;
  * Houses request data passed to login API endpoint call.
  */
 public class LoginRequest {
+    /**
+     * Attempted login username
+     */
     private String username;
+    /**
+     * Attempted login password
+     */
     private String password;
 
+    /**
+     * Constructor for making login request objects.
+     * @param username Attempted login username
+     * @param password Attempted login password
+     */
     public LoginRequest(String username, String password) {
         this.username = username;
         this.password = password;

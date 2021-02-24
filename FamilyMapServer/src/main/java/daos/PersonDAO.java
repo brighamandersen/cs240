@@ -12,23 +12,27 @@ import java.sql.Statement;
 public class PersonDAO {
     private final Connection conn;
 
+    /**
+     * Constructor used to initialize database connection
+     * @param conn Connection to database
+     */
     public PersonDAO(Connection conn) {
         this.conn = conn;
     }
 
     /**
      * Adds new person to the database.
-     * @param person New person to add.
-     * @throws DataAccessException
+     * @param person Person to add
+     * @throws DataAccessException Exception if person couldn't be inserted.
      */
     public void insert(Person person) throws DataAccessException {
     }
 
     /**
      * Finds person within the database.
-     * @param personID Unique identifier for person.
+     * @param personID ID of person to find
      * @return Person Person who has the username searched.
-     * @throws DataAccessException
+     * @throws DataAccessException Exception if person couldn't be found.
      */
     public Person find(String personID) throws DataAccessException {
         return null;
@@ -36,6 +40,7 @@ public class PersonDAO {
 
     /**
      * Clears all persons from the database.
+     * @throws DataAccessException Exception if person(s) couldn't be cleared.
      */
     public void clear() throws DataAccessException {
         try (Statement stmt = conn.createStatement()){

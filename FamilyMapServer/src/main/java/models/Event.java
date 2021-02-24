@@ -5,42 +5,54 @@ package models;
  */
 public class Event {
     /**
-     * Unique identifier for event.
+     * Unique identifier for event
      */
     private String eventID;
     /**
-     * Username of user to which event belongs.
+     * Username of user to which event belongs
      */
     private String associatedUsername;
     /**
-     * ID of person to which event belongs.
+     * ID of person to which event belongs
      */
     private String personID;
     /**
-     * Latitude coordinate of where event took place.
+     * Latitude coordinate of event location
      */
     private float latitude;
     /**
-     * Longitude coordinate of where event took place.
+     * Longitude coordinate of event location
      */
     private float longitude;
     /**
-     * Country in which event occurred.
+     * Country where event occurred
      */
     private String country;
     /**
-     * City in which event occurred.
+     * City where event occurred
      */
     private String city;
     /**
-     * Type of event (birth, baptism, christening, marriage, death, etc.).
+     * Type of event (birth, baptism, christening, marriage, death, etc.)
      */
     private String eventType;
     /**
-     * Year in which event occurred.
+     * Year when event occurred
      */
     private int year;
 
+    /**
+     * Constructor for making event model objects.
+     * @param eventID Unique identifier for event
+     * @param associatedUsername Username of user to which event belongs
+     * @param personID ID of person to which event belongs
+     * @param latitude Latitude coordinate of event location
+     * @param longitude Longitude coordinate of event location
+     * @param country Country where event occurred
+     * @param city City where event occurred
+     * @param eventType Type of event (birth, baptism, christening, marriage, death, etc.)
+     * @param year Year when event occurred
+     */
     public Event(String eventID, String associatedUsername, String personID, float latitude,
                  float longitude, String country, String city, String eventType, int year) {
         this.eventID = eventID;

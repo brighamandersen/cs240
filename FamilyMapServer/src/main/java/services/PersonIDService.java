@@ -1,6 +1,5 @@
 package services;
 
-import requests.PersonIDRequest;
 import results.PersonIDResult;
 
 /**
@@ -9,10 +8,9 @@ import results.PersonIDResult;
 public class PersonIDService {
     /**
      * Returns the single Person object with the specified ID.
-     * @param r Person ID request data
      * @return Person ID response data
      */
-    public PersonIDResult personID(PersonIDRequest r) {
+    public PersonIDResult personID() {
         return null;
     }
 }

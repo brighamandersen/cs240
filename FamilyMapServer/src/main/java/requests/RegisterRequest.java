@@ -4,14 +4,41 @@ package requests;
  * Houses request data passed to register API endpoint call.
  */
 public class RegisterRequest {
+    /**
+     * Username for registration
+     */
     private String username;
+    /**
+     * Password for registration
+     */
     private String password;
+    /**
+     * Email address for registration
+     */
     private String email;
+    /**
+     * First name for registration
+     */
     private String firstName;
+    /**
+     * Last name for registration
+     */
     private String lastName;
-    private char gender;    // FIXME? Change to String if needed
+    /**
+     * Gender for registration
+     */
+    private String gender;
 
-    public RegisterRequest(String username, String password, String email, String firstName, String lastName, char gender) {
+    /**
+     * Constructor for making register request objects.
+     * @param username Username for registration
+     * @param password Password for registration
+     * @param email Email address for registration
+     * @param firstName First name for registration
+     * @param lastName Last name for registration
+     * @param gender Gender for registration
+     */
+    public RegisterRequest(String username, String password, String email, String firstName, String lastName, String gender) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -60,11 +87,11 @@ public class RegisterRequest {
         this.lastName = lastName;
     }
 
-    public char getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(char gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 }

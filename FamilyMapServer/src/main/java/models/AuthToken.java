@@ -1,22 +1,30 @@
 package models;
 
+import java.util.Objects;
+
 /**
  * Holds family server auth token data when it's in RAM (when it's not in database).
  */
 public class AuthToken {
     /**
-     * Unique token which allows user access to program.
+     * Unique access token
      */
     private String token;
     /**
-     * Timestamp for when a token was created.
+     * When token was created
      */
-    private String timestamp;   // FIXME?  Should this be String?
+    private String timestamp;
     /**
-     * Username to which the token belongs.
+     * Username of User who owns token
      */
     private String associatedUsername;
 
+    /**
+     * Constructor for making auth token model objects.
+     * @param token Unique access token
+     * @param timestamp When token was created
+     * @param associatedUsername Username of User who owns token
+     */
     public AuthToken(String token, String timestamp, String associatedUsername) {
         this.token = token;
         this.timestamp = timestamp;
@@ -45,5 +53,24 @@ public class AuthToken {
 
     public void setAssociatedUsername(String associatedUsername) {
         this.associatedUsername = associatedUsername;
+    }
+
+    /**
+     * Compares if two auth tokens are equal.
+     * @param o Auth token object
+     * @return Boolean signifying whether they are equal.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o == null)
+            return false;
+        if (o instanceof AuthToken) {
+            AuthToken oAuthToken = (AuthToken) o;
+            return oAuthToken.getToken().equals(getToken()) &&
+                    oAuthToken.getTimestamp().equals(getTimestamp()) &&
+                    oAuthToken.getAssociatedUsername().equals(getAssociatedUsername());
+        } else {
+            return false;
+        }
     }
 }

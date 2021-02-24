@@ -7,18 +7,27 @@ public class Result {
     /**
      * Response message to a request (if null, it won't be serialized).
      */
-    String message;
+    private String message = null;
     /**
      * Signifies whether a request was successful or not.
      */
-    boolean success;
+    private boolean success;
 
     /**
-     * Generates a generic response body (works for success or error).
+     * Generates a generic response body (use primarily for success responses).
      * @param message Message returned from request
      */
     public Result(String message, boolean success) {
         this.message = message;
         this.success = success;
+    }
+
+    /**
+     * Generates a universal error response body.
+     * @param message Error message
+     */
+    public Result(String message) {
+        this.message = "Error: " + message;
+        this.success = false;
     }
 }
