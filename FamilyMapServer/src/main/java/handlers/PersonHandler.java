@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 
-import static utils.Decoder.writeString;
+import static utils.StringUtils.writeString;
 
 /**
  * Processes requests that contain the "/person" URL path.

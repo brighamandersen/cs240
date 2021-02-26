@@ -2,15 +2,12 @@ package handlers;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import requests.RegisterRequest;
-import results.RegisterResult;
-import services.RegisterService;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 
-import static utils.Decoder.readString;
+import static utils.StringUtils.readString;
 
 /**
  * Processes requests that contain the "/user/register" URL path.

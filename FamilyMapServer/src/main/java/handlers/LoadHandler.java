@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 
-import static utils.Decoder.readString;
+import static utils.StringUtils.readString;
 
 /**
  * Processes requests that contain the "/load" URL path.

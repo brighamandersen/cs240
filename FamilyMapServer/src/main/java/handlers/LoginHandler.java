@@ -1,17 +1,13 @@
 package handlers;
 
-import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import requests.LoginRequest;
-import results.LoginResult;
-import services.LoginService;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 
-import static utils.Decoder.readString;
+import static utils.StringUtils.readString;
 
 /**
  * Processes requests that contain the "/user/login" URL path.
