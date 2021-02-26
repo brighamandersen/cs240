@@ -20,7 +20,7 @@ public class LoadHandler implements HttpHandler {
         boolean success = false;
 
         try {
-            if (exchange.getRequestMethod().toLowerCase().equals("post")) {
+            if (exchange.getRequestMethod().equalsIgnoreCase("post")) {
                 InputStream reqBody = exchange.getRequestBody();
                 String reqData = readString(reqBody);
 

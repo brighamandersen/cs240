@@ -18,7 +18,7 @@ public class ClearHandler implements HttpHandler {
         boolean success = false;
 
         try {
-            if (exchange.getRequestMethod().toLowerCase().equals("post")) {
+            if (exchange.getRequestMethod().equalsIgnoreCase("post")) {
                 // TODO: Call clear service, generate headers
 //                ClearService srv = new ClearService();
 //                Result res = srv.clear();

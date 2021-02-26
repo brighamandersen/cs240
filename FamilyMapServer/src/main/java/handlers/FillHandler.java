@@ -17,7 +17,7 @@ public class FillHandler implements HttpHandler {
         boolean success = false;
 
         try {
-            if (exchange.getRequestMethod().toLowerCase().equals("post")) {
+            if (exchange.getRequestMethod().equalsIgnoreCase("post")) {
                 // TODO: Call fill service, generate headers
 //                FillService srv = new FillService();
 //                Result res = srv.clear();

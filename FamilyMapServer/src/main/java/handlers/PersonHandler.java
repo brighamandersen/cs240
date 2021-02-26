@@ -22,7 +22,7 @@ public class PersonHandler implements HttpHandler {
         boolean success = false;
 
         try {
-            if (exchange.getRequestMethod().toLowerCase().equals("get")) {
+            if (exchange.getRequestMethod().equalsIgnoreCase("get")) {
                 Headers reqHeaders = exchange.getRequestHeaders();
 
                 if (reqHeaders.containsKey("Authorization")) {
