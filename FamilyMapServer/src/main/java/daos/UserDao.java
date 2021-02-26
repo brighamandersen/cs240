@@ -9,14 +9,14 @@ import java.sql.Statement;
 /**
  * Interfaces with User database to provide specific operations.
  */
-public class UserDAO {
+public class UserDao {
     private final Connection conn;
 
     /**
      * Constructor used to initialize database connection
      * @param conn Connection to database
      */
-    public UserDAO(Connection conn) {
+    public UserDao(Connection conn) {
         this.conn = conn;
     }
 
@@ -29,7 +29,7 @@ public class UserDAO {
     }
 
     /**
-     * Finds user within the database.
+     * Finds user in database associated with given username.
      * @param username Username of User to find
      * @return User User who has the username searched.
      * @throws DataAccessException Exception if user couldn't be found.

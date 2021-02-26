@@ -1,5 +1,9 @@
 package daos;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -46,6 +50,17 @@ public class Database {
             throw new DataAccessException("Unable to close database connection");
         }
     }
+
+    public void createTables() throws DataAccessException {
+        try (Statement stmt = conn.createStatement()) {
+            Path filePath = Paths.get("../../../../database/db-schema.txt");
+            String sql = Files.readString(filePath);
+            stmt.executeUpdate(sql);
+        } catch (SQLException | IOException e) {
+            throw new DataAccessException("SQL Error encountered while creating tables");
+        }
+    }
+
     public void clearTables() throws DataAccessException {
         try (Statement stmt = conn.createStatement()){
             String sql = "DELETE FROM Event";

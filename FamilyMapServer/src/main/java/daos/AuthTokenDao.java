@@ -9,14 +9,14 @@ import java.sql.Statement;
 /**
  * Interfaces with AuthToken database to provide specific operations.
  */
-public class AuthTokenDAO {
+public class AuthTokenDao {
     private final Connection conn;
 
     /**
      * Constructor used to initialize database connection
      * @param conn Connection to database
      */
-    public AuthTokenDAO(Connection conn) {
+    public AuthTokenDao(Connection conn) {
         this.conn = conn;
     }
 
@@ -29,7 +29,7 @@ public class AuthTokenDAO {
     }
 
     /**
-     * Finds authToken within the database.
+     * Finds authToken in database.
      * @param token Auth token to find
      * @return AuthToken AuthToken which has the unique identifier.
      * @throws DataAccessException Exception if auth token couldn't be found.

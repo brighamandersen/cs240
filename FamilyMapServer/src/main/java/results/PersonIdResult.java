@@ -3,7 +3,7 @@ package results;
 /**
  * Houses response data returned from person ID API endpoint call.
  */
-public class PersonIDResult extends Result {
+public class PersonIdResult extends Result {
     /**
      * Username of User associated with person
      */
@@ -48,7 +48,7 @@ public class PersonIDResult extends Result {
      * @param motherID ID of person's mother
      * @param spouseID ID of person's spouse
      */
-    public PersonIDResult(String associatedUsername, String personID,
+    public PersonIdResult(String associatedUsername, String personID,
                           String firstName, String lastName, String gender, String fatherID, String motherID, String spouseID) {
         super(null, true);
         this.associatedUsername = associatedUsername;
@@ -66,7 +66,7 @@ public class PersonIDResult extends Result {
      * Generates an error response body for person ID result.
      * @param message Error message
      */
-    public PersonIDResult(String message) {
+    public PersonIdResult(String message) {
         super(message);
     }
 

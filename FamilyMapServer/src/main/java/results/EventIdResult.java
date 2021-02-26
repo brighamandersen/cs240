@@ -3,7 +3,7 @@ package results;
 /**
  * Houses response data returned from event ID API endpoint call.
  */
-public class EventIDResult extends Result {
+public class EventIdResult extends Result {
     /**
      * Username of user to whom event belongs
      */
@@ -48,7 +48,7 @@ public class EventIDResult extends Result {
      * @param eventType Type of event (birth, baptism, christening, marriage, death, etc.)
      * @param year Year when event occurred
      */
-    public EventIDResult(String associatedUsername, String eventID,
+    public EventIdResult(String associatedUsername, String eventID,
                          float latitude, float longitude, String country, String city, String eventType, int year) {
         super(null, true);
         this.associatedUsername = associatedUsername;
@@ -65,7 +65,7 @@ public class EventIDResult extends Result {
      * Generates an error response body for event ID result.
      * @param message Error message
      */
-    public EventIDResult(String message) {
+    public EventIdResult(String message) {
         super(message);
     }
 

@@ -5,15 +5,14 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.crypto.Data;
 import java.sql.Connection;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class EventDAOTest {
+public class EventDaoTest {
     private Database db;
     private Event bestEvent;
-    private EventDAO eventDao;
+    private EventDao eventDao;
 
     @BeforeEach
     public void setUp() throws DataAccessException {
@@ -28,8 +27,8 @@ public class EventDAOTest {
         Connection conn = db.getConnection();
         //Let's clear the database as well so any lingering data doesn't affect our tests
         db.clearTables();
-        //Then we pass that connection to the EventDAO so it can access the database
-        eventDao = new EventDAO(conn);
+        //Then we pass that connection to the EventDao so it can access the database
+        eventDao = new EventDao(conn);
     }
 
     @AfterEach
@@ -41,12 +40,12 @@ public class EventDAOTest {
     }
 
     @Test
-    public void insertPass() throws DataAccessException {
+    public void testInsertPass() throws DataAccessException {
         //While insert returns a bool we can't use that to verify that our function actually worked
         //only that it ran without causing an error
         eventDao.insert(bestEvent);
         //So lets use a find method to get the event that we just put in back out
-        Event compareTest = eventDao.find(bestEvent.getEventID());
+        Event compareTest = eventDao.findByEventID(bestEvent.getEventID());
         //First lets see if our find found anything at all. If it did then we know that if nothing
         //else something was put into our database, since we cleared it in the beginning
         assertNotNull(compareTest);
@@ -57,7 +56,7 @@ public class EventDAOTest {
     }
 
     @Test
-    public void insertFail() throws DataAccessException {
+    public void testInsertFail() throws DataAccessException {
         //lets do this test again but this time lets try to make it fail
         //if we call the method the first time it will insert it successfully
         eventDao.insert(bestEvent);
@@ -70,11 +69,11 @@ public class EventDAOTest {
     }
 
     @Test
-    public void clearPass() throws DataAccessException {
+    public void testClearPass() throws DataAccessException {
         eventDao.clear();
     }
 
-    @Test void clearFail() throws DataAccessException {
+    @Test void testClearFail() throws DataAccessException {
 
     }
 }

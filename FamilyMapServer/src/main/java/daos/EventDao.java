@@ -7,14 +7,14 @@ import java.sql.*;
 /**
  * Interfaces with Event database to provide specific operations.
  */
-public class EventDAO {
+public class EventDao {
     private final Connection conn;
 
     /**
      * Constructor used to initialize database connection
      * @param conn Connection to database
      */
-    public EventDAO(Connection conn) {
+    public EventDao(Connection conn) {
         this.conn = conn;
     }
 
@@ -44,12 +44,12 @@ public class EventDAO {
     }
 
     /**
-     * Finds event within the database.
+     * Finds event in database associated with given event ID.
      * @param eventID ID of event to find
-     * @return Event Event object associated with the eventID given.
+     * @return Event Event object associated with the event ID given.
      * @throws DataAccessException Exception if event couldn't be found.
      */
-    public Event find(String eventID) throws DataAccessException {
+    public Event findByEventID(String eventID) throws DataAccessException {
         Event event;
         ResultSet rs = null;
         String sql = "SELECT * FROM Event WHERE eventID = ?;";
@@ -77,6 +77,24 @@ public class EventDAO {
 
         }
         return null;
+    }
+
+    /**
+     * Finds event in database associated with given username.
+     * @param username Username of user to whom event belongs
+     * @return Event Event object associated with the user being searched.
+     * @throws DataAccessException Exception if event couldn't be found.
+     */
+    public Event findByUsername(String username) throws DataAccessException {
+        return null;
+    }
+
+    /**
+     * Deletes event in database associated with given username.
+     * @param username Username of user to whom event belongs
+     * @throws DataAccessException Exception if event couldn't be deleted.
+     */
+    public void deleteByUsername(String username) throws DataAccessException {
     }
 
     /**

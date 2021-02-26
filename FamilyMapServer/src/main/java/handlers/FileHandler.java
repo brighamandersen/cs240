@@ -1,13 +1,17 @@
 package handlers;
 
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+import java.io.IOException;
+
 /**
- * The default handler which converts the URL path to a directory on the server and returns back a file.
+ * Default handler for all requests that don't match URL paths of other handlers.
+ * Converts the URL path to a directory on the server and returns back a file.
  */
-public class FileHandler {
-
-
-
-
-// WHAT HANDLERS DO
-//    Handlers will create a request object, then call the corresponding service’s method and pass in the request.
+public class FileHandler  implements HttpHandler {
+    @Override
+    public void handle(HttpExchange exchange) throws IOException {
+        System.out.println("File handler");
+    }
 }

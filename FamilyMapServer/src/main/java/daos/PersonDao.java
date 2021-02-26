@@ -9,14 +9,14 @@ import java.sql.Statement;
 /**
  * Interfaces with Person database to provide specific operations.
  */
-public class PersonDAO {
+public class PersonDao {
     private final Connection conn;
 
     /**
      * Constructor used to initialize database connection
      * @param conn Connection to database
      */
-    public PersonDAO(Connection conn) {
+    public PersonDao(Connection conn) {
         this.conn = conn;
     }
 
@@ -29,13 +29,31 @@ public class PersonDAO {
     }
 
     /**
-     * Finds person within the database.
+     * Finds person in database associated with given person ID.
      * @param personID ID of person to find
      * @return Person Person who has the username searched.
      * @throws DataAccessException Exception if person couldn't be found.
      */
-    public Person find(String personID) throws DataAccessException {
+    public Person findByPersonID(String personID) throws DataAccessException {
         return null;
+    }
+
+    /**
+     * Finds event in database associated with given username.
+     * @param username Username of user to whom event belongs
+     * @return Event Event object associated with the user being searched.
+     * @throws DataAccessException Exception if event couldn't be found.
+     */
+    public Person findByUsername(String username) throws DataAccessException {
+        return null;
+    }
+
+    /**
+     * Deletes event in database associated with given username.
+     * @param username Username of User associated with person
+     * @throws DataAccessException Exception if person couldn't be deleted.
+     */
+    public void deleteByUsername(String username) throws DataAccessException {
     }
 
     /**
