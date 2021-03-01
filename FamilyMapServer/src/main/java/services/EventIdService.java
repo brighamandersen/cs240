@@ -10,7 +10,7 @@ public class EventIdService {
      * Returns the single Event object with the specified ID.
      * @return Event ID response data
      */
-    public EventIdResult eventID() {
+    public EventIdResult runEventId() {
         return null;
     }
 }

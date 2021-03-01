@@ -11,10 +11,6 @@ public class AuthToken {
      */
     private String token;
     /**
-     * When token was created
-     */
-    private String timestamp;
-    /**
      * Username of User who owns token
      */
     private String associatedUsername;
@@ -22,12 +18,10 @@ public class AuthToken {
     /**
      * Constructor for making auth token model objects.
      * @param token Unique access token
-     * @param timestamp When token was created
      * @param associatedUsername Username of User who owns token
      */
-    public AuthToken(String token, String timestamp, String associatedUsername) {
+    public AuthToken(String token, String associatedUsername) {
         this.token = token;
-        this.timestamp = timestamp;
         this.associatedUsername = associatedUsername;
     }
 
@@ -37,14 +31,6 @@ public class AuthToken {
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
     }
 
     public String getAssociatedUsername() {
@@ -67,7 +53,6 @@ public class AuthToken {
         if (o instanceof AuthToken) {
             AuthToken oAuthToken = (AuthToken) o;
             return oAuthToken.getToken().equals(getToken()) &&
-                    oAuthToken.getTimestamp().equals(getTimestamp()) &&
                     oAuthToken.getAssociatedUsername().equals(getAssociatedUsername());
         } else {
             return false;

@@ -5,12 +5,14 @@ CREATE TABLE IF NOT EXISTS User (
 	firstName TEXT NOT NULL,
 	lastName TEXT NOT NULL,
 	gender TEXT CHECK (gender in ('m', 'f')),
-	personId TEXT NOT NULL UNIQUE
+	personId TEXT NOT NULL UNIQUE,
+	FOREIGN KEY (personId) REFERENCES Person(personId)
  );
  
 CREATE TABLE IF NOT EXISTS AuthToken (
  	token TEXT PRIMARY KEY,
-	associatedUsername TEXT NOT NULL UNIQUE
+	associatedUsername TEXT NOT NULL UNIQUE,
+ 	FOREIGN KEY (associatedUsername) REFERENCES User(username)
 );
 
 CREATE TABLE IF NOT EXISTS Person (
@@ -21,7 +23,11 @@ CREATE TABLE IF NOT EXISTS Person (
 	gender TEXT CHECK (gender in ('m', 'f')),
 	fatherId TEXT,
 	motherId TEXT,
-	spouseId TEXT
+	spouseId TEXT,
+ 	FOREIGN KEY (associatedUsername) REFERENCES User(username),
+	FOREIGN KEY (fatherId) REFERENCES Person(personId),
+	FOREIGN KEY (motherId) REFERENCES Person(personId),
+	FOREIGN KEY (spouseId) REFERENCES Person(personId)
 );
 
 CREATE TABLE IF NOT EXISTS Event (
@@ -33,5 +39,7 @@ CREATE TABLE IF NOT EXISTS Event (
 	country TEXT NOT NULL,
 	city TEXT NOT NULL,
 	eventType TEXT NOT NULL,
-	year INT NOT NULL
+	year INT NOT NULL,
+	FOREIGN KEY (associatedUsername) REFERENCES User(username),
+	FOREIGN KEY (personId) REFERENCES Person(personId)
 );

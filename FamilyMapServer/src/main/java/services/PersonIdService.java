@@ -10,7 +10,7 @@ public class PersonIdService {
      * Returns the single Person object with the specified ID.
      * @return Person ID response data
      */
-    public PersonIdResult personID() {
+    public PersonIdResult runPersonId() {
         return null;
     }
 }

@@ -15,19 +15,19 @@ public class LoginResult extends Result {
     /**
      * ID of person associated with logged-in user
      */
-    private String personID;
+    private String personId;
 
     /**
      * Generates a success response body for login result.
      * @param authToken New auth token of logged-in user
      * @param username Username of logged-in user
-     * @param personID ID of person associated with logged-in user
+     * @param personId ID of person associated with logged-in user
      */
-    public LoginResult(String authToken, String username, String personID) {
+    public LoginResult(String authToken, String username, String personId) {
         super(null, true);
         this.authToken = authToken;
         this.username = username;
-        this.personID = personID;
+        this.personId = personId;
     }
 
     /**
@@ -54,11 +54,11 @@ public class LoginResult extends Result {
         this.username = username;
     }
 
-    public String getPersonID() {
-        return personID;
+    public String getPersonId() {
+        return personId;
     }
 
-    public void setPersonID(String personID) {
-        this.personID = personID;
+    public void setPersonId(String personId) {
+        this.personId = personId;
     }
 }

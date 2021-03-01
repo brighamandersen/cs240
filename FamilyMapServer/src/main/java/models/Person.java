@@ -7,7 +7,7 @@ public class Person {
     /**
      * Unique identifier for person
      */
-    private String personID;
+    private String personId;
     /**
      * Username of person (if they are also a user)
      */
@@ -27,45 +27,45 @@ public class Person {
     /**
      * ID of person's father (if one exists)
      */
-    private String fatherID;
+    private String fatherId;
     /**
      * ID of person's mother (if one exists)
      */
-    private String motherID;
+    private String motherId;
     /**
      * ID of person's spouse (if one exists.)
      */
-    private String spouseID;
+    private String spouseId;
 
     /**
      * Constructor for making person model objects.
-     * @param personID Unique identifier for person
+     * @param personId Unique identifier for person
      * @param associatedUsername Username of person (if they are also a user)
      * @param firstName First name of person
      * @param lastName Last name of person
      * @param gender Gender of person (either 'f' or 'm')
-     * @param fatherID ID of person's father (if one exists)
-     * @param motherID ID of person's mother (if one exists)
-     * @param spouseID ID of person's spouse (if one exists)
+     * @param fatherId ID of person's father (if one exists)
+     * @param motherId ID of person's mother (if one exists)
+     * @param spouseId ID of person's spouse (if one exists)
      */
-    public Person(String personID, String associatedUsername, String firstName,
-                  String lastName, String gender, String fatherID, String motherID, String spouseID) {
-        this.personID = personID;
+    public Person(String personId, String associatedUsername, String firstName,
+                  String lastName, String gender, String fatherId, String motherId, String spouseId) {
+        this.personId = personId;
         this.associatedUsername = associatedUsername;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
-        this.fatherID = fatherID;
-        this.motherID = motherID;
-        this.spouseID = spouseID;
+        this.fatherId = fatherId;
+        this.motherId = motherId;
+        this.spouseId = spouseId;
     }
 
-    public String getPersonID() {
-        return personID;
+    public String getPersonId() {
+        return personId;
     }
 
-    public void setPersonID(String personID) {
-        this.personID = personID;
+    public void setPersonId(String personId) {
+        this.personId = personId;
     }
 
     public String getAssociatedUsername() {
@@ -100,28 +100,28 @@ public class Person {
         this.gender = gender;
     }
 
-    public String getFatherID() {
-        return fatherID;
+    public String getFatherId() {
+        return fatherId;
     }
 
-    public void setFatherID(String fatherID) {
-        this.fatherID = fatherID;
+    public void setFatherId(String fatherId) {
+        this.fatherId = fatherId;
     }
 
-    public String getMotherID() {
-        return motherID;
+    public String getMotherId() {
+        return motherId;
     }
 
-    public void setMotherID(String motherID) {
-        this.motherID = motherID;
+    public void setMotherId(String motherId) {
+        this.motherId = motherId;
     }
 
-    public String getSpouseID() {
-        return spouseID;
+    public String getSpouseId() {
+        return spouseId;
     }
 
-    public void setSpouseID(String spouseID) {
-        this.spouseID = spouseID;
+    public void setSpouseId(String spouseId) {
+        this.spouseId = spouseId;
     }
 
     /**
@@ -135,14 +135,14 @@ public class Person {
             return false;
         if (o instanceof Person) {
             Person oPerson = (Person) o;
-            return oPerson.getPersonID().equals(getPersonID()) &&
+            return oPerson.getPersonId().equals(getPersonId()) &&
                     oPerson.getAssociatedUsername().equals(getAssociatedUsername()) &&
                     oPerson.getFirstName().equals(getFirstName()) &&
                     oPerson.getLastName().equals(getLastName()) &&
                     oPerson.getGender().equals(getGender()) &&
-                    oPerson.getFatherID().equals(getFatherID()) &&
-                    oPerson.getMotherID().equals(getMotherID()) &&
-                    oPerson.getSpouseID().equals(getSpouseID());
+                    oPerson.getFatherId().equals(getFatherId()) &&
+                    oPerson.getMotherId().equals(getMotherId()) &&
+                    oPerson.getSpouseId().equals(getSpouseId());
         } else {
             return false;
         }

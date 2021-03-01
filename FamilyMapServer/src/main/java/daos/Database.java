@@ -63,18 +63,10 @@ public class Database {
 
     public void clearTables() throws DataAccessException {
         try (Statement stmt = conn.createStatement()){
-            String sql = "DELETE FROM Event";
-            // FIXME - ADD this back
-            //  +
-//                    "DELETE FROM AuthToken" +
-//                    "DELETE FROM User" +
-//                    "DELETE FROM Person";
+            String sql = "DELETE FROM Event; DELETE FROM Person; DELETE FROM AuthToken; DELETE FROM User;";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             throw new DataAccessException("SQL Error encountered while clearing tables");
         }
     }
-
-
-
 }

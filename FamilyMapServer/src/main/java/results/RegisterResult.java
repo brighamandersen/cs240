@@ -15,19 +15,19 @@ public class RegisterResult extends Result {
     /**
      * Person ID of new user
      */
-    private String personID;
+    private String personId;
 
     /**
      * Generates a success response body for register result.
      * @param authToken Auth token of new user
      * @param username Username of new user
-     * @param personID Person ID of new user
+     * @param personId Person ID of new user
      */
-    public RegisterResult(String authToken, String username, String personID) {
+    public RegisterResult(String authToken, String username, String personId) {
         super(null, true);
         this.authToken = authToken;
         this.username = username;
-        this.personID = personID;
+        this.personId = personId;
     }
 
     /**
@@ -54,11 +54,11 @@ public class RegisterResult extends Result {
         this.username = username;
     }
 
-    public String getPersonID() {
-        return personID;
+    public String getPersonId() {
+        return personId;
     }
 
-    public void setPersonID(String personID) {
-        this.personID = personID;
+    public void setPersonId(String personId) {
+        this.personId = personId;
     }
 }

@@ -11,7 +11,7 @@ public class PersonIdResult extends Result {
     /**
      * Identifier of person
      */
-    private String personID;
+    private String personId;
     /**
      * First name of person
      */
@@ -27,38 +27,38 @@ public class PersonIdResult extends Result {
     /**
      * ID of person's father
      */
-    private String fatherID;
+    private String fatherId;
     /**
      * ID of person's mother
      */
-    private String motherID;
+    private String motherId;
     /**
      * ID of person's spouse
      */
-    private String spouseID;
+    private String spouseId;
 
     /**
      * Generates a success response body for person ID result.
      * @param associatedUsername Username of User associated with person
-     * @param personID Identifier of person
+     * @param personId Identifier of person
      * @param firstName First name of person
      * @param lastName Last name of person
      * @param gender Gender of person
-     * @param fatherID ID of person's father
-     * @param motherID ID of person's mother
-     * @param spouseID ID of person's spouse
+     * @param fatherId ID of person's father
+     * @param motherId ID of person's mother
+     * @param spouseId ID of person's spouse
      */
-    public PersonIdResult(String associatedUsername, String personID,
-                          String firstName, String lastName, String gender, String fatherID, String motherID, String spouseID) {
+    public PersonIdResult(String associatedUsername, String personId,
+                          String firstName, String lastName, String gender, String fatherId, String motherId, String spouseId) {
         super(null, true);
         this.associatedUsername = associatedUsername;
-        this.personID = personID;
+        this.personId = personId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
-        this.fatherID = fatherID;
-        this.motherID = motherID;
-        this.spouseID = spouseID;
+        this.fatherId = fatherId;
+        this.motherId = motherId;
+        this.spouseId = spouseId;
     }
 
 
@@ -78,12 +78,12 @@ public class PersonIdResult extends Result {
         this.associatedUsername = associatedUsername;
     }
 
-    public String getPersonID() {
-        return personID;
+    public String getPersonId() {
+        return personId;
     }
 
-    public void setPersonID(String personID) {
-        this.personID = personID;
+    public void setPersonId(String personId) {
+        this.personId = personId;
     }
 
     public String getFirstName() {
@@ -110,27 +110,27 @@ public class PersonIdResult extends Result {
         this.gender = gender;
     }
 
-    public String getFatherID() {
-        return fatherID;
+    public String getFatherId() {
+        return fatherId;
     }
 
-    public void setFatherID(String fatherID) {
-        this.fatherID = fatherID;
+    public void setFatherId(String fatherId) {
+        this.fatherId = fatherId;
     }
 
-    public String getMotherID() {
-        return motherID;
+    public String getMotherId() {
+        return motherId;
     }
 
-    public void setMotherID(String motherID) {
-        this.motherID = motherID;
+    public void setMotherId(String motherId) {
+        this.motherId = motherId;
     }
 
-    public String getSpouseID() {
-        return spouseID;
+    public String getSpouseId() {
+        return spouseId;
     }
 
-    public void setSpouseID(String spouseID) {
-        this.spouseID = spouseID;
+    public void setSpouseId(String spouseId) {
+        this.spouseId = spouseId;
     }
 }

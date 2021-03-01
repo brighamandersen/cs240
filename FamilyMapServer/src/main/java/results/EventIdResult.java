@@ -11,7 +11,7 @@ public class EventIdResult extends Result {
     /**
      * Event's unique ID
      */
-    private String eventID;
+    private String eventId;
     /**
      * Latitude of event's location
      */
@@ -40,7 +40,7 @@ public class EventIdResult extends Result {
     /**
      * Generates a success response body for event ID result.
      * @param associatedUsername Username of user to whom event belongs
-     * @param eventID Event's unique ID
+     * @param eventId Event's unique ID
      * @param latitude Latitude of event's location
      * @param longitude Longitude of event's location
      * @param country Country where event occurred
@@ -48,11 +48,11 @@ public class EventIdResult extends Result {
      * @param eventType Type of event (birth, baptism, christening, marriage, death, etc.)
      * @param year Year when event occurred
      */
-    public EventIdResult(String associatedUsername, String eventID,
+    public EventIdResult(String associatedUsername, String eventId,
                          float latitude, float longitude, String country, String city, String eventType, int year) {
         super(null, true);
         this.associatedUsername = associatedUsername;
-        this.eventID = eventID;
+        this.eventId = eventId;
         this.latitude = latitude;
         this.longitude = longitude;
         this.country = country;
@@ -77,12 +77,12 @@ public class EventIdResult extends Result {
         this.associatedUsername = associatedUsername;
     }
 
-    public String getEventID() {
-        return eventID;
+    public String getEventId() {
+        return eventId;
     }
 
-    public void setEventID(String eventID) {
-        this.eventID = eventID;
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
     }
 
     public float getLatitude() {

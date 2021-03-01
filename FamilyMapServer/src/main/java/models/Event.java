@@ -7,7 +7,7 @@ public class Event {
     /**
      * Unique identifier for event
      */
-    private String eventID;
+    private String eventId;
     /**
      * Username of user to which event belongs
      */
@@ -15,7 +15,7 @@ public class Event {
     /**
      * ID of person to which event belongs
      */
-    private String personID;
+    private String personId;
     /**
      * Latitude coordinate of event location
      */
@@ -43,9 +43,9 @@ public class Event {
 
     /**
      * Constructor for making event model objects.
-     * @param eventID Unique identifier for event
+     * @param eventId Unique identifier for event
      * @param associatedUsername Username of user to which event belongs
-     * @param personID ID of person to which event belongs
+     * @param personId ID of person to which event belongs
      * @param latitude Latitude coordinate of event location
      * @param longitude Longitude coordinate of event location
      * @param country Country where event occurred
@@ -53,11 +53,11 @@ public class Event {
      * @param eventType Type of event (birth, baptism, christening, marriage, death, etc.)
      * @param year Year when event occurred
      */
-    public Event(String eventID, String associatedUsername, String personID, float latitude,
+    public Event(String eventId, String associatedUsername, String personId, float latitude,
                  float longitude, String country, String city, String eventType, int year) {
-        this.eventID = eventID;
+        this.eventId = eventId;
         this.associatedUsername = associatedUsername;
-        this.personID = personID;
+        this.personId = personId;
         this.latitude = latitude;
         this.longitude = longitude;
         this.country = country;
@@ -66,12 +66,12 @@ public class Event {
         this.year = year;
     }
 
-    public String getEventID() {
-        return eventID;
+    public String getEventId() {
+        return eventId;
     }
 
-    public void setEventID(String eventID) {
-        this.eventID = eventID;
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
     }
 
     public String getAssociatedUsername() {
@@ -82,12 +82,12 @@ public class Event {
         this.associatedUsername = associatedUsername;
     }
 
-    public String getPersonID() {
-        return personID;
+    public String getPersonId() {
+        return personId;
     }
 
-    public void setPersonID(String personID) {
-        this.personID = personID;
+    public void setPersonId(String personId) {
+        this.personId = personId;
     }
 
     public float getLatitude() {
@@ -149,9 +149,9 @@ public class Event {
             return false;
         if (o instanceof Event) {
             Event oEvent = (Event) o;
-            return oEvent.getEventID().equals(getEventID()) &&
+            return oEvent.getEventId().equals(getEventId()) &&
                     oEvent.getAssociatedUsername().equals(getAssociatedUsername()) &&
-                    oEvent.getPersonID().equals(getPersonID()) &&
+                    oEvent.getPersonId().equals(getPersonId()) &&
                     oEvent.getLatitude() == (getLatitude()) &&
                     oEvent.getLongitude() == (getLongitude()) &&
                     oEvent.getCountry().equals(getCountry()) &&
