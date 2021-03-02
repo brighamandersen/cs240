@@ -1,0 +1,8 @@
+Mar 02, 2021 4:36:17 PM server.Server run
+INFO: Initializing HTTP Server at port 2400
+Mar 02, 2021 4:36:17 PM server.Server run
+INFO: Creating contexts
+Mar 02, 2021 4:36:17 PM server.Server run
+INFO: Starting server
+Mar 02, 2021 4:36:17 PM server.Server run
+INFO: Server started

@@ -2,8 +2,11 @@ package server;
 
 import java.io.*;
 import java.net.*;
+import java.util.logging.*;
+
 import com.sun.net.httpserver.*;
 import handlers.*;
+import handlers.MainHandler;
 
 
 /*
@@ -17,7 +20,7 @@ public class Server {
      * @param portNumber Port number for accepting incoming client connections
      */
     private void run(String portNumber) {
-        System.out.println("Initializing HTTP Server");
+        System.out.println("Initializing HTTP Server at port " + portNumber);
 
         HttpServer server;
         try {
@@ -40,7 +43,7 @@ public class Server {
         server.createContext("/load", new LoadHandler());
         server.createContext("/person", new PersonHandler());
         server.createContext("/event", new EventHandler());
-        server.createContext("/", new FileHandler());
+        server.createContext("/", new MainHandler());
 
         System.out.println("Starting server");
         server.start();
@@ -52,7 +55,10 @@ public class Server {
      * @param args Port number for accepting incoming client connections
      */
     public static void main(String[] args) {
-        String portNumber = args[0];
+        String portNumber = "2400";     // Default port value
+        if (args.length != 0) {
+            portNumber = args[0];
+        }
         new Server().run(portNumber);
     }
 }

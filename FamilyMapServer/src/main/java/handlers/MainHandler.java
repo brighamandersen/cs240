@@ -8,15 +8,16 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.nio.file.Files;
+import java.util.logging.Level;
 
 /**
  * Default handler for all requests that don't match URL paths of other handlers.
  * Converts the URL path to a directory on the server and returns back a file.
  */
-public class FileHandler  implements HttpHandler {
+public class MainHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        System.out.println("File handler");
+        System.out.println("Main handler");
 
         if (exchange.getRequestMethod().equalsIgnoreCase("get")) {
             String urlPath = exchange.getRequestURI().toString();
