@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.nio.file.Files;
-import java.util.logging.Level;
 
 /**
  * Default handler for all requests that don't match URL paths of other handlers.
@@ -31,6 +30,7 @@ public class MainHandler implements HttpHandler {
             if (file.exists()) {
                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
                 OutputStream resBody = exchange.getResponseBody();
+
                 Files.copy(file.toPath(), resBody);
             } else {
                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, 0);
