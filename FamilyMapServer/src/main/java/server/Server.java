@@ -14,6 +14,7 @@ import handlers.MainHandler;
  */
 public class Server {
     private static final int MAX_WAITING_CONNECTIONS = 12;
+    private static final String DEFAULT_PORT = "8080";
 
     /**
      * Initializes and runs the server
@@ -55,9 +56,12 @@ public class Server {
      * @param args Port number for accepting incoming client connections
      */
     public static void main(String[] args) {
-        String portNumber = "2400";     // Default port value
+        String portNumber;
+
         if (args.length != 0) {
             portNumber = args[0];
+        } else {
+            portNumber = DEFAULT_PORT;
         }
         new Server().run(portNumber);
     }

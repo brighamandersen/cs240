@@ -26,17 +26,17 @@ public class ClearHandler implements HttpHandler {
 
         try {
             if (exchange.getRequestMethod().equalsIgnoreCase("post")) {
-                ClearService srv = new ClearService();
-                Result res = srv.clear();
+                ClearService clearService = new ClearService();
+                Result result = clearService.clear();
 
                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-                String resData = serializeJson(res);
+                String resData = serializeJson(result);
                 OutputStream resBody = exchange.getResponseBody();
                 writeString(resData, resBody);
                 resBody.close();
 
                 success = true;
-                System.out.println("Clear operation successful");
+                System.out.println("Clear operation succeeded");
             }
 
             if (!success) {

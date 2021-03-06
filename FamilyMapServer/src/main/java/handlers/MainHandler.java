@@ -34,12 +34,16 @@ public class MainHandler implements HttpHandler {
                 Files.copy(file.toPath(), resBody);
             } else {
                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, 0);
+                OutputStream resBody = exchange.getResponseBody();
+
+                String filePath404 = "web/HTML/404.html";
+                File file404 = new File(filePath404);
+                Files.copy(file404.toPath(), resBody);
             }
             exchange.getResponseBody().close();
         } else {
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_METHOD, 0);
             exchange.getResponseBody().close();
-
         }
     }
 }

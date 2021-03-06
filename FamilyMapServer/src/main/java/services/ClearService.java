@@ -26,7 +26,7 @@ public class ClearService {
         } catch (DataAccessException ex) {
             db.closeConnection(false);
 
-            return new Result("FIXME - [Description of the error]");
+            return new Result("Internal server error");
         }
     }
 }

@@ -2,18 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2de8c568-192d-4dbc-89cf-628c1084af4e" name="Default Changelist" comment="Basic setup">
-      <change afterPath="$PROJECT_DIR$/../FamilyMapServer/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FamilyMapServer/FamilyMapServer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../FamilyMapServer/FamilyMapServer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FamilyMapServer/database/fms-db.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/../FamilyMapServer/database/fms-db.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FamilyMapServer/src/main/java/handlers/ClearHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../FamilyMapServer/src/main/java/handlers/ClearHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FamilyMapServer/src/main/java/handlers/LoginHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../FamilyMapServer/src/main/java/handlers/LoginHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FamilyMapServer/src/main/java/services/ClearService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../FamilyMapServer/src/main/java/services/ClearService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FamilyMapServer/src/main/java/services/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../FamilyMapServer/src/main/java/services/LoginService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FamilyMapServer/target/classes/handlers/ClearHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../FamilyMapServer/target/classes/handlers/ClearHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FamilyMapServer/target/classes/handlers/LoginHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../FamilyMapServer/target/classes/handlers/LoginHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FamilyMapServer/target/classes/services/ClearService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../FamilyMapServer/target/classes/services/ClearService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FamilyMapServer/target/classes/services/LoginService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../FamilyMapServer/target/classes/services/LoginService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpellingCorrector/spell/Trie.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpellingCorrector/spell/Trie.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spell/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spell/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spell/SpellCorrector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spell/SpellCorrector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spell/Trie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spell/Trie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpellingCorrectorPractice/src/spell/INode.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpellingCorrectorPractice/src/spell/ISpellCorrector.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpellingCorrectorPractice/src/spell/ITrie.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpellingCorrectorPractice/src/spell/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpellingCorrectorPractice/src/spell/Node.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpellingCorrectorPractice/src/spell/SpellCorrector.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,11 +149,11 @@
     </configuration>
     <list>
       <item itemvalue="Application.Default" />
-      <item itemvalue="JUnit.TrieTest.testMoreHashCode" />
-      <item itemvalue="JUnit.TrieTest" />
-      <item itemvalue="JUnit.TrieTest.testEquals" />
       <item itemvalue="JUnit.SpellTest" />
       <item itemvalue="JUnit.SpellTest.testTransposition" />
+      <item itemvalue="JUnit.TrieTest" />
+      <item itemvalue="JUnit.TrieTest.testEquals" />
+      <item itemvalue="JUnit.TrieTest.testMoreHashCode" />
     </list>
     <recent_temporary>
       <list>
