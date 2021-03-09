@@ -1,9 +1,7 @@
 package services;
 
-import daos.DataAccessException;
-import daos.Database;
-import daos.PersonDao;
-import daos.UserDao;
+import daos.*;
+import models.AuthToken;
 import models.Person;
 import models.User;
 import requests.LoginRequest;
@@ -29,14 +27,27 @@ public class LoginService {
             Connection conn = db.getConnection();
             UserDao userDao = new UserDao(conn);
             PersonDao personDao = new PersonDao(conn);
+            AuthTokenDao authTokenDao = new AuthTokenDao(conn);
 
+            // Look up username to see if exists in database (return User or null)
             User user = userDao.find(r.getUsername());
-            Person person = personDao.findByUsername(r.getUsername());
-            String hardCodedToken = "hard-coded-token";
 
-            db.closeConnection(true);
+            // If there is a User, then compare that user's password with the password passed in
+            if (user != null) {
+                if (r.getPassword().equals(user.getPassword())) {
+                    Person person = personDao.findByUsername(user.getUsername());
+//                    AuthToken authToken = new AuthToken("hard-coded-token", user.getUsername());
+//                    authTokenDao.insert(authToken);
 
-            return new LoginResult(hardCodedToken, r.getUsername(), person.getPersonId());
+                    db.closeConnection(true);
+                    return new LoginResult("hard-coded-token", user.getUsername(), person.getPersonId());
+                }
+                db.closeConnection(false);
+                return new LoginResult("Incorrect password for " + user.getUsername());
+            } else {
+                db.closeConnection(false);
+                return new LoginResult("No user found with specified auth credentials.");
+            }
         } catch (DataAccessException ex) {
             db.closeConnection(false);
 

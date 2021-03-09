@@ -25,8 +25,6 @@ public class LoginHandler implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {
         System.out.println("Login handler");
 
-        boolean success = false;
-
         try {
             if (exchange.getRequestMethod().equalsIgnoreCase("post")) {
                 InputStream reqBody = exchange.getRequestBody();
@@ -43,14 +41,11 @@ public class LoginHandler implements HttpHandler {
                 writeString(resData, resBody);
                 resBody.close();
 
-                success = true;
-                System.out.println("Login operation succeeded");
-            }
-
-            if (!success) {
+                System.out.println("Login response sent back");
+            } else {
+                System.out.println("Wrong request method for login");
                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
                 exchange.getResponseBody().close();
-                System.out.println("Login operation failed");
             }
         }
         catch (IOException | DataAccessException e) {
