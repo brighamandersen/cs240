@@ -31,7 +31,6 @@ public class LoginHandler implements HttpHandler {
                 String reqData = readString(reqBody);
 
                 LoginRequest loginRequest = deserializeJson(reqData, LoginRequest.class);
-
                 LoginService loginService = new LoginService();
                 LoginResult loginResult = loginService.login(loginRequest);
 
