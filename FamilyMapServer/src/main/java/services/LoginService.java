@@ -9,6 +9,7 @@ import results.LoginResult;
 import results.Result;
 
 import java.sql.Connection;
+import java.util.UUID;
 
 /**
  * Implements the login functionality of the server's web API.
@@ -38,6 +39,9 @@ public class LoginService {
                     Person person = personDao.findByUsername(user.getUsername());
 //                    AuthToken authToken = new AuthToken("hard-coded-token", user.getUsername());
 //                    authTokenDao.insert(authToken);
+//                    UUID uuid = new UUID();
+                    String test = UUID.randomUUID().toString();
+
 
                     db.closeConnection(true);
                     return new LoginResult("hard-coded-token", user.getUsername(), person.getPersonId());

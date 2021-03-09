@@ -10,12 +10,12 @@ CREATE TABLE IF NOT EXISTS User (
  
 CREATE TABLE IF NOT EXISTS AuthToken (
  	token TEXT PRIMARY KEY,
-	associatedUsername TEXT NOT NULL UNIQUE
+	associatedUsername TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Person (
 	personId TEXT PRIMARY KEY,
-	associatedUsername TEXT UNIQUE,
+	associatedUsername TEXT,
 	firstName TEXT NOT NULL,
 	lastName TEXT NOT NULL,
 	gender TEXT CHECK (gender in ('m', 'f')),
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS Person (
 
 CREATE TABLE IF NOT EXISTS Event (
 	eventId TEXT PRIMARY KEY,
-	associatedUsername TEXT,
+	associatedUsername TEXT NOT NULL,
 	personId TEXT NOT NULL,
 	latitude REAL NOT NULL,
 	longitude REAL NOT NULL,

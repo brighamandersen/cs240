@@ -53,7 +53,7 @@ public class Database {
 
     public void createTables() throws DataAccessException {
         try (Statement stmt = conn.createStatement()) {
-            Path filePath = Paths.get("../../../../database/db-schema.txt");
+            Path filePath = Paths.get("C:/Code/cs240/FamilyMapServer/database/db-schema.txt");
             String sql = Files.readString(filePath);
             stmt.executeUpdate(sql);
         } catch (SQLException | IOException e) {
