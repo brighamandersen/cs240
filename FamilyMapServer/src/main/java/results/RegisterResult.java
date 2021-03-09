@@ -5,17 +5,17 @@ package results;
  */
 public class RegisterResult extends Result {
     /**
-     * Auth token of new user
+     * Auth token of new user  (ONLY HERE IS IT 'authtoken' and not 'authToken')
      */
-    private String authToken;
+    private String authtoken;
     /**
      * Username of new user
      */
     private String username;
     /**
-     * Person ID of new user
+     * Person ID of new user (ONLY HERE IS IT 'personID' and not 'personId')
      */
-    private String personId;
+    private String personID;
 
     /**
      * Generates a success response body for register result.
@@ -25,9 +25,9 @@ public class RegisterResult extends Result {
      */
     public RegisterResult(String authToken, String username, String personId) {
         super(null, true);
-        this.authToken = authToken;
+        this.authtoken = authToken;
         this.username = username;
-        this.personId = personId;
+        this.personID = personId;
     }
 
     /**
@@ -39,11 +39,11 @@ public class RegisterResult extends Result {
     }
 
     public String getAuthToken() {
-        return authToken;
+        return authtoken;
     }
 
     public void setAuthToken(String authToken) {
-        this.authToken = authToken;
+        this.authtoken = authToken;
     }
 
     public String getUsername() {
@@ -55,10 +55,10 @@ public class RegisterResult extends Result {
     }
 
     public String getPersonId() {
-        return personId;
+        return personID;
     }
 
     public void setPersonId(String personId) {
-        this.personId = personId;
+        this.personID = personId;
     }
 }

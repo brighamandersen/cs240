@@ -5,17 +5,17 @@ package results;
  */
 public class LoginResult extends Result {
     /**
-     * New auth token of logged-in user
+     * New auth token of logged-in user (ONLY HERE IS IT 'authtoken' and not 'authToken')
      */
-    private String authToken;
+    private String authtoken;
     /**
      * Username of logged-in user
      */
     private String username;
     /**
-     * ID of person associated with logged-in user
+     * ID of person associated with logged-in user  (ONLY HERE IS IT 'personID' and not 'personId')
      */
-    private String personId;
+    private String personID;
 
     /**
      * Generates a success response body for login result.
@@ -25,9 +25,9 @@ public class LoginResult extends Result {
      */
     public LoginResult(String authToken, String username, String personId) {
         super(null, true);
-        this.authToken = authToken;
+        this.authtoken = authToken;
         this.username = username;
-        this.personId = personId;
+        this.personID = personId;
     }
 
     /**
@@ -39,11 +39,11 @@ public class LoginResult extends Result {
     }
 
     public String getAuthToken() {
-        return authToken;
+        return authtoken;
     }
 
     public void setAuthToken(String authToken) {
-        this.authToken = authToken;
+        this.authtoken = authToken;
     }
 
     public String getUsername() {
@@ -55,10 +55,10 @@ public class LoginResult extends Result {
     }
 
     public String getPersonId() {
-        return personId;
+        return personID;
     }
 
     public void setPersonId(String personId) {
-        this.personId = personId;
+        this.personID = personId;
     }
 }
