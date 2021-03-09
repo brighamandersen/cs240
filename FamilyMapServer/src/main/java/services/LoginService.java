@@ -36,15 +36,16 @@ public class LoginService {
             // If there is a User, then compare that user's password with the password passed in
             if (user != null) {
                 if (r.getPassword().equals(user.getPassword())) {
+                    // Get person object for user to extract person id
                     Person person = personDao.findByUsername(user.getUsername());
-//                    AuthToken authToken = new AuthToken("hard-coded-token", user.getUsername());
-//                    authTokenDao.insert(authToken);
-//                    UUID uuid = new UUID();
-                    String test = UUID.randomUUID().toString();
 
+                    // Add new auth token for user
+                    String newToken = UUID.randomUUID().toString();
+                    AuthToken authToken = new AuthToken(newToken, user.getUsername());
+                    authTokenDao.insert(authToken);
 
                     db.closeConnection(true);
-                    return new LoginResult("hard-coded-token", user.getUsername(), person.getPersonId());
+                    return new LoginResult(newToken, user.getUsername(), person.getPersonId());
                 }
                 db.closeConnection(false);
                 return new LoginResult("Incorrect password for " + user.getUsername());
