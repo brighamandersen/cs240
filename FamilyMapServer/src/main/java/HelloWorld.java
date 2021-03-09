@@ -14,13 +14,13 @@ public class HelloWorld {
 
 //        Result result = new Result("Success!", null);
 //        LoadResult loadResult = new LoadResult(1 ,2, 3);
-        Result result = new Result("Failed! oh no");
-        String jsonStr = serializeJson(result);
-
-        System.out.println(jsonStr);
-
-        Result javaObj = deserializeJson(jsonStr, Result.class);
-        System.out.println(javaObj);
+//        Result result = new Result("Failed! oh no");
+//        String jsonStr = serializeJson(result);
+//
+//        System.out.println(jsonStr);
+//
+//        Result javaObj = deserializeJson(jsonStr, Result.class);
+//        System.out.println(javaObj);
 
 
         Database database = new Database();

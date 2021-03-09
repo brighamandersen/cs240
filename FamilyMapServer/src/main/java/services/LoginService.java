@@ -45,7 +45,7 @@ public class LoginService {
                     authTokenDao.insert(authToken);
 
                     db.closeConnection(true);
-                    return new LoginResult(newToken, user.getUsername(), person.getPersonId());
+                    return new LoginResult(authToken.getToken(), user.getUsername(), person.getPersonId());
                 }
                 db.closeConnection(false);
                 return new LoginResult("Incorrect password for " + user.getUsername());

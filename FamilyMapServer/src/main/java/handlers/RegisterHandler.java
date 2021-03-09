@@ -2,6 +2,7 @@ package handlers;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import daos.DataAccessException;
 import requests.RegisterRequest;
 import results.RegisterResult;
 import services.RegisterService;
@@ -46,7 +47,7 @@ public class RegisterHandler implements HttpHandler {
                 exchange.getResponseBody().close();
             }
         }
-        catch (IOException e) {
+        catch (IOException | DataAccessException e) {
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
             exchange.getResponseBody().close();
 

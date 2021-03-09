@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS User (
 	email TEXT NOT NULL,
 	firstName TEXT NOT NULL,
 	lastName TEXT NOT NULL,
-	gender TEXT CHECK (gender in ('m', 'f')),
+	gender TEXT NOT NULL CHECK (gender in ('m', 'f')),
 	personId TEXT NOT NULL UNIQUE
  );
  
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS Person (
 	associatedUsername TEXT,
 	firstName TEXT NOT NULL,
 	lastName TEXT NOT NULL,
-	gender TEXT CHECK (gender in ('m', 'f')),
+	gender TEXT NOT NULL CHECK (gender in ('m', 'f')),
 	fatherId TEXT,
 	motherId TEXT,
 	spouseId TEXT
