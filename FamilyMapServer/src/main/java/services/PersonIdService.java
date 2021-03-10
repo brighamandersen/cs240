@@ -22,7 +22,7 @@ import static utils.StringUtils.urlToParamStr;
 public class PersonIdService {
     /**
      * Returns the single Person object with the specified ID.
-     * @param exchange Data referring to request
+     * @param exchange Object for request and response data
      * @return Person ID response data
      */
     public PersonIdResult runPersonId(HttpExchange exchange) throws DataAccessException {

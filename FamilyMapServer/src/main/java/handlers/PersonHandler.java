@@ -42,7 +42,7 @@ public class PersonHandler implements HttpHandler {
                     }
                 } else {
                     PersonFamilyService personFamilyService = new PersonFamilyService();
-                    PersonFamilyResult personFamilyResult = personFamilyService.runPersonFamily();
+                    PersonFamilyResult personFamilyResult = personFamilyService.runPersonFamily(exchange);
                     resData = serializeJson(personFamilyResult);
 
                     if (personFamilyResult.isSuccess()) {
