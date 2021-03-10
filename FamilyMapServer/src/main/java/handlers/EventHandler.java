@@ -69,7 +69,7 @@ public class EventHandler implements HttpHandler {
             }
         }
         catch (IOException | DataAccessException e) {
-            exchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
+            exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, 0);
             exchange.getResponseBody().close();
 
             e.printStackTrace();

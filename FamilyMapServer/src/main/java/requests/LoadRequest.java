@@ -1,6 +1,10 @@
 package requests;
 
-import java.util.ArrayList;
+import models.Event;
+import models.Person;
+import models.User;
+
+import java.util.List;
 
 /**
  * Houses request data passed to load API endpoint call.
@@ -9,15 +13,15 @@ public class LoadRequest {
     /**
      * Users to be created
      */
-    private ArrayList<String> users;
+    private List<User> users;
     /**
      * Persons to be created
      */
-    private ArrayList<String> persons;
+    private List<Person> persons;
     /**
      * Events to be created
      */
-    private ArrayList<String> events;
+    private List<Event> events;
 
     /**
      * Constructor for making load request objects.
@@ -25,33 +29,33 @@ public class LoadRequest {
      * @param persons Persons to be created
      * @param events Events to be created
      */
-    public LoadRequest(ArrayList<String> users, ArrayList<String> persons, ArrayList<String> events) {
+    public LoadRequest(List<User> users, List<Person> persons, List<Event> events) {
         this.users = users;
         this.persons = persons;
         this.events = events;
     }
 
-    public ArrayList<String> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(ArrayList<String> users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 
-    public ArrayList<String> getPersons() {
+    public List<Person> getPersons() {
         return persons;
     }
 
-    public void setPersons(ArrayList<String> persons) {
+    public void setPersons(List<Person> persons) {
         this.persons = persons;
     }
 
-    public ArrayList<String> getEvents() {
+    public List<Event> getEvents() {
         return events;
     }
 
-    public void setEvents(ArrayList<String> events) {
+    public void setEvents(List<Event> events) {
         this.events = events;
     }
 }

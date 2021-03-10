@@ -46,6 +46,8 @@ public class EventIdService {
             Event event = eventDao.findByEventId(eventIdParam);
 
             if (event == null) {
+                db.closeConnection(false);
+
                 return new EventIdResult("Invalid eventID parameter");
             }
 
@@ -55,6 +57,8 @@ public class EventIdService {
             AuthToken authToken = authTokenDao.find(reqToken);
 
             if (!event.getAssociatedUsername().equals(authToken.getAssociatedUsername())) {
+                db.closeConnection(false);
+
                 return new EventIdResult("Requested event does not belong to this user");
             }
 

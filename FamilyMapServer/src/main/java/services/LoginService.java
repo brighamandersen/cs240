@@ -47,12 +47,15 @@ public class LoginService {
                     authTokenDao.insert(authToken);
 
                     db.closeConnection(true);
+
                     return new LoginResult(authToken.getToken(), user.getUsername(), person.getPersonId());
                 }
                 db.closeConnection(false);
+
                 return new LoginResult("Incorrect password for " + user.getUsername());
             } else {
                 db.closeConnection(false);
+
                 return new LoginResult("No user found with specified auth credentials.");
             }
         } catch (DataAccessException ex) {

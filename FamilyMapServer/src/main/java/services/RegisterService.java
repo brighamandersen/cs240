@@ -49,9 +49,11 @@ public class RegisterService {
                 authTokenDao.insert(authToken);
 
                 db.closeConnection(true);
+
                 return new RegisterResult(authToken.getToken(), user.getUsername(), person.getPersonId());
             } else {
                 db.closeConnection(false);
+
                 return new RegisterResult("Username already taken by another user");
             }
         } catch (DataAccessException ex) {

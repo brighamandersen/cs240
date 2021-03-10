@@ -34,7 +34,7 @@ public class FillHandler implements HttpHandler {
             }
         }
         catch (IOException e) {
-            exchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
+            exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, 0);
             exchange.getResponseBody().close();
 
             e.printStackTrace();

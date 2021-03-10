@@ -47,6 +47,8 @@ public class PersonIdService {
             Person person = personDao.findByPersonID(personIdParam);
 
             if (person == null) {
+                db.closeConnection(false);
+
                 return new PersonIdResult("Invalid personID parameter");
             }
 
@@ -56,6 +58,8 @@ public class PersonIdService {
             AuthToken authToken = authTokenDao.find(reqToken);
 
             if (!person.getAssociatedUsername().equals(authToken.getAssociatedUsername())) {
+                db.closeConnection(false);
+
                 return new PersonIdResult("Requested person does not belong to this user");
             }
 
