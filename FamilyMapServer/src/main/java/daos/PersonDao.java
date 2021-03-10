@@ -3,6 +3,8 @@ package daos;
 import models.Person;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Interfaces with Person database to provide specific operations.
@@ -78,7 +80,7 @@ public class PersonDao {
     }
 
     /**
-     * Finds event in database associated with given username.
+     * Finds single event in database associated with given username.
      * @param username Username of user to whom event belongs
      * @return Event Event object associated with the user being searched.
      * @throws DataAccessException Exception if event couldn't be found.
@@ -111,6 +113,44 @@ public class PersonDao {
         }
         return null;
     }
+
+    /**
+     * Finds multiple events in database associated with given username.
+     * @param username Username of user to whom event belongs
+     * @return Event(s) associated with the user being searched.
+     * @throws DataAccessException Exception if event couldn't be found.
+     */
+    public List<Person> multiFindByUsername(String username) throws DataAccessException {
+        List<Person> persons = new ArrayList<>();
+        Person person;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM Person WHERE associatedUsername = ?;";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                person = new Person(rs.getString("personId"), rs.getString("associatedUsername"),
+                        rs.getString("firstName"), rs.getString("lastName"),
+                        rs.getString("gender"), rs.getString("fatherId"),
+                        rs.getString("motherId"), rs.getString("spouseId"));
+                persons.add(person);
+            }
+            return persons;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while finding person with username: " + username);
+        } finally {
+            if(rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 
     /**
      * Deletes event in database associated with given username.

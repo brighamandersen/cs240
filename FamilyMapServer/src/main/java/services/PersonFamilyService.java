@@ -12,6 +12,8 @@ import results.PersonFamilyResult;
 import results.PersonIdResult;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 import static utils.HeaderUtils.checkAuth;
 import static utils.StringUtils.urlToParamStr;
@@ -44,14 +46,11 @@ public class PersonFamilyService {
             AuthToken authToken = authTokenDao.find(reqToken);
             String curUser = authToken.getAssociatedUsername();
 
-            // FIXME - How to return multiple people?
-            Person person = personDao.findByUsername(curUser);
-
-            // FIXME - Add null case (return empty array?)
+            List<Person> persons = personDao.multiFindByUsername(curUser);
 
             db.closeConnection(true);
 
-            return new PersonFamilyResult();
+            return new PersonFamilyResult(persons);
         } catch (DataAccessException ex) {
             db.closeConnection(false);
 

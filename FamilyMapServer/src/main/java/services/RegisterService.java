@@ -23,6 +23,8 @@ public class RegisterService {
     public RegisterResult register(RegisterRequest r) throws DataAccessException {
         Database db = new Database();
 
+        // FIXME - Add functionality for error "Request property missing or has invalid value"
+
         try {
             db.openConnection();
             Connection conn = db.getConnection();

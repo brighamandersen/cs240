@@ -2,7 +2,7 @@ package results;
 
 import models.Person;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Houses response data returned from person family API endpoint call.
@@ -12,13 +12,13 @@ public class PersonFamilyResult extends Result {
     /**
      * ALL family members of the current person (logged-in user).
      */
-    private ArrayList<Person> persons;
+    private List<Person> persons;
 
     /**
      * Generates a success response body for event family result.
      * @param persons ALL family members of the current person (logged-in user).
      */
-    public PersonFamilyResult(ArrayList<Person> persons) {
+    public PersonFamilyResult(List<Person> persons) {
         super(null, true);
         this.persons = persons;
     }
@@ -31,11 +31,11 @@ public class PersonFamilyResult extends Result {
         super(message);
     }
 
-    public ArrayList<Person> getPersons() {
+    public List<Person> getPersons() {
         return persons;
     }
 
-    public void setPersons(ArrayList<Person> persons) {
+    public void setPersons(List<Person> persons) {
         this.persons = persons;
     }
 }

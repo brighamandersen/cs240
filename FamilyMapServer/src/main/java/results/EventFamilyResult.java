@@ -2,7 +2,7 @@ package results;
 
 import models.Event;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Houses response data returned from event family API endpoint call.
@@ -11,13 +11,13 @@ public class EventFamilyResult extends Result {
     /**
      * ALL events for ALL family members of the current user.
      */
-    private ArrayList<Event> events;
+    private List<Event> events;
 
     /**
      * Generates a success response body for event family result.
      * @param events ALL events for ALL family members of the current user.
      */
-    public EventFamilyResult(ArrayList<Event> events) {
+    public EventFamilyResult(List<Event> events) {
         super(null, true);
         this.events = events;
     }
@@ -30,11 +30,11 @@ public class EventFamilyResult extends Result {
         super(message);
     }
 
-    public ArrayList<Event> getEvents() {
+    public List<Event> getEvents() {
         return events;
     }
 
-    public void setEvents(ArrayList<Event> events) {
+    public void setEvents(List<Event> events) {
         this.events = events;
     }
 }

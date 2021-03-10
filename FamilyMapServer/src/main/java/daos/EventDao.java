@@ -3,6 +3,8 @@ package daos;
 import models.Event;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Interfaces with Event database to provide specific operations.
@@ -80,7 +82,7 @@ public class EventDao {
     }
 
     /**
-     * Finds event in database associated with given username.
+     * Finds single event in database associated with given username.
      * @param username Username of user to whom event belongs
      * @return Event Event object associated with the user being searched.
      * @throws DataAccessException Exception if event couldn't be found.
@@ -113,6 +115,43 @@ public class EventDao {
             }
         }
         return null;
+    }
+
+    /**
+     * Finds multiple events in database associated with given username.
+     * @param username Username of user to whom event belongs
+     * @return Event(s) associated with the user being searched.
+     * @throws DataAccessException Exception if event couldn't be found.
+     */
+    public List<Event> multiFindByUsername(String username) throws DataAccessException {
+        List<Event> events = new ArrayList<>();
+        Event event;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM Event WHERE associatedUsername = ?;";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                event = new Event(rs.getString("eventId"), rs.getString("associatedUsername"),
+                        rs.getString("personId"), rs.getFloat("latitude"),
+                        rs.getFloat("longitude"), rs.getString("country"),
+                        rs.getString("city"), rs.getString("eventType"),
+                        rs.getInt("year"));
+                events.add(event);
+            }
+            return events;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while finding event with username: " + username);
+        } finally {
+            if(rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**
