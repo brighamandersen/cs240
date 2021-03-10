@@ -29,12 +29,17 @@ public class LoginHandler implements HttpHandler {
             if (exchange.getRequestMethod().equalsIgnoreCase("post")) {
                 InputStream reqBody = exchange.getRequestBody();
                 String reqData = readString(reqBody);
-
                 LoginRequest loginRequest = deserializeJson(reqData, LoginRequest.class);
+
                 LoginService loginService = new LoginService();
                 LoginResult loginResult = loginService.login(loginRequest);
 
-                exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+                if (loginResult.isSuccess()) {
+                    exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+                } else {
+                    exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+                }
+
                 String resData = serializeJson(loginResult);
                 OutputStream resBody = exchange.getResponseBody();
                 writeString(resData, resBody);

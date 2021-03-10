@@ -1,0 +1,11 @@
+INSERT INTO User
+("username", "password", "email", "firstName", "lastName", "gender", "personId")
+VALUES ('brighamband', 'password', 'brighamband@gmail.com', 'Brigham', 'Andersen', 'm', 'personId123');
+
+INSERT INTO Person
+("personId", "associatedUsername", "firstName", "lastName", "gender")
+VALUES ('personId123', 'brighamband', 'Brigham', 'Andersen', 'm');
+
+INSERT INTO AuthToken
+("token", "associatedUsername")
+VALUES ('randomauthtoken', 'brighamband');

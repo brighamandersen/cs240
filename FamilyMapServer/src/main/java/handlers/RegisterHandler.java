@@ -29,12 +29,17 @@ public class RegisterHandler implements HttpHandler {
             if (exchange.getRequestMethod().equalsIgnoreCase("post")) {
                 InputStream reqBody = exchange.getRequestBody();
                 String reqData = readString(reqBody);
-
                 RegisterRequest registerRequest = deserializeJson(reqData, RegisterRequest.class);
+
                 RegisterService registerService = new RegisterService();
                 RegisterResult registerResult = registerService.register(registerRequest);
 
-                exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+                if (registerResult.isSuccess()) {
+                    exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+                } else {
+                    exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+                }
+
                 String resData = serializeJson(registerResult);
                 OutputStream resBody = exchange.getResponseBody();
                 writeString(resData, resBody);

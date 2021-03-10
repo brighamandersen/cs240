@@ -19,4 +19,38 @@ public class StringUtils {
         sw.write(str);
         sw.flush();
     }
+
+    public static int countSlashes(String str) {
+        int count = 0;
+
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == '/') {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static String urlToParamStr(String str) {
+        int slashesAlreadySeen = 0;
+        int newStartIndex = 0;
+
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == '/') {
+                slashesAlreadySeen++;
+            }
+
+            if (slashesAlreadySeen == 2) {
+                if (i == str.length() - 1) {
+                    return "";
+                } else {
+                    newStartIndex = i + 1;
+                }
+                break;
+            }
+        }
+
+        StringBuilder sb = new StringBuilder(str);
+        return sb.substring(newStartIndex);
+    }
 }

@@ -35,8 +35,10 @@ public class RegisterService {
 
             if (existingUser == null) {
                 String newPersonId = UUID.randomUUID().toString();
-                Person person = new Person(newPersonId, r.getUsername(), r.getFirstName(), r.getLastName(), r.getGender(), null, null, null);
-                User user = new User(r.getUsername(), r.getPassword(), r.getEmail(), r.getFirstName(), r.getLastName(), r.getGender(), newPersonId);
+                Person person = new Person(newPersonId, r.getUsername(), r.getFirstName(), r.getLastName(),
+                        r.getGender(), null, null, null);
+                User user = new User(r.getUsername(), r.getPassword(), r.getEmail(), r.getFirstName(),
+                        r.getLastName(), r.getGender(), newPersonId);
                 String newToken = UUID.randomUUID().toString();
                 AuthToken authToken = new AuthToken(newToken, user.getUsername());
 
