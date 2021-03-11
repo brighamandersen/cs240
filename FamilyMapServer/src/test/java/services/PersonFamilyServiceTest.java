@@ -24,8 +24,6 @@ class PersonFamilyServiceTest {
         RegisterResult registerResult = registerService.register(registerRequest);
         authToken = registerResult.getAuthToken();
 
-        // FIXME - Have this call the load service to generate dummy person data
-
         personFamilyService = new PersonFamilyService();
     }
 

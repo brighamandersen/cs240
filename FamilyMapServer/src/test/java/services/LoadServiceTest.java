@@ -48,7 +48,7 @@ class LoadServiceTest {
 
         List<Event> events = new ArrayList<>();
         Event event1 = new Event("event1", "arich", "richlet1", 79.9833f,
-                -84.0667f, "Canada", "Eureka", "Birth", 1998);
+                -84.0667f, "Canada", "Eureka", "birth", 1998);
         events.add(event1);
 
         LoadRequest loadRequest = new LoadRequest(users, persons, events);

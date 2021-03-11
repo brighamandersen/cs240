@@ -16,7 +16,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static utils.JsonUtils.serializeJson;
-import static utils.StringUtils.countSlashes;
 import static utils.StringUtils.writeString;
 
 /**

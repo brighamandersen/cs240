@@ -11,8 +11,6 @@ import java.nio.file.Path;
 import java.sql.Connection;
 
 import static utils.HeaderUtils.isExistingToken;
-import static utils.StringUtils.countSlashes;
-import static utils.StringUtils.urlToParamStr;
 
 /**
  * Implements the event ID functionality of the server's web API.

@@ -1,13 +1,10 @@
 package services;
 
+import data.DataGenerator;
+import data.PersonEventData;
 import results.Result;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import static utils.StringUtils.countSlashes;
-import static utils.StringUtils.urlToParamStr;
-
 /**
  * Implements the fill functionality of the server's web API.
  */
@@ -35,8 +32,10 @@ public class FillService {
             }
         }
 
-        // FIXME get ancestor data
-
+//        DataGenerator dataGenerator = new DataGenerator();
+//        PersonEventData personEventData = dataGenerator.generateParentData(numGenerations);
         return null;
+//        return new Result("Successfully added " + personEventData.getPersonsSize() + " persons and "
+//                + personEventData.getEventsSize() + " events to the database.", true);
     }
 }
