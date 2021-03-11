@@ -29,6 +29,10 @@ public class FillService {
 
         if (urlPath.getNameCount() == 3) {
             numGenerations = Integer.parseInt(String.valueOf(urlPath.getName(2)));
+
+            if (numGenerations < 0) {
+                return new Result("Invalid username or generations parameter");
+            }
         }
 
         // FIXME get ancestor data

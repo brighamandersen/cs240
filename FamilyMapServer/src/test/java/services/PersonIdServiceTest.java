@@ -36,8 +36,8 @@ class PersonIdServiceTest {
 
     @Test
     void testRunPersonIdPass() throws DataAccessException {
-        Path GOOD_URL_PATH = Path.of("/person/" + personId);
-        PersonIdResult personIdResult = personIdService.runPersonId(authToken, GOOD_URL_PATH);
+        Path goodUrlPath = Path.of("/person/" + personId);
+        PersonIdResult personIdResult = personIdService.runPersonId(authToken, goodUrlPath);
 
         assertTrue(personIdResult.isSuccess());
         assertNull(personIdResult.getMessage());
@@ -51,9 +51,9 @@ class PersonIdServiceTest {
     void testRunPersonIdFail() throws DataAccessException {
         String BAD_AUTH_TOKEN = "badauthtoken";
         String RANDOM_PERSON_ID = "randompersonid";
-        Path BAD_URL_PATH = Path.of("/person/" + RANDOM_PERSON_ID);
+        Path badUrlPath = Path.of("/person/" + RANDOM_PERSON_ID);
 
-        PersonIdResult personIdResult = personIdService.runPersonId(BAD_AUTH_TOKEN, BAD_URL_PATH);
+        PersonIdResult personIdResult = personIdService.runPersonId(BAD_AUTH_TOKEN, badUrlPath);
 
         assertFalse(personIdResult.isSuccess());
         assertEquals("Error: Invalid auth token", personIdResult.getMessage());

@@ -45,9 +45,9 @@ class EventIdServiceTest {
     void testRunEventIdFail() throws DataAccessException {
         String BAD_AUTH_TOKEN = "badauthtoken";
         String RANDOM_EVENT_ID = "randomeventid";
-        Path BAD_URL_PATH = Path.of("/event/" + RANDOM_EVENT_ID);
+        Path badUrlPath = Path.of("/event/" + RANDOM_EVENT_ID);
 
-        EventIdResult eventIdResult = eventIdService.runEventId(BAD_AUTH_TOKEN, BAD_URL_PATH);
+        EventIdResult eventIdResult = eventIdService.runEventId(BAD_AUTH_TOKEN, badUrlPath);
 
         assertFalse(eventIdResult.isSuccess());
         assertEquals("Error: Invalid auth token", eventIdResult.getMessage());

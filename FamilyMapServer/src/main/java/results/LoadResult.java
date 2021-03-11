@@ -13,7 +13,7 @@ public class LoadResult extends Result {
      * @param numEvents  Number of events added to database
      */
     public LoadResult(int numUsers, int numPersons, int numEvents) {
-        super("Successfully added  " + numUsers + " users, "
+        super("Successfully added " + numUsers + " users, "
                 + numPersons + " persons, and " + numEvents + " events to the database.", true);
     }
 
