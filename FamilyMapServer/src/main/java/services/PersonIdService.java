@@ -10,9 +10,10 @@ import models.Person;
 import results.PersonIdResult;
 import com.sun.net.httpserver.HttpExchange;
 
+import java.nio.file.Path;
 import java.sql.Connection;
 
-import static utils.HeaderUtils.checkAuth;
+import static utils.HeaderUtils.isExistingToken;
 import static utils.StringUtils.countSlashes;
 import static utils.StringUtils.urlToParamStr;
 
@@ -22,18 +23,18 @@ import static utils.StringUtils.urlToParamStr;
 public class PersonIdService {
     /**
      * Returns the single Person object with the specified ID.
-     * @param exchange Object for request and response data
+     * @param reqToken Auth token
+     * @param urlPath URL path
      * @return Person ID response data
      */
-    public PersonIdResult runPersonId(HttpExchange exchange) throws DataAccessException {
+    public PersonIdResult runPersonId(String reqToken, Path urlPath) throws DataAccessException {
         Database db = new Database();
 
-        if (!checkAuth(exchange)) {
+        if (!isExistingToken(reqToken)) {
             return new PersonIdResult("Invalid auth token");
         }
 
-        String urlPath = exchange.getRequestURI().toString();
-        if (countSlashes(urlPath) > 2) {
+        if (urlPath.getNameCount() > 2) {
             return new PersonIdResult("Invalid personID parameter");
         }
 
@@ -43,7 +44,7 @@ public class PersonIdService {
             AuthTokenDao authTokenDao = new AuthTokenDao(conn);
             PersonDao personDao = new PersonDao(conn);
 
-            String personIdParam = urlToParamStr(urlPath);
+            String personIdParam = String.valueOf(urlPath.getName(1));
             Person person = personDao.findByPersonID(personIdParam);
 
             if (person == null) {
@@ -53,8 +54,6 @@ public class PersonIdService {
             }
 
             // Check if requested person belongs to user who sent request
-            Headers reqHeaders = exchange.getRequestHeaders();
-            String reqToken = reqHeaders.getFirst("Authorization");
             AuthToken authToken = authTokenDao.find(reqToken);
 
             if (!person.getAssociatedUsername().equals(authToken.getAssociatedUsername())) {

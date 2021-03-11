@@ -6,7 +6,6 @@ import models.Person;
 import models.User;
 import requests.LoginRequest;
 import results.LoginResult;
-import results.Result;
 
 import java.sql.Connection;
 import java.util.UUID;

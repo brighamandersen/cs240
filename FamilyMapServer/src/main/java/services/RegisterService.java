@@ -5,13 +5,12 @@ import models.AuthToken;
 import models.Person;
 import models.User;
 import requests.RegisterRequest;
-import results.LoginResult;
 import results.RegisterResult;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
+
+import static data.DataGenerator.generateAncestorData;
 
 /**
  * Implements the register functionality of the server's web API.
@@ -52,11 +51,10 @@ public class RegisterService {
                 authTokenDao.insert(authToken);
 
                 // FIXME - Add 4 generations of ancestor data for new user
-
-//                for (int i = 0; i < NUM_GENERATIONS; i++) {
-//                    personDao.insert(generateRandomPersonData());
+//                List<Person> ancestors = generateAncestorData(NUM_GENERATIONS);
+//                for (Person ancestor : ancestors) {
+//                    personDao.insert(ancestor);
 //                }
-
 
                 db.closeConnection(true);
 

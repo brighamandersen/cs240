@@ -3,10 +3,10 @@ package data;
 public class Location {
     String country;
     String city;
-    String latitude;
-    String longitude;
+    float latitude;
+    float longitude;
 
-    public Location(String country, String city, String latitude, String longitude) {
+    public Location(String country, String city, float latitude, float longitude) {
         this.country = country;
         this.city = city;
         this.latitude = latitude;
@@ -29,19 +29,19 @@ public class Location {
         this.city = city;
     }
 
-    public String getLatitude() {
+    public float getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(float latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public float getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(float longitude) {
         this.longitude = longitude;
     }
 }

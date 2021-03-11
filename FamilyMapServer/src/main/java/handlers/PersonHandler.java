@@ -1,5 +1,6 @@
 package handlers;
 
+import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import daos.DataAccessException;
@@ -11,6 +12,8 @@ import services.PersonIdService;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static utils.JsonUtils.serializeJson;
 import static utils.StringUtils.countSlashes;
@@ -27,12 +30,21 @@ public class PersonHandler implements HttpHandler {
 
         try {
             if (exchange.getRequestMethod().equalsIgnoreCase("get")) {
-                String urlPath = exchange.getRequestURI().toString();
+                Path urlPath = Paths.get(exchange.getRequestURI().toString());
                 String resData;
 
-                if (countSlashes(urlPath) > 1) {
+                // Get auth token from request headers
+                Headers reqHeaders = exchange.getRequestHeaders();
+                if (!reqHeaders.containsKey("Authorization")) {
+                    exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+                    exchange.getResponseBody().close();
+                    return;
+                }
+                String reqToken = reqHeaders.getFirst("Authorization");
+
+                if (urlPath.getNameCount() > 1) {
                     PersonIdService personIdService = new PersonIdService();
-                    PersonIdResult personIdResult = personIdService.runPersonId(exchange);
+                    PersonIdResult personIdResult = personIdService.runPersonId(reqToken, urlPath);
                     resData = serializeJson(personIdResult);
 
                     if (personIdResult.isSuccess()) {
@@ -42,7 +54,7 @@ public class PersonHandler implements HttpHandler {
                     }
                 } else {
                     PersonFamilyService personFamilyService = new PersonFamilyService();
-                    PersonFamilyResult personFamilyResult = personFamilyService.runPersonFamily(exchange);
+                    PersonFamilyResult personFamilyResult = personFamilyService.runPersonFamily(reqToken);
                     resData = serializeJson(personFamilyResult);
 
                     if (personFamilyResult.isSuccess()) {

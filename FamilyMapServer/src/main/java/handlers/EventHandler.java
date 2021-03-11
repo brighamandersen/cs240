@@ -4,6 +4,7 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import daos.DataAccessException;
+import models.AuthToken;
 import results.EventFamilyResult;
 import results.EventIdResult;
 import results.PersonFamilyResult;
@@ -16,6 +17,8 @@ import services.PersonIdService;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static utils.JsonUtils.serializeJson;
 import static utils.StringUtils.countSlashes;
@@ -32,12 +35,21 @@ public class EventHandler implements HttpHandler {
 
         try {
             if (exchange.getRequestMethod().equalsIgnoreCase("get")) {
-                String urlPath = exchange.getRequestURI().toString();
+                Path urlPath = Paths.get(exchange.getRequestURI().toString());
                 String resData;
 
-                if (countSlashes(urlPath) > 1) {
+                // Get auth token from request headers
+                Headers reqHeaders = exchange.getRequestHeaders();
+                if (!reqHeaders.containsKey("Authorization")) {
+                    exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+                    exchange.getResponseBody().close();
+                    return;
+                }
+                String reqToken = reqHeaders.getFirst("Authorization");
+
+                if (urlPath.getNameCount() > 1) {
                     EventIdService eventIdService = new EventIdService();
-                    EventIdResult eventIdResult = eventIdService.runEventId(exchange);
+                    EventIdResult eventIdResult = eventIdService.runEventId(reqToken, urlPath);
                     resData = serializeJson(eventIdResult);
 
                     if (eventIdResult.isSuccess()) {
@@ -47,7 +59,7 @@ public class EventHandler implements HttpHandler {
                     }
                 } else {
                     EventFamilyService eventFamilyService = new EventFamilyService();
-                    EventFamilyResult eventFamilyResult = eventFamilyService.runEventFamily(exchange);
+                    EventFamilyResult eventFamilyResult = eventFamilyService.runEventFamily(reqToken);
                     resData = serializeJson(eventFamilyResult);
 
                     if (eventFamilyResult.isSuccess()) {
@@ -76,3 +88,4 @@ public class EventHandler implements HttpHandler {
         }
     }
 }
+

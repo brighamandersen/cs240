@@ -5,13 +5,12 @@ import com.sun.net.httpserver.HttpExchange;
 import daos.*;
 import models.AuthToken;
 import models.Event;
-import models.Person;
 import results.EventIdResult;
-import results.PersonIdResult;
 
+import java.nio.file.Path;
 import java.sql.Connection;
 
-import static utils.HeaderUtils.checkAuth;
+import static utils.HeaderUtils.isExistingToken;
 import static utils.StringUtils.countSlashes;
 import static utils.StringUtils.urlToParamStr;
 
@@ -21,18 +20,18 @@ import static utils.StringUtils.urlToParamStr;
 public class EventIdService {
     /**
      * Returns the single Event object with the specified ID.
-     * @param exchange Object for request and response data
+     * @param reqToken Auth token
+     * @param urlPath URL path
      * @return Event ID response data
      */
-    public EventIdResult runEventId(HttpExchange exchange) throws DataAccessException {
+    public EventIdResult runEventId(String reqToken, Path urlPath) throws DataAccessException {
         Database db = new Database();
 
-        if (!checkAuth(exchange)) {
+        if (!isExistingToken(reqToken)) {
             return new EventIdResult("Invalid auth token");
         }
 
-        String urlPath = exchange.getRequestURI().toString();
-        if (countSlashes(urlPath) > 2) {
+        if (urlPath.getNameCount() > 2) {
             return new EventIdResult("Invalid eventID parameter");
         }
 
@@ -42,7 +41,7 @@ public class EventIdService {
             AuthTokenDao authTokenDao = new AuthTokenDao(conn);
             EventDao eventDao = new EventDao(conn);
 
-            String eventIdParam = urlToParamStr(urlPath);
+            String eventIdParam = String.valueOf(urlPath.getName(1));
             Event event = eventDao.findByEventId(eventIdParam);
 
             if (event == null) {
@@ -52,8 +51,6 @@ public class EventIdService {
             }
 
             // Check if requested event belongs to user who sent request
-            Headers reqHeaders = exchange.getRequestHeaders();
-            String reqToken = reqHeaders.getFirst("Authorization");
             AuthToken authToken = authTokenDao.find(reqToken);
 
             if (!event.getAssociatedUsername().equals(authToken.getAssociatedUsername())) {

@@ -22,6 +22,9 @@ public class LoadService {
         Database db = new Database();
 
         // FIXME - Add functionality for "Invalid request data (missing values, invalid values, etc.)"
+        if (r.getUsers() == null || r.getPersons() == null || r.getEvents() == null) {
+            return new LoadResult("Invalid request data (missing values, invalid values, etc.)");
+        }
 
         try {
             db.openConnection();
