@@ -9,6 +9,8 @@ import results.LoginResult;
 import results.RegisterResult;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -22,6 +24,7 @@ public class RegisterService {
      */
     public RegisterResult register(RegisterRequest r) throws DataAccessException {
         Database db = new Database();
+        final int NUM_GENERATIONS = 4;
 
         // FIXME - Add functionality for error "Request property missing or has invalid value"
 
@@ -47,6 +50,13 @@ public class RegisterService {
                 personDao.insert(person);
                 userDao.insert(user);
                 authTokenDao.insert(authToken);
+
+                // FIXME - Add 4 generations of ancestor data for new user
+
+//                for (int i = 0; i < NUM_GENERATIONS; i++) {
+//                    personDao.insert(generateRandomPersonData());
+//                }
+
 
                 db.closeConnection(true);
 
