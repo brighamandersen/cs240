@@ -1,6 +1,7 @@
 package services;
 
 import daos.DataAccessException;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import requests.RegisterRequest;
@@ -20,6 +21,12 @@ class RegisterServiceTest {
         clearService.clear();
 
         registerService = new RegisterService();
+    }
+
+    @AfterAll
+    static void cleanUp() throws DataAccessException {
+        ClearService clearService = new ClearService();
+        clearService.clear();
     }
 
     @Test

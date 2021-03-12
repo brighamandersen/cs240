@@ -31,7 +31,7 @@ public class User {
     /**
      * Person identifier of user
      */
-    private String personId;
+    private String personID;
 
     /**
      * Constructor for making user model objects.
@@ -41,17 +41,17 @@ public class User {
      * @param firstName First name of user
      * @param lastName Last name of user
      * @param gender Gender of user (either 'f' or 'm')
-     * @param personId Person identifier of user
+     * @param personID Person identifier of user
      */
     public User(String username, String password, String email,
-                String firstName, String lastName, String gender, String personId) {
+                String firstName, String lastName, String gender, String personID) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
-        this.personId = personId;
+        this.personID = personID;
     }
 
     public String getUsername() {
@@ -102,12 +102,12 @@ public class User {
         this.gender = gender;
     }
 
-    public String getPersonId() {
-        return personId;
+    public String getPersonID() {
+        return personID;
     }
 
-    public void setPersonId(String personId) {
-        this.personId = personId;
+    public void setPersonID(String personID) {
+        this.personID = personID;
     }
 
     /**
@@ -127,7 +127,7 @@ public class User {
                     oUser.getFirstName().equals(getFirstName()) &&
                     oUser.getLastName().equals(getLastName()) &&
                     oUser.getGender().equals(getGender()) &&
-                    oUser.getPersonId().equals(getPersonId());
+                    oUser.getPersonID().equals(getPersonID());
         } else {
             return false;
         }

@@ -4,6 +4,7 @@ import daos.DataAccessException;
 import models.Event;
 import models.Person;
 import models.User;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import requests.LoadRequest;
@@ -23,6 +24,12 @@ class LoadServiceTest {
         clearService.clear();
 
         loadService = new LoadService();
+    }
+
+    @AfterAll
+    static void cleanUp() throws DataAccessException {
+        ClearService clearService = new ClearService();
+        clearService.clear();
     }
 
     @Test

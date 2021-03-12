@@ -26,12 +26,12 @@ public class EventDao {
      * @throws DataAccessException Exception if event couldn't be inserted.
      */
     public void insert(Event event) throws DataAccessException {
-        String sql = "INSERT INTO Event (eventId, associatedUsername, personId, latitude, longitude, " +
+        String sql = "INSERT INTO Event (eventID, associatedUsername, personID, latitude, longitude, " +
                 "country, city, eventType, year) VALUES (?,?,?,?,?,?,?,?,?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, event.getEventId());
+            stmt.setString(1, event.getEventID());
             stmt.setString(2, event.getAssociatedUsername());
-            stmt.setString(3, event.getPersonId());
+            stmt.setString(3, event.getPersonID());
             stmt.setFloat(4, event.getLatitude());
             stmt.setFloat(5, event.getLongitude());
             stmt.setString(6, event.getCountry());
@@ -47,20 +47,20 @@ public class EventDao {
 
     /**
      * Finds event in database associated with given event ID.
-     * @param eventId ID of event to find
+     * @param eventID ID of event to find
      * @return Event Event object associated with the event ID given.
      * @throws DataAccessException Exception if event couldn't be found.
      */
-    public Event findByEventId(String eventId) throws DataAccessException {
+    public Event findByEventId(String eventID) throws DataAccessException {
         Event event;
         ResultSet rs = null;
-        String sql = "SELECT * FROM Event WHERE eventId = ?;";
+        String sql = "SELECT * FROM Event WHERE eventID = ?;";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, eventId);
+            stmt.setString(1, eventID);
             rs = stmt.executeQuery();
             if (rs.next()) {
-                event = new Event(rs.getString("eventId"), rs.getString("associatedUsername"),
-                        rs.getString("personId"), rs.getFloat("latitude"),
+                event = new Event(rs.getString("eventID"), rs.getString("associatedUsername"),
+                        rs.getString("personID"), rs.getFloat("latitude"),
                         rs.getFloat("longitude"), rs.getString("country"),
                         rs.getString("city"), rs.getString("eventType"),
                         rs.getInt("year"));
@@ -68,7 +68,7 @@ public class EventDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Error encountered while finding event with eventId: " + eventId);
+            throw new DataAccessException("Error encountered while finding event with eventID: " + eventID);
         } finally {
             if(rs != null) {
                 try {
@@ -95,8 +95,8 @@ public class EventDao {
             stmt.setString(1, username);
             rs = stmt.executeQuery();
             if (rs.next()) {
-                event = new Event(rs.getString("eventId"), rs.getString("associatedUsername"),
-                        rs.getString("personId"), rs.getFloat("latitude"),
+                event = new Event(rs.getString("eventID"), rs.getString("associatedUsername"),
+                        rs.getString("personID"), rs.getFloat("latitude"),
                         rs.getFloat("longitude"), rs.getString("country"),
                         rs.getString("city"), rs.getString("eventType"),
                         rs.getInt("year"));
@@ -132,8 +132,8 @@ public class EventDao {
             stmt.setString(1, username);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                event = new Event(rs.getString("eventId"), rs.getString("associatedUsername"),
-                        rs.getString("personId"), rs.getFloat("latitude"),
+                event = new Event(rs.getString("eventID"), rs.getString("associatedUsername"),
+                        rs.getString("personID"), rs.getFloat("latitude"),
                         rs.getFloat("longitude"), rs.getString("country"),
                         rs.getString("city"), rs.getString("eventType"),
                         rs.getInt("year"));

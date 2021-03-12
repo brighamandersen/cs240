@@ -1,6 +1,7 @@
 package services;
 
 import daos.DataAccessException;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import requests.RegisterRequest;
@@ -29,22 +30,28 @@ class FillServiceTest {
         fillService = new FillService();
     }
 
+    @AfterAll
+    static void cleanUp() throws DataAccessException {
+        ClearService clearService = new ClearService();
+        clearService.clear();
+    }
+
     @Test
-    void testFillPass() {
+    void testFillPass() throws DataAccessException {
         int GOOD_NUM_GENERATIONS = 2;
         Path goodUrlPath = Path.of("/fill/" + username + "/" + GOOD_NUM_GENERATIONS);
 
         Result result = fillService.fill(goodUrlPath);
 
         assertTrue(result.isSuccess());
-        assertEquals("Successfully added 7 persons and 19 events to the database.", result.getMessage());
+        assertEquals("Successfully added 6 persons and 18 events to the database.", result.getMessage());
     }
 
     /**
      * Pass in negative generations
      */
     @Test
-    void testFillFail() {
+    void testFillFail() throws DataAccessException {
         int BAD_NUM_GENERATIONS = -2;
         Path badUrlPath = Path.of("/fill/" + username + "/" + BAD_NUM_GENERATIONS);
 

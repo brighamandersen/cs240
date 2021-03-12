@@ -33,15 +33,15 @@ public class EventFamilyService {
             EventDao eventDao = new EventDao(conn);
 
             // Determine current user based on auth token
-            AuthToken authToken = authTokenDao.find(reqToken);
-            String curUser = authToken.getAssociatedUsername();
+            AuthToken authtoken = authTokenDao.find(reqToken);
+            String curUser = authtoken.getAssociatedUsername();
 
             List<Event> events = eventDao.multiFindByUsername(curUser);
 
             db.closeConnection(true);
 
             return new EventFamilyResult(events);
-        } catch (DataAccessException ex) {
+        } catch (DataAccessException e) {
             db.closeConnection(false);
 
             return new EventFamilyResult("Internal server error");

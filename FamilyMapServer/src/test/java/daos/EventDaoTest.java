@@ -35,7 +35,7 @@ public class EventDaoTest {
     @Test
     public void testInsertPass() throws DataAccessException {
         eventDao.insert(testEvent);
-        Event eventInserted = eventDao.findByEventId(testEvent.getEventId());
+        Event eventInserted = eventDao.findByEventId(testEvent.getEventID());
 
         assertNotNull(eventInserted);
         assertEquals(testEvent, eventInserted);
@@ -63,7 +63,7 @@ public class EventDaoTest {
         Event eventFound = eventDao.findByEventId(badId);
 
         assertNull(eventFound);
-        assertNotEquals(badId, testEvent.getEventId());
+        assertNotEquals(badId, testEvent.getEventID());
     }
 
     @Test
@@ -97,7 +97,7 @@ public class EventDaoTest {
     @Test
     public void testClear() throws DataAccessException {
         eventDao.clear();
-        Event clearedEvent = eventDao.findByEventId(testEvent.getEventId());
+        Event clearedEvent = eventDao.findByEventId(testEvent.getEventID());
 
         assertNull(clearedEvent);
     }

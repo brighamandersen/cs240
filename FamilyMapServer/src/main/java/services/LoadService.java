@@ -22,7 +22,9 @@ public class LoadService {
         Database db = new Database();
 
         // FIXME - Add functionality for "Invalid request data (missing values, invalid values, etc.)"
-        if (r.getUsers() == null || r.getPersons() == null || r.getEvents() == null) {
+        if (r.getUsers() == null || r.getPersons() == null || r.getEvents() == null
+            || r.getUsers().size() == 0 || r.getPersons().size() == 0 || r.getEvents().size() == 0
+        ) {
             return new LoadResult("Invalid request data (missing values, invalid values, etc.)");
         }
 
@@ -50,7 +52,7 @@ public class LoadService {
             db.closeConnection(true);
 
             return new LoadResult(r.getUsers().size(), r.getPersons().size(), r.getEvents().size());
-        } catch (DataAccessException ex) {
+        } catch (DataAccessException e) {
             db.closeConnection(false);
 
             return new LoadResult("Internal server error");

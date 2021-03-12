@@ -25,7 +25,7 @@ public class UserDao {
      */
     public void insert(User user) throws DataAccessException {
         String sql = "INSERT INTO User (username, password, email, firstName, " +
-                "lastName, gender, personId) VALUES (?,?,?,?,?,?,?)";
+                "lastName, gender, personID) VALUES (?,?,?,?,?,?,?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getPassword());
@@ -33,7 +33,7 @@ public class UserDao {
             stmt.setString(4, user.getFirstName());
             stmt.setString(5, user.getLastName());
             stmt.setString(6, user.getGender());
-            stmt.setString(7, user.getPersonId());
+            stmt.setString(7, user.getPersonID());
 
             stmt.executeUpdate();
         } catch ( SQLException e) {
@@ -58,7 +58,7 @@ public class UserDao {
                 user = new User(rs.getString("username"), rs.getString("password"),
                         rs.getString("email"), rs.getString("firstName"),
                         rs.getString("lastName"), rs.getString("gender"),
-                        rs.getString("personId"));
+                        rs.getString("personID"));
                 return user;
             }
         } catch (SQLException e) {

@@ -35,7 +35,7 @@ public class PersonDaoTest {
     @Test
     public void testInsertPass() throws DataAccessException {
         personDao.insert(testPerson);
-        Person personInserted = personDao.findByPersonID(testPerson.getPersonId());
+        Person personInserted = personDao.findByPersonID(testPerson.getPersonID());
 
         assertNotNull(personInserted);
         assertEquals(testPerson, personInserted);
@@ -63,7 +63,7 @@ public class PersonDaoTest {
         Person personFound = personDao.findByPersonID(badId);
 
         assertNull(personFound);
-        assertNotEquals(badId, testPerson.getPersonId());
+        assertNotEquals(badId, testPerson.getPersonID());
     }
 
     @Test
@@ -97,7 +97,7 @@ public class PersonDaoTest {
     @Test
     public void testClear() throws DataAccessException {
         personDao.clear();
-        Person clearedPerson = personDao.findByPersonID(testPerson.getPersonId());
+        Person clearedPerson = personDao.findByPersonID(testPerson.getPersonID());
 
         assertNull(clearedPerson);
     }

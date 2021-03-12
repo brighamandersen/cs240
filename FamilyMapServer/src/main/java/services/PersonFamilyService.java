@@ -1,7 +1,5 @@
 package services;
 
-import com.sun.net.httpserver.Headers;
-import com.sun.net.httpserver.HttpExchange;
 import daos.AuthTokenDao;
 import daos.DataAccessException;
 import daos.Database;
@@ -38,15 +36,15 @@ public class PersonFamilyService {
             PersonDao personDao = new PersonDao(conn);
 
             // Determine current user based on auth token
-            AuthToken authToken = authTokenDao.find(reqToken);
-            String curUser = authToken.getAssociatedUsername();
+            AuthToken authtoken = authTokenDao.find(reqToken);
+            String curUser = authtoken.getAssociatedUsername();
 
             List<Person> persons = personDao.multiFindByUsername(curUser);
 
             db.closeConnection(true);
 
             return new PersonFamilyResult(persons);
-        } catch (DataAccessException ex) {
+        } catch (DataAccessException e) {
             db.closeConnection(false);
 
             return new PersonFamilyResult("Internal server error");

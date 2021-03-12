@@ -9,6 +9,7 @@ import java.sql.Connection;
 public class HeaderUtils {
     public static boolean isExistingToken(String token) throws DataAccessException {
         Database db = new Database();
+
         Connection conn = db.getConnection();
         AuthTokenDao authTokenDao = new AuthTokenDao(conn);
 

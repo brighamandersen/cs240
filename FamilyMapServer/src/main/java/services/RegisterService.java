@@ -47,24 +47,24 @@ public class RegisterService {
                 userDao.insert(user);
 
                 // Add current person data
-                String fatherId = UUID.randomUUID().toString();
-                String motherId = UUID.randomUUID().toString();
+                String fatherID = UUID.randomUUID().toString();
+                String motherID = UUID.randomUUID().toString();
                 Person person = new Person(newPersonId, r.getUsername(), r.getFirstName(), r.getLastName(),
-                        r.getGender(), fatherId, motherId, null);
+                        r.getGender(), fatherID, motherID, null);
                 personDao.insert(person);
 
                 String newToken = UUID.randomUUID().toString();
-                AuthToken authToken = new AuthToken(newToken, user.getUsername());
-                authTokenDao.insert(authToken);
+                AuthToken authtoken = new AuthToken(newToken, user.getUsername());
+                authTokenDao.insert(authtoken);
 
                 // Add personal event (birth) data
-                DataGenerator dataGenerator = new DataGenerator();
-                Event personalBirthEvent = dataGenerator.generatePersonalEventData(r.getUsername(), newPersonId);
-                eventDao.insert(personalBirthEvent);
+                DataGenerator dataGen = new DataGenerator();
+                Event ownBirth = dataGen.generateOwnBirth(r.getUsername(), newPersonId);
+                eventDao.insert(ownBirth);
 
-                // FIXME - Add 4 generations of ancestor data for new user
-                PersonEventData personEventData = dataGenerator
-                        .generateParentData(NUM_GENERATIONS, fatherId, motherId, user.getUsername(), personalBirthEvent.getYear());
+                // Add 4 generations of ancestor data for new user
+                PersonEventData personEventData = dataGen.generateParentData(NUM_GENERATIONS, fatherID,
+                        motherID, user.getUsername(), ownBirth.getYear());
                 for (Person ancestorPerson : personEventData.getPersons()) {
                     personDao.insert(ancestorPerson);
                 }
@@ -74,13 +74,13 @@ public class RegisterService {
 
                 db.closeConnection(true);
 
-                return new RegisterResult(authToken.getToken(), user.getUsername(), person.getPersonId());
+                return new RegisterResult(authtoken.getAuthtoken(), user.getUsername(), person.getPersonID());
             } else {
                 db.closeConnection(false);
 
                 return new RegisterResult("Username already taken by another user");
             }
-        } catch (DataAccessException ex) {
+        } catch (DataAccessException e) {
             db.closeConnection(false);
 
             return new RegisterResult("Internal server error");

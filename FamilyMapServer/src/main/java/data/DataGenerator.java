@@ -33,16 +33,16 @@ public class DataGenerator {
     }
 
 
-    public Event generatePersonalEventData(String associatedUsername, String personId) {
-        String eventId = UUID.randomUUID().toString();
+    public Event generateOwnBirth(String associatedUsername, String personID) {
+        String eventID = UUID.randomUUID().toString();
         Location location = getRandomLocation();
         String eventType = "birth";
         int birthYear = getRandomNumber(2000, 2005);
-        return new Event(eventId, associatedUsername, personId, location.getLatitude(),
+        return new Event(eventID, associatedUsername, personID, location.getLatitude(),
                 location.getLongitude(), location.getCountry(), location.getCity(), eventType, birthYear);
     }
 
-    public PersonEventData generateParentData(int numGenerations, String fatherId, String motherId,
+    public PersonEventData generateParentData(int numGenerations, String fatherID, String motherID,
                                               String childUsername, int childBirthYear) {
         if (numGenerations == 0) {
             List<Person> emptyPersons = new ArrayList<>();
@@ -51,22 +51,22 @@ public class DataGenerator {
         }
 
         // Generate father and mother person objects
-        String spouseId = UUID.randomUUID().toString();
-        Person father = generateFather(fatherId, childUsername, spouseId);
-        Person mother = generateMother(motherId, childUsername, spouseId);
+        String spouseID = UUID.randomUUID().toString();
+        Person father = generateFather(fatherID, childUsername, spouseID);
+        Person mother = generateMother(motherID, childUsername, spouseID);
 
         List<Person> persons = new ArrayList<>();
         persons.add(father);
         persons.add(mother);
 
         // Generate event data for father and mother
-        Event fatherBirth = generateBirth(childUsername, fatherId, childBirthYear);
-        Event motherBirth = generateBirth(childUsername, motherId, childBirthYear);
+        Event fatherBirth = generateBirth(childUsername, fatherID, childBirthYear);
+        Event motherBirth = generateBirth(childUsername, motherID, childBirthYear);
         int coupleMarriageYear = generateMarriageYear(childBirthYear);
-        Event fatherMarriage = generateMarriage(childUsername, fatherId, coupleMarriageYear);
-        Event motherMarriage = generateMarriage(childUsername, motherId, coupleMarriageYear);
-        Event fatherDeath = generateDeath(childUsername, fatherId, childBirthYear);
-        Event motherDeath = generateDeath(childUsername, motherId, childBirthYear);
+        Event fatherMarriage = generateMarriage(childUsername, fatherID, coupleMarriageYear);
+        Event motherMarriage = generateMarriage(childUsername, motherID, coupleMarriageYear);
+        Event fatherDeath = generateDeath(childUsername, fatherID, childBirthYear);
+        Event motherDeath = generateDeath(childUsername, motherID, childBirthYear);
 
         List<Event> events = new ArrayList<>();
         events.add(fatherBirth);
@@ -77,11 +77,11 @@ public class DataGenerator {
         events.add(motherDeath);
 
             // Recurse on father for number of generations
-        PersonEventData fatherSide = generateParentData(numGenerations - 1, father.getFatherId(),
-                father.getMotherId(), childUsername, fatherBirth.getYear());
+        PersonEventData fatherSide = generateParentData(numGenerations - 1, father.getFatherID(),
+                father.getMotherID(), childUsername, fatherBirth.getYear());
         // Recurse on mother for number of generations
-        PersonEventData motherSide = generateParentData(numGenerations - 1, mother.getFatherId(),
-                mother.getMotherId(), childUsername, motherBirth.getYear());
+        PersonEventData motherSide = generateParentData(numGenerations - 1, mother.getFatherID(),
+                mother.getMotherID(), childUsername, motherBirth.getYear());
 
         persons.addAll(fatherSide.getPersons());
         persons.addAll(motherSide.getPersons());
@@ -92,26 +92,26 @@ public class DataGenerator {
         return new PersonEventData(persons, events);
     }
 
-    private Person generateFather(String personId, String associatedUsername, String spouseId) {
-        String fatherId = UUID.randomUUID().toString();
-        String motherId = UUID.randomUUID().toString();
-        return new Person(personId, associatedUsername, getRandomMaleName(), getRandomSurname(), "m",
-                fatherId, motherId, spouseId);
+    private Person generateFather(String personID, String associatedUsername, String spouseID) {
+        String fatherID = UUID.randomUUID().toString();
+        String motherID = UUID.randomUUID().toString();
+        return new Person(personID, associatedUsername, getRandomMaleName(), getRandomSurname(), "m",
+                fatherID, motherID, spouseID);
     }
 
-    private Person generateMother(String personId, String associatedUsername, String spouseId) {
-        String fatherId = UUID.randomUUID().toString();
-        String motherId = UUID.randomUUID().toString();
-        return new Person(personId, associatedUsername, getRandomFemaleName(), getRandomSurname(), "f",
-                fatherId, motherId, spouseId);
+    private Person generateMother(String personID, String associatedUsername, String spouseID) {
+        String fatherID = UUID.randomUUID().toString();
+        String motherID = UUID.randomUUID().toString();
+        return new Person(personID, associatedUsername, getRandomFemaleName(), getRandomSurname(), "f",
+                fatherID, motherID, spouseID);
     }
 
-    private Event generateBirth(String associatedUsername, String personId, int childBirthYear) {
-        String eventId = UUID.randomUUID().toString();
+    private Event generateBirth(String associatedUsername, String personID, int childBirthYear) {
+        String eventID = UUID.randomUUID().toString();
         Location location = getRandomLocation();
         int birthYear = childBirthYear - getRandomNumber(18, 23);
 
-        return new Event(eventId, associatedUsername, personId, location.getLatitude(), location.getLongitude(),
+        return new Event(eventID, associatedUsername, personID, location.getLatitude(), location.getLongitude(),
                 location.getCountry(), location.getCity(), "birth", birthYear);
     }
 
@@ -119,20 +119,20 @@ public class DataGenerator {
         return childBirthYear - getRandomNumber(1, 5);
     }
 
-    private Event generateMarriage(String associatedUsername, String personId, int coupleMarriageYear) {
-        String eventId = UUID.randomUUID().toString();
+    private Event generateMarriage(String associatedUsername, String personID, int coupleMarriageYear) {
+        String eventID = UUID.randomUUID().toString();
         Location location = getRandomLocation();
 
-        return new Event(eventId, associatedUsername, personId, location.getLatitude(), location.getLongitude(),
+        return new Event(eventID, associatedUsername, personID, location.getLatitude(), location.getLongitude(),
                 location.getCountry(), location.getCity(), "marriage", coupleMarriageYear);
     }
 
-    private Event generateDeath(String associatedUsername, String personId, int childBirthYear) {
-        String eventId = UUID.randomUUID().toString();
+    private Event generateDeath(String associatedUsername, String personID, int childBirthYear) {
+        String eventID = UUID.randomUUID().toString();
         Location location = getRandomLocation();
         int deathYear = childBirthYear + getRandomNumber(40, 60);
 
-        return new Event(eventId, associatedUsername, personId, location.getLatitude(), location.getLongitude(),
+        return new Event(eventID, associatedUsername, personID, location.getLatitude(), location.getLongitude(),
                 location.getCountry(), location.getCity(), "death", deathYear);
     }
 

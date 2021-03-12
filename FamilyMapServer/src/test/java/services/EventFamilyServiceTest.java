@@ -1,6 +1,7 @@
 package services;
 
 import daos.DataAccessException;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import requests.RegisterRequest;
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EventFamilyServiceTest {
     private EventFamilyService eventFamilyService;
-    private String authToken;
+    private String authtoken;
 
     @BeforeEach
     void setUp() throws DataAccessException {
@@ -22,20 +23,24 @@ class EventFamilyServiceTest {
                 "brighamband@gmail.com", "Brigham", "Andersen", "m");
         RegisterService registerService = new RegisterService();
         RegisterResult registerResult = registerService.register(registerRequest);
-        authToken = registerResult.getAuthToken();
-
-        // FIXME - Have this call the load service to generate dummy event data
+        authtoken = registerResult.getAuthToken();
 
         eventFamilyService = new EventFamilyService();
     }
 
+    @AfterAll
+    static void cleanUp() throws DataAccessException {
+        ClearService clearService = new ClearService();
+        clearService.clear();
+    }
+
     @Test
     void testRunEventFamilyPass() throws DataAccessException {
-        EventFamilyResult eventFamilyResult = eventFamilyService.runEventFamily(authToken);
+        EventFamilyResult eventFamilyResult = eventFamilyService.runEventFamily(authtoken);
 
         assertTrue(eventFamilyResult.isSuccess());
         assertNull(eventFamilyResult.getMessage());
-        assertEquals(0, eventFamilyResult.getEvents().size());
+        assertEquals(91, eventFamilyResult.getEvents().size());
     }
 
     /**

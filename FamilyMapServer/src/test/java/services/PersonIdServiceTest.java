@@ -1,10 +1,10 @@
 package services;
 
 import daos.DataAccessException;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import requests.RegisterRequest;
-import results.PersonIdResult;
 import results.PersonIdResult;
 import results.RegisterResult;
 
@@ -14,8 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PersonIdServiceTest {
     private PersonIdService personIdService;
-    private String authToken;
-    private String personId;
+    private String authtoken;
+    private String personID;
 
     @BeforeEach
     void setUp() throws DataAccessException {
@@ -26,22 +26,26 @@ class PersonIdServiceTest {
                 "brighamband@gmail.com", "Brigham", "Andersen", "m");
         RegisterService registerService = new RegisterService();
         RegisterResult registerResult = registerService.register(registerRequest);
-        authToken = registerResult.getAuthToken();
-        personId = registerResult.getPersonId();
-
-        // FIXME - Have this call the load service to generate dummy person data
+        authtoken = registerResult.getAuthToken();
+        personID = registerResult.getPersonID();
 
         personIdService = new PersonIdService();
     }
 
+    @AfterAll
+    static void cleanUp() throws DataAccessException {
+        ClearService clearService = new ClearService();
+        clearService.clear();
+    }
+
     @Test
     void testRunPersonIdPass() throws DataAccessException {
-        Path goodUrlPath = Path.of("/person/" + personId);
-        PersonIdResult personIdResult = personIdService.runPersonId(authToken, goodUrlPath);
+        Path goodUrlPath = Path.of("/person/" + personID);
+        PersonIdResult personIdResult = personIdService.runPersonId(authtoken, goodUrlPath);
 
         assertTrue(personIdResult.isSuccess());
         assertNull(personIdResult.getMessage());
-        assertEquals(personId, personIdResult.getPersonId());
+        assertEquals(personID, personIdResult.getPersonID());
     }
 
     /**

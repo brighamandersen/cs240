@@ -1,6 +1,5 @@
 package services;
 
-import com.sun.net.httpserver.Headers;
 import daos.AuthTokenDao;
 import daos.DataAccessException;
 import daos.Database;
@@ -8,7 +7,6 @@ import daos.PersonDao;
 import models.AuthToken;
 import models.Person;
 import results.PersonIdResult;
-import com.sun.net.httpserver.HttpExchange;
 
 import java.nio.file.Path;
 import java.sql.Connection;
@@ -52,9 +50,9 @@ public class PersonIdService {
             }
 
             // Check if requested person belongs to user who sent request
-            AuthToken authToken = authTokenDao.find(reqToken);
+            AuthToken authtoken = authTokenDao.find(reqToken);
 
-            if (!person.getAssociatedUsername().equals(authToken.getAssociatedUsername())) {
+            if (!person.getAssociatedUsername().equals(authtoken.getAssociatedUsername())) {
                 db.closeConnection(false);
 
                 return new PersonIdResult("Requested person does not belong to this user");
@@ -62,10 +60,10 @@ public class PersonIdService {
 
             db.closeConnection(true);
 
-            return new PersonIdResult(person.getAssociatedUsername(), person.getPersonId(),
+            return new PersonIdResult(person.getAssociatedUsername(), person.getPersonID(),
                     person.getFirstName(), person.getLastName(), person.getGender(),
-                    person.getFatherId(), person.getMotherId(), person.getSpouseId());
-        } catch (DataAccessException ex) {
+                    person.getFatherID(), person.getMotherID(), person.getSpouseID());
+        } catch (DataAccessException e) {
             db.closeConnection(false);
 
             return new PersonIdResult("Internal server error");

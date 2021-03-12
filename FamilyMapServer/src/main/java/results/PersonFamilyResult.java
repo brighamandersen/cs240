@@ -12,15 +12,15 @@ public class PersonFamilyResult extends Result {
     /**
      * ALL family members of the current person (logged-in user).
      */
-    private List<Person> persons;
+    private List<Person> data;
 
     /**
      * Generates a success response body for event family result.
-     * @param persons ALL family members of the current person (logged-in user).
+     * @param data ALL family members of the current person (logged-in user).
      */
-    public PersonFamilyResult(List<Person> persons) {
+    public PersonFamilyResult(List<Person> data) {
         super(null, true);
-        this.persons = persons;
+        this.data = data;
     }
 
     /**
@@ -32,10 +32,10 @@ public class PersonFamilyResult extends Result {
     }
 
     public List<Person> getPersons() {
-        return persons;
+        return data;
     }
 
-    public void setPersons(List<Person> persons) {
-        this.persons = persons;
+    public void setPersons(List<Person> data) {
+        this.data = data;
     }
 }

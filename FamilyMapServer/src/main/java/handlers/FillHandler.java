@@ -2,6 +2,7 @@ package handlers;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import daos.DataAccessException;
 import results.Result;
 import services.FillService;
 
@@ -47,7 +48,7 @@ public class FillHandler implements HttpHandler {
                 exchange.getResponseBody().close();
             }
         }
-        catch (IOException e) {
+        catch (IOException | DataAccessException e) {
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, 0);
             exchange.getResponseBody().close();
 

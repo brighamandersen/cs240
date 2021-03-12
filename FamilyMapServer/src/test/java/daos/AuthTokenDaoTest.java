@@ -33,7 +33,7 @@ public class AuthTokenDaoTest {
     @Test
     public void testInsertPass() throws DataAccessException {
         authTokenDao.insert(testAuthToken);
-        AuthToken authTokenInserted = authTokenDao.find(testAuthToken.getToken());
+        AuthToken authTokenInserted = authTokenDao.find(testAuthToken.getAuthtoken());
 
         assertNotNull(authTokenInserted);
         assertEquals(testAuthToken, authTokenInserted);
@@ -61,13 +61,13 @@ public class AuthTokenDaoTest {
         AuthToken authTokenFound = authTokenDao.find(badToken);
 
         assertNull(authTokenFound);
-        assertNotEquals(badToken, testAuthToken.getToken());
+        assertNotEquals(badToken, testAuthToken.getAuthtoken());
     }
 
     @Test
     public void testClear() throws DataAccessException {
         authTokenDao.clear();
-        AuthToken clearedAuthToken = authTokenDao.find(testAuthToken.getToken());
+        AuthToken clearedAuthToken = authTokenDao.find(testAuthToken.getAuthtoken());
 
         assertNull(clearedAuthToken);
     }

@@ -9,11 +9,11 @@ public class EventIdResult extends Result {
      */
     private String associatedUsername;
     /**
-     * Event's unique ID (ONLY HERE IS IT 'eventID' and not 'eventId')
+     * Event's unique ID
      */
     private String eventID;
     /**
-     * ID of person associated with event (ONLY HERE IS IT 'personID' and not 'personId')
+     * ID of person associated with event
      */
     private String personID;
     /**
@@ -44,8 +44,8 @@ public class EventIdResult extends Result {
     /**
      * Generates a success response body for event ID result.
      * @param associatedUsername Username of user to whom event belongs
-     * @param eventId Event's unique ID
-     * @param personId ID of person associated with event
+     * @param eventID Event's unique ID
+     * @param personID ID of person associated with event
      * @param latitude Latitude of event's location
      * @param longitude Longitude of event's location
      * @param country Country where event occurred
@@ -53,12 +53,12 @@ public class EventIdResult extends Result {
      * @param eventType Type of event (birth, baptism, christening, marriage, death, etc.)
      * @param year Year when event occurred
      */
-    public EventIdResult(String associatedUsername, String eventId, String personId,
+    public EventIdResult(String associatedUsername, String eventID, String personID,
                          float latitude, float longitude, String country, String city, String eventType, int year) {
         super(null, true);
         this.associatedUsername = associatedUsername;
-        this.eventID = eventId;
-        this.personID = personId;
+        this.eventID = eventID;
+        this.personID = personID;
         this.latitude = latitude;
         this.longitude = longitude;
         this.country = country;
@@ -83,20 +83,20 @@ public class EventIdResult extends Result {
         this.associatedUsername = associatedUsername;
     }
 
-    public String getEventId() {
+    public String getEventID() {
         return eventID;
     }
 
-    public void setEventId(String eventId) {
-        this.eventID = eventId;
+    public void setEventID(String eventID) {
+        this.eventID = eventID;
     }
 
-    public String getPersonId() {
+    public String getPersonID() {
         return personID;
     }
 
-    public void setPersonId(String personId) {
-        this.personID = personId;
+    public void setPersonID(String personID) {
+        this.personID = personID;
     }
 
     public float getLatitude() {

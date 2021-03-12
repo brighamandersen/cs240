@@ -19,15 +19,15 @@ public class AuthTokenDao {
     }
 
     /**
-     * Adds new authToken to the database.
-     * @param authToken Auth token to add
+     * Adds new authtoken to the database.
+     * @param authtoken Auth token to add
      * @throws DataAccessException Exception if auth token couldn't be inserted.
      */
-    public void insert(AuthToken authToken) throws DataAccessException {
-        String sql = "INSERT INTO AuthToken (token, associatedUsername) VALUES (?,?)";
+    public void insert(AuthToken authtoken) throws DataAccessException {
+        String sql = "INSERT INTO AuthToken (authtoken, associatedUsername) VALUES (?,?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, authToken.getToken());
-            stmt.setString(2, authToken.getAssociatedUsername());
+            stmt.setString(1, authtoken.getAuthtoken());
+            stmt.setString(2, authtoken.getAssociatedUsername());
 
             stmt.executeUpdate();
         } catch ( SQLException e) {
@@ -36,22 +36,22 @@ public class AuthTokenDao {
     }
 
     /**
-     * Finds authToken in database.
+     * Finds authtoken in database.
      * @param token Auth token to find
      * @return AuthToken AuthToken which has the unique identifier.
      * @throws DataAccessException Exception if auth token couldn't be found.
      */
     public AuthToken find(String token) throws DataAccessException {
-        AuthToken authToken;
+        AuthToken authtoken;
         ResultSet rs = null;
-        String sql = "SELECT * FROM AuthToken WHERE token = ?;";
+        String sql = "SELECT * FROM AuthToken WHERE authtoken = ?;";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, token);
             rs = stmt.executeQuery();
             if (rs.next()) {
-                authToken = new AuthToken(rs.getString("token"),
+                authtoken = new AuthToken(rs.getString("authtoken"),
                         rs.getString("associatedUsername"));
-                return authToken;
+                return authtoken;
             }
         } catch (SQLException e) {
             e.printStackTrace();

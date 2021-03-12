@@ -42,12 +42,12 @@ public class LoginService {
 
                     // Add new auth token for user
                     String newToken = UUID.randomUUID().toString();
-                    AuthToken authToken = new AuthToken(newToken, user.getUsername());
-                    authTokenDao.insert(authToken);
+                    AuthToken authtoken = new AuthToken(newToken, user.getUsername());
+                    authTokenDao.insert(authtoken);
 
                     db.closeConnection(true);
 
-                    return new LoginResult(authToken.getToken(), user.getUsername(), person.getPersonId());
+                    return new LoginResult(authtoken.getAuthtoken(), user.getUsername(), person.getPersonID());
                 }
                 db.closeConnection(false);
 
@@ -57,7 +57,7 @@ public class LoginService {
 
                 return new LoginResult("No user found with specified auth credentials.");
             }
-        } catch (DataAccessException ex) {
+        } catch (DataAccessException e) {
             db.closeConnection(false);
 
             return new LoginResult("Internal server error");

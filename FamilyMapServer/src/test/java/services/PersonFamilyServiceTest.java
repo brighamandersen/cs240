@@ -1,6 +1,7 @@
 package services;
 
 import daos.DataAccessException;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import requests.RegisterRequest;
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PersonFamilyServiceTest {
     private PersonFamilyService personFamilyService;
-    private String authToken;
+    private String authtoken;
 
     @BeforeEach
     void setUp() throws DataAccessException {
@@ -22,18 +23,24 @@ class PersonFamilyServiceTest {
                 "brighamband@gmail.com", "Brigham", "Andersen", "m");
         RegisterService registerService = new RegisterService();
         RegisterResult registerResult = registerService.register(registerRequest);
-        authToken = registerResult.getAuthToken();
+        authtoken = registerResult.getAuthToken();
 
         personFamilyService = new PersonFamilyService();
     }
 
+    @AfterAll
+    static void cleanUp() throws DataAccessException {
+        ClearService clearService = new ClearService();
+        clearService.clear();
+    }
+
     @Test
     void testRunPersonFamilyPass() throws DataAccessException {
-        PersonFamilyResult personFamilyResult = personFamilyService.runPersonFamily(authToken);
+        PersonFamilyResult personFamilyResult = personFamilyService.runPersonFamily(authtoken);
 
         assertTrue(personFamilyResult.isSuccess());
         assertNull(personFamilyResult.getMessage());
-        assertEquals(1, personFamilyResult.getPersons().size());    // FIXME, should it include current user??
+        assertEquals(31, personFamilyResult.getPersons().size());
     }
 
     /**

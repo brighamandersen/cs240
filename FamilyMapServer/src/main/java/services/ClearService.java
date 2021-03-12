@@ -23,7 +23,7 @@ public class ClearService {
             db.closeConnection(true);
 
             return new Result("Clear succeeded.", true);
-        } catch (DataAccessException ex) {
+        } catch (DataAccessException e) {
             db.closeConnection(false);
 
             return new Result("Internal server error");

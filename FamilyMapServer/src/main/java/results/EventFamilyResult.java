@@ -11,15 +11,15 @@ public class EventFamilyResult extends Result {
     /**
      * ALL events for ALL family members of the current user.
      */
-    private List<Event> events;
+    private List<Event> data;
 
     /**
      * Generates a success response body for event family result.
-     * @param events ALL events for ALL family members of the current user.
+     * @param data ALL events for ALL family members of the current user.
      */
-    public EventFamilyResult(List<Event> events) {
+    public EventFamilyResult(List<Event> data) {
         super(null, true);
-        this.events = events;
+        this.data = data;
     }
 
     /**
@@ -31,10 +31,10 @@ public class EventFamilyResult extends Result {
     }
 
     public List<Event> getEvents() {
-        return events;
+        return data;
     }
 
-    public void setEvents(List<Event> events) {
-        this.events = events;
+    public void setEvents(List<Event> data) {
+        this.data = data;
     }
 }

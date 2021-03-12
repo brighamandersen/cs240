@@ -5,29 +5,29 @@ CREATE TABLE IF NOT EXISTS User (
 	firstName TEXT NOT NULL,
 	lastName TEXT NOT NULL,
 	gender TEXT NOT NULL CHECK (gender in ('m', 'f')),
-	personId TEXT NOT NULL UNIQUE
+	personID TEXT UNIQUE NOT NULL
  );
  
 CREATE TABLE IF NOT EXISTS AuthToken (
- 	token TEXT PRIMARY KEY,
+ 	authtoken TEXT PRIMARY KEY,
 	associatedUsername TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Person (
-	personId TEXT PRIMARY KEY,
-	associatedUsername TEXT,
+	personID TEXT PRIMARY KEY,
+	associatedUsername TEXT NOT NULL,
 	firstName TEXT NOT NULL,
 	lastName TEXT NOT NULL,
 	gender TEXT NOT NULL CHECK (gender in ('m', 'f')),
-	fatherId TEXT,
-	motherId TEXT,
-	spouseId TEXT
+	fatherID TEXT,
+	motherID TEXT,
+	spouseID TEXT
 );
 
 CREATE TABLE IF NOT EXISTS Event (
-	eventId TEXT PRIMARY KEY,
+	eventID TEXT PRIMARY KEY,
 	associatedUsername TEXT NOT NULL,
-	personId TEXT NOT NULL,
+	personID TEXT NOT NULL,
 	latitude REAL NOT NULL,
 	longitude REAL NOT NULL,
 	country TEXT NOT NULL,

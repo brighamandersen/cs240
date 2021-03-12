@@ -5,7 +5,7 @@ package results;
  */
 public class RegisterResult extends Result {
     /**
-     * Auth token of new user  (ONLY HERE IS IT 'authtoken' and not 'authToken')
+     * Auth token of new user
      */
     private String authtoken;
     /**
@@ -13,21 +13,21 @@ public class RegisterResult extends Result {
      */
     private String username;
     /**
-     * Person ID of new user (ONLY HERE IS IT 'personID' and not 'personId')
+     * Person ID of new user
      */
     private String personID;
 
     /**
      * Generates a success response body for register result.
-     * @param authToken Auth token of new user
+     * @param authtoken Auth token of new user
      * @param username Username of new user
-     * @param personId Person ID of new user
+     * @param personID Person ID of new user
      */
-    public RegisterResult(String authToken, String username, String personId) {
+    public RegisterResult(String authtoken, String username, String personID) {
         super(null, true);
-        this.authtoken = authToken;
+        this.authtoken = authtoken;
         this.username = username;
-        this.personID = personId;
+        this.personID = personID;
     }
 
     /**
@@ -42,8 +42,8 @@ public class RegisterResult extends Result {
         return authtoken;
     }
 
-    public void setAuthToken(String authToken) {
-        this.authtoken = authToken;
+    public void setAuthToken(String authtoken) {
+        this.authtoken = authtoken;
     }
 
     public String getUsername() {
@@ -54,11 +54,11 @@ public class RegisterResult extends Result {
         this.username = username;
     }
 
-    public String getPersonId() {
+    public String getPersonID() {
         return personID;
     }
 
-    public void setPersonId(String personId) {
-        this.personID = personId;
+    public void setPersonID(String personID) {
+        this.personID = personID;
     }
 }

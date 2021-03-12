@@ -4,11 +4,14 @@ import daos.DataAccessException;
 import models.Event;
 import models.Person;
 import models.User;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import requests.LoadRequest;
+import requests.LoginRequest;
 import requests.RegisterRequest;
 import results.EventIdResult;
+import results.LoginResult;
 import results.RegisterResult;
 
 import java.nio.file.Path;
@@ -19,42 +22,62 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EventIdServiceTest {
     private EventIdService eventIdService;
-    private String authToken;
 
     @BeforeEach
     void setUp() throws DataAccessException {
         ClearService clearService = new ClearService();
         clearService.clear();
 
-        RegisterRequest registerRequest = new RegisterRequest("brighamband", "password",
-                "brighamband@gmail.com", "Brigham", "Andersen", "m");
-        RegisterService registerService = new RegisterService();
-        RegisterResult registerResult = registerService.register(registerRequest);
-        authToken = registerResult.getAuthToken();
-
         eventIdService = new EventIdService();
+    }
+
+    @AfterAll
+    static void cleanUp() throws DataAccessException {
+        ClearService clearService = new ClearService();
+        clearService.clear();
     }
 
     @Test
     void testRunEventIdPass() throws DataAccessException {
+        // Make user to be loaded
         List<User> users = new ArrayList<>();
+        String username = "brighamband";
+        String password = "password";
+        String personID = "personid1";
+        User newUser = new User(username, password, "brighamband@gmail.com", "Brigham",
+                "Andersen", "m", personID);
+        users.add(newUser);
+
+        // Make person to be loaded
         List<Person> persons = new ArrayList<>();
+        Person newPerson = new Person(personID, username, newUser.getFirstName(), newUser.getLastName(),
+                newUser.getGender(), null, null, null);
+        persons.add(newPerson);
+
+        // Make event to be loaded
         List<Event> events = new ArrayList<>();
-        String newEventId = "neweventid";
-        Event newEvent = new Event(newEventId, "arich", "richlet1", 79.9833f,
-                -84.0667f, "Canada", "Eureka", "birth", 1998);
+        String eventID = "randomeventid";
+        Event newEvent = new Event(eventID, username, personID,
+                79.9833f, -84.0667f, "Canada", "Eureka", "baptism", 2010);
         events.add(newEvent);
 
         LoadRequest loadRequest = new LoadRequest(users, persons, events);
         LoadService loadService = new LoadService();
         loadService.load(loadRequest);
 
-        Path goodUrlPath = Path.of("/event/" + newEventId);
-        EventIdResult eventIdResult = eventIdService.runEventId(authToken, goodUrlPath);
+        // Log in with loaded user
+        LoginRequest loginRequest = new LoginRequest(username, password);
+        LoginService loginService = new LoginService();
+        LoginResult loginResult = loginService.login(loginRequest);
+        String authtoken = loginResult.getAuthToken();
+
+        // Use authtoken and event id to look up event
+        Path goodUrlPath = Path.of("/event/" + eventID);
+        EventIdResult eventIdResult = eventIdService.runEventId(authtoken, goodUrlPath);
 
         assertTrue(eventIdResult.isSuccess());
         assertNull(eventIdResult.getMessage());
-        assertEquals(newEventId, eventIdResult.getEventId());
+        assertEquals(eventID, eventIdResult.getEventID());
     }
 
     /**

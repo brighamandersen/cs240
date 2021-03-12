@@ -1,7 +1,5 @@
 package models;
 
-import java.util.Objects;
-
 /**
  * Holds family server auth token data when it's in RAM (when it's not in database).
  */
@@ -9,7 +7,7 @@ public class AuthToken {
     /**
      * Unique access token
      */
-    private String token;
+    private String authtoken;
     /**
      * Username of User who owns token
      */
@@ -17,20 +15,20 @@ public class AuthToken {
 
     /**
      * Constructor for making auth token model objects.
-     * @param token Unique access token
+     * @param authtoken Unique access token
      * @param associatedUsername Username of User who owns token
      */
-    public AuthToken(String token, String associatedUsername) {
-        this.token = token;
+    public AuthToken(String authtoken, String associatedUsername) {
+        this.authtoken = authtoken;
         this.associatedUsername = associatedUsername;
     }
 
-    public String getToken() {
-        return token;
+    public String getAuthtoken() {
+        return authtoken;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setAuthtoken(String authtoken) {
+        this.authtoken = authtoken;
     }
 
     public String getAssociatedUsername() {
@@ -52,7 +50,7 @@ public class AuthToken {
             return false;
         if (o instanceof AuthToken) {
             AuthToken oAuthToken = (AuthToken) o;
-            return oAuthToken.getToken().equals(getToken()) &&
+            return oAuthToken.getAuthtoken().equals(getAuthtoken()) &&
                     oAuthToken.getAssociatedUsername().equals(getAssociatedUsername());
         } else {
             return false;

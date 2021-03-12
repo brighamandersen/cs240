@@ -1,7 +1,5 @@
 package services;
 
-import com.sun.net.httpserver.Headers;
-import com.sun.net.httpserver.HttpExchange;
 import daos.*;
 import models.AuthToken;
 import models.Event;
@@ -49,9 +47,9 @@ public class EventIdService {
             }
 
             // Check if requested event belongs to user who sent request
-            AuthToken authToken = authTokenDao.find(reqToken);
+            AuthToken authtoken = authTokenDao.find(reqToken);
 
-            if (!event.getAssociatedUsername().equals(authToken.getAssociatedUsername())) {
+            if (!event.getAssociatedUsername().equals(authtoken.getAssociatedUsername())) {
                 db.closeConnection(false);
 
                 return new EventIdResult("Requested event does not belong to this user");
@@ -59,10 +57,10 @@ public class EventIdService {
 
             db.closeConnection(true);
 
-            return new EventIdResult(event.getAssociatedUsername(), event.getEventId(), event.getPersonId(),
+            return new EventIdResult(event.getAssociatedUsername(), event.getEventID(), event.getPersonID(),
                     event.getLatitude(), event.getLongitude(), event.getCountry(), event.getCity(),
                     event.getEventType(), event.getYear());
-        } catch (DataAccessException ex) {
+        } catch (DataAccessException e) {
             db.closeConnection(false);
 
             return new EventIdResult("Internal server error");

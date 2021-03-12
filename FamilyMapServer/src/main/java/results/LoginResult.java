@@ -5,7 +5,7 @@ package results;
  */
 public class LoginResult extends Result {
     /**
-     * New auth token of logged-in user (ONLY HERE IS IT 'authtoken' and not 'authToken')
+     * New auth token of logged-in user
      */
     private String authtoken;
     /**
@@ -13,21 +13,21 @@ public class LoginResult extends Result {
      */
     private String username;
     /**
-     * ID of person associated with logged-in user  (ONLY HERE IS IT 'personID' and not 'personId')
+     * ID of person associated with logged-in user
      */
     private String personID;
 
     /**
      * Generates a success response body for login result.
-     * @param authToken New auth token of logged-in user
+     * @param authtoken New auth token of logged-in user
      * @param username Username of logged-in user
-     * @param personId ID of person associated with logged-in user
+     * @param personID ID of person associated with logged-in user
      */
-    public LoginResult(String authToken, String username, String personId) {
+    public LoginResult(String authtoken, String username, String personID) {
         super(null, true);
-        this.authtoken = authToken;
+        this.authtoken = authtoken;
         this.username = username;
-        this.personID = personId;
+        this.personID = personID;
     }
 
     /**
@@ -42,8 +42,8 @@ public class LoginResult extends Result {
         return authtoken;
     }
 
-    public void setAuthToken(String authToken) {
-        this.authtoken = authToken;
+    public void setAuthToken(String authtoken) {
+        this.authtoken = authtoken;
     }
 
     public String getUsername() {
@@ -54,11 +54,11 @@ public class LoginResult extends Result {
         this.username = username;
     }
 
-    public String getPersonId() {
+    public String getPersonID() {
         return personID;
     }
 
-    public void setPersonId(String personId) {
-        this.personID = personId;
+    public void setPersonID(String personID) {
+        this.personID = LoginResult.this.personID;
     }
 }
