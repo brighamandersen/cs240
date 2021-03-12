@@ -26,7 +26,10 @@ public class RegisterService {
         Database db = new Database();
         final int NUM_GENERATIONS = 4;
 
-        // FIXME - Add functionality for error "Request property missing or has invalid value"
+        if (r.getUsername() == null || r.getPassword() == null || r.getEmail() == null || r.getFirstName() == null ||
+                r.getLastName() == null || r.getGender() == null) {
+            return new RegisterResult("Request property missing or has invalid value");
+        }
 
         try {
             db.openConnection();

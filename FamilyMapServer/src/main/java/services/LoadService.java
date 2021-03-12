@@ -21,7 +21,6 @@ public class LoadService {
     public LoadResult load(LoadRequest r) throws DataAccessException {
         Database db = new Database();
 
-        // FIXME - Add functionality for "Invalid request data (missing values, invalid values, etc.)"
         if (r.getUsers() == null || r.getPersons() == null || r.getEvents() == null
             || r.getUsers().size() == 0 || r.getPersons().size() == 0 || r.getEvents().size() == 0
         ) {

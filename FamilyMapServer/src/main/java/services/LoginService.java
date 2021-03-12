@@ -22,7 +22,9 @@ public class LoginService {
     public LoginResult login(LoginRequest r) throws DataAccessException {
         Database db = new Database();
 
-        // FIXME - Add functionality for error "Request property missing or has invalid value"
+        if (r.getUsername() == null || r.getPassword() == null) {
+            return new LoginResult("Request property missing or has invalid value");
+        }
 
         try {
             db.openConnection();
