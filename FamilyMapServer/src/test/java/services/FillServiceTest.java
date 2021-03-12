@@ -44,7 +44,7 @@ class FillServiceTest {
         Result result = fillService.fill(goodUrlPath);
 
         assertTrue(result.isSuccess());
-        assertEquals("Successfully added 6 persons and 18 events to the database.", result.getMessage());
+        assertEquals("Successfully added 7 persons and 19 events to the database.", result.getMessage());
     }
 
     /**

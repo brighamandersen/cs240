@@ -75,8 +75,12 @@ public class FillService {
 
                 db.closeConnection(true);
 
-                return new Result("Successfully added " + personEventData.getPersonsSize() + " persons and "
-                        + personEventData.getEventsSize() + " events to the database.", true);
+                // + 1 because we're including the individual's person and event data
+                int personsAdded = personEventData.getPersonsSize() + 1;
+                int eventsAdded = personEventData.getEventsSize() + 1;
+
+                return new Result("Successfully added " + personsAdded + " persons and "
+                        + eventsAdded + " events to the database.", true);
             } else {
                 db.closeConnection(false);
 

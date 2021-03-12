@@ -51,9 +51,8 @@ public class DataGenerator {
         }
 
         // Generate father and mother person objects
-        String spouseID = UUID.randomUUID().toString();
-        Person father = generateFather(fatherID, childUsername, spouseID);
-        Person mother = generateMother(motherID, childUsername, spouseID);
+        Person father = generateFather(fatherID, childUsername, motherID);
+        Person mother = generateMother(motherID, childUsername, fatherID);
 
         List<Person> persons = new ArrayList<>();
         persons.add(father);
