@@ -63,8 +63,9 @@ public class DataGenerator {
         Event fatherBirth = generateBirth(childUsername, fatherID, childBirthYear);
         Event motherBirth = generateBirth(childUsername, motherID, childBirthYear);
         int coupleMarriageYear = generateMarriageYear(childBirthYear);
-        Event fatherMarriage = generateMarriage(childUsername, fatherID, coupleMarriageYear);
-        Event motherMarriage = generateMarriage(childUsername, motherID, coupleMarriageYear);
+        Location marriageLocation = getRandomLocation();
+        Event fatherMarriage = generateMarriage(childUsername, fatherID, marriageLocation, coupleMarriageYear);
+        Event motherMarriage = generateMarriage(childUsername, motherID, marriageLocation, coupleMarriageYear);
         Event fatherDeath = generateDeath(childUsername, fatherID, childBirthYear);
         Event motherDeath = generateDeath(childUsername, motherID, childBirthYear);
 
@@ -119,12 +120,12 @@ public class DataGenerator {
         return childBirthYear - getRandomNumber(1, 5);
     }
 
-    private Event generateMarriage(String associatedUsername, String personID, int coupleMarriageYear) {
+    private Event generateMarriage(String associatedUsername, String personID,
+                                   Location location, int year) {
         String eventID = UUID.randomUUID().toString();
-        Location location = getRandomLocation();
 
         return new Event(eventID, associatedUsername, personID, location.getLatitude(), location.getLongitude(),
-                location.getCountry(), location.getCity(), "marriage", coupleMarriageYear);
+                location.getCountry(), location.getCity(), "marriage", year);
     }
 
     private Event generateDeath(String associatedUsername, String personID, int childBirthYear) {
