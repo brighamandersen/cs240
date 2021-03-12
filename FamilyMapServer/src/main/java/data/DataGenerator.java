@@ -76,7 +76,16 @@ public class DataGenerator {
         events.add(fatherDeath);
         events.add(motherDeath);
 
-            // Recurse on father for number of generations
+        // If last generation, don't have parents for the father and mother
+        if (numGenerations == 1) {
+            father.setFatherID(null);
+            father.setMotherID(null);
+
+            mother.setFatherID(null);
+            mother.setMotherID(null);
+        }
+
+        // Recurse on father for number of generations
         PersonEventData fatherSide = generateParentData(numGenerations - 1, father.getFatherID(),
                 father.getMotherID(), childUsername, fatherBirth.getYear());
         // Recurse on mother for number of generations
