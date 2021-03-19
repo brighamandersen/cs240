@@ -21,5 +21,4 @@ public class HeaderUtils {
         db.closeConnection(false);
         return true;
     }
-
 }

@@ -12,7 +12,6 @@ import requests.LoginRequest;
 import requests.RegisterRequest;
 import results.EventIdResult;
 import results.LoginResult;
-import results.RegisterResult;
 
 import java.nio.file.Path;
 import java.util.ArrayList;

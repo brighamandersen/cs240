@@ -6,6 +6,16 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import requests.LoginRequest;
+import requests.RegisterRequest;
+import results.EventFamilyResult;
+import results.LoginResult;
+import results.PersonFamilyResult;
+import results.RegisterResult;
+
+import static utils.StringUtils.readString;
+import static utils.StringUtils.writeString;
+
 /**
  * Creates the HTTP requests to send to the server
  */
@@ -22,10 +32,10 @@ public class ServerProxy {
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
 
             if (reqMethod.equalsIgnoreCase("get")) {
-                assert reqBody == null;
+                assert reqBodyData == null;
                 http.setDoOutput(false);    // No request body
             } else if (reqMethod.equalsIgnoreCase("post")) {
-                assert reqBody != null;
+                assert reqBodyData != null;
                 http.setDoOutput(true);     // Has a request body
                 // FIXME - add request body
             } else {
@@ -61,23 +71,25 @@ public class ServerProxy {
             e.printStackTrace();
         }
     }
-//    public LoginResult login(LoginRequest r) {
-            // Serialize request as JSON string
-            // Make HTTP request to server
-            // Deserialize response body to LoginResult object
-//    }
+    public LoginResult login(LoginRequest r) {
+//             Serialize request as JSON string
+//             Make HTTP request to server
+//             Deserialize response body to LoginResult object
+        return null;
+    }
 
-//    public RegisterResult register(RegisterRequest) {
-//        // see above
-//    }
-//
-//    public PersonFamilyResult fetchAllPeople(String reqToken) {
-//
-//    }
-//
-//    public EventFamilyResult fetchAllEvents(String reqToken) {
-//
-//    }
+    public RegisterResult register(RegisterRequest r) {
+        // see above
+        return null;
+    }
+
+    public PersonFamilyResult fetchAllPeople(String reqToken) {
+        return null;
+    }
+
+    public EventFamilyResult fetchAllEvents(String reqToken) {
+        return null;
+    }
 
 
 //    This class uses Java's HttpURLConnection class to call server methods

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import edu.byu.cs240.familymapclient.R;
+import requests.LoginRequest;
 
 /**
  * A simple {@link Fragment} subclass.
