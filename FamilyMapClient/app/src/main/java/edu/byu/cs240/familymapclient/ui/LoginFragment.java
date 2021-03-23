@@ -11,11 +11,11 @@ import android.view.ViewGroup;
 import edu.byu.cs240.familymapclient.R;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link LoginFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Implements the login/register screens.
  */
 public class LoginFragment extends Fragment {
+    // Calls LoginTask to perform login/register and data retrieval
+    // Notifies MainActivity when login succeeds or fails
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

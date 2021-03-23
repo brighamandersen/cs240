@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Family Map</string>
-    <string name="title_activity_settings">SettingsActivity</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="login_fragment_placeholder">Hello from login fragment</string>
     <!-- TODO: Remove or change this placeholder text -->

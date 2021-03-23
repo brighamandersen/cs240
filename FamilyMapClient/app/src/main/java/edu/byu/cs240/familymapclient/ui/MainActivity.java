@@ -1,6 +1,7 @@
 package edu.byu.cs240.familymapclient.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
 
