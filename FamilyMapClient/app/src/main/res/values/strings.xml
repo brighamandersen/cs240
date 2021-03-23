@@ -5,4 +5,23 @@
     <string name="login_fragment_placeholder">Hello from login fragment</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="map_fragment_placeholder">Hello from map fragment</string>
+    <string name="server_host_label">Server Host:</string>
+    <string name="server_host_placeholder">10.0.2.2</string>
+    <string name="server_port_label">Server Port:</string>
+    <string name="server_port_placeholder">8080</string>
+    <string name="username_label">Username:</string>
+    <string name="username_placeholder">johndoe</string>
+    <string name="password_label">Password:</string>
+    <string name="password_placeholder">*****</string>
+    <string name="first_name_label">First Name:</string>
+    <string name="first_name_placeholder">John</string>
+    <string name="last_name_label">Last Name:</string>
+    <string name="last_name_placeholder">Doe</string>
+    <string name="email_label">Email:</string>
+    <string name="email_placeholder">johndoe@gmail.com</string>
+    <string name="gender_label">Gender:</string>
+    <string name="male_radio">Male</string>
+    <string name="female_radio">Female</string>
+    <string name="login_button">LOG IN</string>
+    <string name="register_button">REGISTER</string>
 </resources>
