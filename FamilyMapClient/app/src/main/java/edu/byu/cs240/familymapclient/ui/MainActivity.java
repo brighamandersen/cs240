@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fm = this.getSupportFragmentManager();
         LoginFragment loginFragment = new LoginFragment();
 
-        fm.beginTransaction().replace(R.id.mainActivityFrameLayout, loginFragment).commit();
+        fm.beginTransaction().add(R.id.mainActivityFrameLayout, loginFragment).commit();
 
         // TODO - Add logic so that if callback from login returns success, swap out Login Fragment for Map Fragment
         // if user is logged in

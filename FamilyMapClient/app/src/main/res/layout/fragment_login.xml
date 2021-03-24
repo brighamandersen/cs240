@@ -15,7 +15,7 @@
 
         <TextView
             android:id="@+id/tvServerHost"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@string/server_host_label" />
 
@@ -37,7 +37,7 @@
 
         <TextView
             android:id="@+id/tvServerPort"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@string/server_port_label" />
 
@@ -59,7 +59,7 @@
 
         <TextView
             android:id="@+id/tvUsername"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@string/username_label" />
 
@@ -80,7 +80,7 @@
 
         <TextView
             android:id="@+id/tvPassword"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@string/password_label" />
 
@@ -101,7 +101,7 @@
 
         <TextView
             android:id="@+id/tvFirstName"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@string/first_name_label" />
 
@@ -122,7 +122,7 @@
 
         <TextView
             android:id="@+id/tvLastName"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@string/last_name_label" />
 
@@ -143,7 +143,7 @@
 
         <TextView
             android:id="@+id/tvEmail"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@string/email_label" />
 
@@ -164,7 +164,7 @@
 
         <TextView
             android:id="@+id/tvGender"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@string/gender_label" />
 
