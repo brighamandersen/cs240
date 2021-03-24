@@ -25,7 +25,7 @@ public class ServerProxy {
     public static int serverPortNumber;
     // public static String authtoken;  // maybe just store auth token here is you have it immediately when you need it
 
-    private void sendRequest(String endpoint, String reqMethod, String authtoken /*, String reqBodyData*/) {
+    private void sendRequest(String endpoint, String reqMethod, String authtoken, String reqBodyData) {
         try {
             URL url = new URL("http://" + serverHostName + ":" + serverPortNumber + "/" + endpoint);
 

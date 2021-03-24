@@ -13,7 +13,7 @@ import edu.byu.cs240.familymapclient.R;
 /**
  * Implements the login/register screens.
  */
-public class LoginFragment extends Fragment {
+public class EntryFragment extends Fragment {
     // Calls LoginTask to perform login/register and data retrieval
     // Notifies MainActivity when login succeeds or fails
 
@@ -26,7 +26,7 @@ public class LoginFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public LoginFragment() {
+    public EntryFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class LoginFragment extends Fragment {
      * @return A new instance of fragment LoginFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LoginFragment newInstance(String param1, String param2) {
-        LoginFragment fragment = new LoginFragment();
+    public static EntryFragment newInstance(String param1, String param2) {
+        EntryFragment fragment = new EntryFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        return inflater.inflate(R.layout.fragment_entry, container, false);
     }
 }
