@@ -2,8 +2,13 @@ package edu.byu.cs240.familymapclient.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import edu.byu.cs240.familymapclient.R;
 
@@ -12,20 +17,27 @@ import edu.byu.cs240.familymapclient.R;
  */
 public class MainActivity extends AppCompatActivity {
 
+    private LoginFragment loginFragment;
+    private MapFragment mapFragment;
+
+    private Button loginButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // TODO - Add logic so that if callback from login returns success, swap out Login Fragment for Map Fragment
+        FragmentManager fm = this.getSupportFragmentManager();
+        LoginFragment loginFragment = new LoginFragment();
 
-        // FIXME - Not sure if this is correct
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction()
-//                    .setReorderingAllowed(true)
-//                    .add(R.id.fragment_container_view, MapFragment.class, null)
-//                    .commit();
-//        }
+        fm.beginTransaction().replace(R.id.mainActivityFrameLayout, loginFragment).commit();
+
+        // TODO - Add logic so that if callback from login returns success, swap out Login Fragment for Map Fragment
+        // if user is logged in
+        // else
+//            replaceWithMapFragment();
     }
 
+    // handleMsg
+        // if user is logged in
 }
