@@ -68,7 +68,7 @@ class EventIdServiceTest {
         LoginRequest loginRequest = new LoginRequest(username, password);
         LoginService loginService = new LoginService();
         LoginResult loginResult = loginService.login(loginRequest);
-        String authtoken = loginResult.getAuthToken();
+        String authtoken = loginResult.getAuthtoken();
 
         // Use authtoken and event id to look up event
         Path goodUrlPath = Path.of("/event/" + eventID);

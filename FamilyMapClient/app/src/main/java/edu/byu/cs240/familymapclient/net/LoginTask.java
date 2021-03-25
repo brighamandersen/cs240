@@ -8,7 +8,7 @@ import requests.LoginRequest;
 import results.LoginResult;
 
 /**
- * Calls server on background thread to login/register and retrieve family data
+ * Calls server asynchronously on background thread to login/register.
  */
 public class LoginTask implements Runnable {
     private final Handler messageHandler;
@@ -17,7 +17,8 @@ public class LoginTask implements Runnable {
     private final String username;
     private final String password;
 
-    public LoginTask(Handler messageHandler, String serverHostName, int serverPortNumber, String username, String password) {
+    public LoginTask(Handler messageHandler, String serverHostName,
+                     int serverPortNumber, String username, String password) {
         this.messageHandler = messageHandler;
         this.serverHostName = serverHostName;
         this.serverPortNumber = serverPortNumber;
@@ -32,14 +33,15 @@ public class LoginTask implements Runnable {
         LoginRequest loginRequest = new LoginRequest(username, password);
         LoginResult loginResult = serverProxy.login(loginRequest);
 
-        sendMessage(loginResult.getUsername());
+        sendMessage(loginResult.getUsername(), loginResult.getAuthtoken());
     }
 
-    private void sendMessage(String resUsername) {
+    private void sendMessage(String resUsername, String resAuthtoken) {
         Message message = Message.obtain();
 
         Bundle messageBundle = new Bundle();
         messageBundle.putString("UsernameKey", resUsername);
+        messageBundle.putString("AuthtokenKey", resAuthtoken);
 
         message.setData(messageBundle);
 

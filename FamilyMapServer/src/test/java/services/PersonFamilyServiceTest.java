@@ -23,7 +23,7 @@ class PersonFamilyServiceTest {
                 "brighamband@gmail.com", "Brigham", "Andersen", "m");
         RegisterService registerService = new RegisterService();
         RegisterResult registerResult = registerService.register(registerRequest);
-        authtoken = registerResult.getAuthToken();
+        authtoken = registerResult.getAuthtoken();
 
         personFamilyService = new PersonFamilyService();
     }

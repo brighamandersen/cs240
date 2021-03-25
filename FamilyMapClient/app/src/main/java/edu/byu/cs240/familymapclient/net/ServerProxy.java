@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.byu.cs240.familymapclient.model.DataCache;
 import requests.LoginRequest;
 import requests.RegisterRequest;
 import results.EventFamilyResult;
@@ -23,10 +24,8 @@ import static utils.StringUtils.writeString;
  * Creates the HTTP requests to send to the server
  */
 public class ServerProxy {
-    // Have user input for these two variables go straight here and be stored during usage
     private final String serverHostName;
     private final int serverPortNumber;
-    // public static String authtoken;  // maybe just store auth token here is you have it immediately when you need it
 
     public ServerProxy(String serverHostName, int serverPortNumber) {
         this.serverHostName = serverHostName;

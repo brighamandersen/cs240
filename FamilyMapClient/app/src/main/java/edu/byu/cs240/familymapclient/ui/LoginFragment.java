@@ -20,6 +20,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import edu.byu.cs240.familymapclient.R;
+import edu.byu.cs240.familymapclient.model.DataCache;
+import edu.byu.cs240.familymapclient.net.DataSyncTask;
 import edu.byu.cs240.familymapclient.net.LoginTask;
 
 import static java.lang.Integer.parseInt;
@@ -57,29 +59,41 @@ public class LoginFragment extends Fragment {
     }
 
     private void onLoginClick() {
-//        Toast.makeText(getActivity(), "Login Button Clicked", Toast.LENGTH_SHORT).show();
-
         Handler uiThreadMsgHandler = new Handler(Looper.getMainLooper()) {
             @Override
             public void handleMessage(@NonNull Message msg) {
                 super.handleMessage(msg);
 
                 Bundle bundle = msg.getData();
-                String authUsername = bundle.getString("UsernameKey");
+                String resUsername = bundle.getString("UsernameKey");
+                String resAuthtoken = bundle.getString("AuthtokenKey");
+                String resPersonID = bundle.getString("PersonIDKey");
 
-                if (authUsername == null) {
+                if (resUsername == null || resAuthtoken == null) {
                     Toast.makeText(getActivity(), "Login failed.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 Toast.makeText(getActivity(), "Login successful!  Username: " +
-                        authUsername, Toast.LENGTH_SHORT).show();
+                        resUsername, Toast.LENGTH_SHORT).show();
                 renderMapFragment();
+
+                DataSyncTask dataSyncTask = new DataSyncTask(
+                        uiThreadMsgHandler,
+                        serverHostET.getText().toString(),
+                        parseInt(serverPortET.getText().toString()),
+                        resAuthtoken,
+                        resPersonID
+                );
+
+                ExecutorService executor = Executors.newSingleThreadExecutor();
+                executor.submit(dataSyncTask);
             }
         };
 
         LoginTask loginTask = new LoginTask(
-                uiThreadMsgHandler, serverHostET.getText().toString(),
+                uiThreadMsgHandler,
+                serverHostET.getText().toString(),
                 parseInt(serverPortET.getText().toString()),
                 usernameET.getText().toString(),
                 passwordET.getText().toString()

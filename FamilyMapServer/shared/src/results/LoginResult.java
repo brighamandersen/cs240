@@ -38,11 +38,11 @@ public class LoginResult extends Result {
         super(message);
     }
 
-    public String getAuthToken() {
+    public String getAuthtoken() {
         return authtoken;
     }
 
-    public void setAuthToken(String authtoken) {
+    public void setAuthtoken(String authtoken) {
         this.authtoken = authtoken;
     }
 
