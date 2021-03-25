@@ -22,9 +22,9 @@ public class MapFragment extends Fragment {
                              Bundle savedInstanceState) {
 //        return inflater.inflate(R.layout.fragment_map, container, false);
         View view = inflater.inflate(R.layout.fragment_map, container, false);
-        logoutButton = (Button) view.findViewById(R.id.btLogout);
+        logoutButton = view.findViewById(R.id.btLogout);
         logoutButton.setOnClickListener(v -> {
-            Toast.makeText(getActivity(), "Logout Button Clicked", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(), "Logout Button Clicked", Toast.LENGTH_SHORT).show();
             renderLoginFragment();
         });
         return view;

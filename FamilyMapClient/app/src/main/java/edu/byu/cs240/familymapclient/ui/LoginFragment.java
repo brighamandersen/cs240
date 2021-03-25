@@ -1,27 +1,38 @@
 package edu.byu.cs240.familymapclient.ui;
 
-import android.app.Activity;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import edu.byu.cs240.familymapclient.R;
+import edu.byu.cs240.familymapclient.net.LoginTask;
+
+import static java.lang.Integer.parseInt;
 
 /**
  * Implements the login/register screens.
  */
 public class LoginFragment extends Fragment {
-    // Calls LoginTask to perform login/register and data retrieval
-    // Notifies MainActivity when login succeeds or fails
-
-    private Button loginButton;
+    private EditText serverHostET;
+    private EditText serverPortET;
+    private EditText usernameET;
+    private EditText passwordET;
+//    private Button loginButton;
 
     private View.OnClickListener listener;
 
@@ -29,18 +40,52 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        loginButton = (Button) view.findViewById(R.id.btLogin);
-        loginButton.setOnClickListener(v -> {
-            Toast.makeText(getActivity(), "Login Button Clicked", Toast.LENGTH_SHORT).show();
-            renderMapFragment();
-        });
+        serverHostET = view.findViewById(R.id.etServerHost);
+        serverPortET = view.findViewById(R.id.etServerPort);
+        usernameET = view.findViewById(R.id.etUsername);
+        passwordET = view.findViewById(R.id.etPassword);
+        Button loginButton = view.findViewById(R.id.btLogin);
+        loginButton.setOnClickListener(v -> onLoginClick());
         return view;
     }
 
-    public void renderMapFragment() {
+    private void renderMapFragment() {
         FragmentManager fm = this.getParentFragmentManager();
         MapFragment mapFragment = new MapFragment();
 
         fm.beginTransaction().replace(R.id.mainActivityFrameLayout, mapFragment).commit();
+    }
+
+    private void onLoginClick() {
+//        Toast.makeText(getActivity(), "Login Button Clicked", Toast.LENGTH_SHORT).show();
+
+        Handler uiThreadMsgHandler = new Handler(Looper.getMainLooper()) {
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+
+                Bundle bundle = msg.getData();
+                String authUsername = bundle.getString("UsernameKey");
+
+                if (authUsername == null) {
+                    Toast.makeText(getActivity(), "Login failed.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Toast.makeText(getActivity(), "Login successful!  Username: " +
+                        authUsername, Toast.LENGTH_SHORT).show();
+                renderMapFragment();
+            }
+        };
+
+        LoginTask loginTask = new LoginTask(
+                uiThreadMsgHandler, serverHostET.getText().toString(),
+                parseInt(serverPortET.getText().toString()),
+                usernameET.getText().toString(),
+                passwordET.getText().toString()
+        );
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(loginTask);
     }
 }

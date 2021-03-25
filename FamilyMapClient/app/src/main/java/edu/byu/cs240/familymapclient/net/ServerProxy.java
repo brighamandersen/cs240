@@ -12,6 +12,7 @@ import results.EventFamilyResult;
 import results.LoginResult;
 import results.PersonFamilyResult;
 import results.RegisterResult;
+import results.Result;
 
 import static utils.JsonUtils.deserializeJson;
 import static utils.JsonUtils.serializeJson;
@@ -23,9 +24,14 @@ import static utils.StringUtils.writeString;
  */
 public class ServerProxy {
     // Have user input for these two variables go straight here and be stored during usage
-    public static String serverHostName;
-    public static int serverPortNumber;
+    private final String serverHostName;
+    private final int serverPortNumber;
     // public static String authtoken;  // maybe just store auth token here is you have it immediately when you need it
+
+    public ServerProxy(String serverHostName, int serverPortNumber) {
+        this.serverHostName = serverHostName;
+        this.serverPortNumber = serverPortNumber;
+    }
 
     public LoginResult login(LoginRequest r) {
         String reqData = serializeJson(r);
@@ -41,17 +47,19 @@ public class ServerProxy {
         return deserializeJson(resData, RegisterResult.class);
     }
 
-    public PersonFamilyResult fetchAllPeople(String reqToken) {
-        return null;
+    public PersonFamilyResult fetchAllPersons(String reqToken) {
+        String resData = sendRequest("person", "GET", reqToken, null);
+
+        return deserializeJson(resData, PersonFamilyResult.class);
     }
 
     public EventFamilyResult fetchAllEvents(String reqToken) {
-        return null;
+        String resData = sendRequest("event", "GET", reqToken, null);
+
+        return deserializeJson(resData, EventFamilyResult.class);
     }
 
     private String sendRequest(String endpoint, String reqMethod, String authtoken, String reqData) {
-        String resData = null;
-
         try {
             URL url = new URL("http://" + serverHostName + ":" + serverPortNumber + "/" + endpoint);
 
@@ -81,33 +89,17 @@ public class ServerProxy {
                 reqBody.close();
             }
 
-            if (http.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                InputStream resBody = http.getInputStream();
-                resData = readString(resBody);
-
-                System.out.println("Successful request made and response received");
+            InputStream resBody;
+            if (http.getResponseCode()  == HttpURLConnection.HTTP_OK) {
+                resBody = http.getInputStream();
             } else {
-                System.out.println("Error: " + http.getResponseMessage());
+                resBody = http.getErrorStream();
             }
+
+            return readString(resBody);
         } catch (IOException e) {
-            e.printStackTrace();
+            Result badResult = new Result(e.getMessage());
+            return serializeJson(badResult);
         }
-        return resData;
-    }
-
-    public static String getServerHostName() {
-        return serverHostName;
-    }
-
-    public static void setServerHostName(String serverHostName) {
-        ServerProxy.serverHostName = serverHostName;
-    }
-
-    public static int getServerPortNumber() {
-        return serverPortNumber;
-    }
-
-    public static void setServerPortNumber(int serverPortNumber) {
-        ServerProxy.serverPortNumber = serverPortNumber;
     }
 }

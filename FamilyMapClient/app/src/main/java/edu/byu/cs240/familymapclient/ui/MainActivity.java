@@ -13,7 +13,7 @@ import android.widget.Toast;
 import edu.byu.cs240.familymapclient.R;
 
 /**
- * Just embeds a fragment, either LoginFragment or MapFragment, depending if user is logged in (checked via callback).
+ * Embeds a fragment, either LoginFragment or MapFragment, depending if user is logged in (checked via callback).
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -31,13 +31,5 @@ public class MainActivity extends AppCompatActivity {
         LoginFragment loginFragment = new LoginFragment();
 
         fm.beginTransaction().add(R.id.mainActivityFrameLayout, loginFragment).commit();
-
-        // TODO - Add logic so that if callback from login returns success, swap out Login Fragment for Map Fragment
-        // if user is logged in
-        // else
-//            replaceWithMapFragment();
     }
-
-    // handleMsg
-        // if user is logged in
 }

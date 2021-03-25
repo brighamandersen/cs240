@@ -6,9 +6,7 @@ import results.LoginResult;
 
 public class HelloWorld {
     public static void main(String[] args) {
-        ServerProxy serverProxy = new ServerProxy();
-        ServerProxy.setServerHostName("localhost");
-        ServerProxy.setServerPortNumber(8080);
+        ServerProxy serverProxy = new ServerProxy("localhost", 8080);
 
         LoginRequest loginRequest = new LoginRequest("brighamband", "password");
         LoginResult loginResult = serverProxy.login(loginRequest);
