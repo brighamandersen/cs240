@@ -24,53 +24,14 @@ public class DataCache {
         instance = new DataCache();
     }
 
-    // DataCache Instance Functions
-        // clear
-        // startSync
-        // endSync
-
-    // Getters/setters/helpers for edu.byu.cs240.familymapclient.model objects
-    public static Map<String, Person> getPersons() {
-        return instance._getPersons();
+    /**
+     * Used for logging out a user
+     */
+    public static void clear() {
+        instance = null;
     }
 
-    public static void setPersons(Map<String, Person> persons) {
-        instance._setPersons(persons);
-    }
-
-    public static void addPerson(String personID, Person person) {
-        instance._addPerson(personID, person);
-    }
-
-    public static Map<String, Event> getEvents() {
-        return instance._getEvents();
-    }
-
-    public static void setEvents(Map<String, Event> events) {
-        instance._setEvents(events);
-    }
-
-    public static void addEvent(String eventID, Event event) {
-        instance._addEvent(eventID, event);
-    }
-
-    public static Map<String, List<Event>> getPersonEvents() {
-        return instance._getPersonEvents();
-    }
-
-    public static void setPersonEvents(Map<String, List<Event>> personEvents) {
-        instance._setPersonEvents(personEvents);
-    }
-
-    public static Person getUser() {
-        return instance._getUser();
-    }
-
-    public static void setUser(Person user) {
-        instance._setUser(user);
-    }
-
-    private Map<String, Person> persons;    // String is id
+    private Map<String, Person> persons;
     private Map<String, Event> events;
     private Map<String, List<Event>> personEvents;
     private Person user;
@@ -82,46 +43,43 @@ public class DataCache {
         user = null;
     }
 
-    private Map<String, Person> _getPersons() {
-        return persons;
+    public static Map<String, Person> getPersons() {
+        return DataCache.getInstance().persons;
     }
 
-    private void _setPersons(Map<String, Person> persons) {
-        this.persons = persons;
+    public static void setPersons(Map<String, Person> persons) {
+        DataCache.getInstance().persons = persons;
     }
 
-    private void _addPerson(String personID, Person person) {
-        persons.put(personID, person);
+    public static void addPerson(String personID, Person person) {
+        DataCache.getInstance().persons.put(personID, person);
     }
 
-    private Map<String, Event> _getEvents() {
-        return events;
+    public static Map<String, Event> getEvents() {
+        return DataCache.getInstance().events;
     }
 
-    private void _setEvents(Map<String, Event> events) {
-        this.events = events;
+    public static void setEvents(Map<String, Event> events) {
+        DataCache.getInstance().events = events;
     }
 
-    private void _addEvent(String eventID, Event event) {
-        events.put(eventID, event);
+    public static void addEvent(String eventID, Event event) {
+        DataCache.getInstance().events.put(eventID, event);
     }
 
-    private Map<String, List<Event>> _getPersonEvents() {
-        return personEvents;
+    public static Map<String, List<Event>> getPersonEvents() {
+        return DataCache.getInstance().personEvents;
     }
 
-    private void _setPersonEvents(Map<String, List<Event>> personEvents) {
-        this.personEvents = personEvents;
+    public static void setPersonEvents(Map<String, List<Event>> personEvents) {
+        DataCache.getInstance().personEvents = personEvents;
     }
 
-    private Person _getUser() {
-        return user;
+    public static Person getUser() {
+        return DataCache.getInstance().user;
     }
 
-    private void _setUser(Person user) {
-        this.user = user;
+    public static void setUser(Person user) {
+        DataCache.getInstance().user = user;
     }
 }
-
-// How to use
-// edu.byu.cs240.familymapclient.model.DataCache.getInstance().sampleMethod();

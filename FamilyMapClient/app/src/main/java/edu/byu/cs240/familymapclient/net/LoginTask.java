@@ -33,15 +33,16 @@ public class LoginTask implements Runnable {
         LoginRequest loginRequest = new LoginRequest(username, password);
         LoginResult loginResult = serverProxy.login(loginRequest);
 
-        sendMessage(loginResult.getUsername(), loginResult.getAuthtoken());
+        sendMessage(loginResult.getUsername(), loginResult.getAuthtoken(), loginResult.getPersonID());
     }
 
-    private void sendMessage(String resUsername, String resAuthtoken) {
+    private void sendMessage(String resUsername, String resAuthtoken, String resPersonID) {
         Message message = Message.obtain();
 
         Bundle messageBundle = new Bundle();
         messageBundle.putString("UsernameKey", resUsername);
         messageBundle.putString("AuthtokenKey", resAuthtoken);
+        messageBundle.putString("PersonIDKey", resPersonID);
 
         message.setData(messageBundle);
 
