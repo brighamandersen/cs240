@@ -4,33 +4,30 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-import requests.LoginRequest;
-import results.LoginResult;
+import requests.RegisterRequest;
+import results.RegisterResult;
 
-/**
- * Calls server asynchronously on background thread to login/register.
- */
-public class LoginTask implements Runnable {
+public class RegisterTask implements Runnable {
     private final Handler messageHandler;
     private final String serverHostName;
     private final int serverPortNumber;
-    private final LoginRequest loginRequest;
+    private final RegisterRequest registerRequest;
 
-    public LoginTask(Handler messageHandler, String serverHostName,
-                     int serverPortNumber, LoginRequest loginRequest) {
+    public RegisterTask(Handler messageHandler, String serverHostName,
+                        int serverPortNumber, RegisterRequest registerRequest) {
         this.messageHandler = messageHandler;
         this.serverHostName = serverHostName;
         this.serverPortNumber = serverPortNumber;
-        this.loginRequest = loginRequest;
+        this.registerRequest = registerRequest;
     }
 
     @Override
     public void run() {
         ServerProxy serverProxy = new ServerProxy(serverHostName, serverPortNumber);
 
-        LoginResult loginResult = serverProxy.login(loginRequest);
+        RegisterResult registerResult = serverProxy.register(registerRequest);
 
-        sendMessage(loginResult.getUsername(), loginResult.getAuthtoken(), loginResult.getPersonID());
+        sendMessage(registerResult.getUsername(), registerResult.getAuthtoken(), registerResult.getPersonID());
     }
 
     private void sendMessage(String resUsername, String resAuthtoken, String resPersonID) {

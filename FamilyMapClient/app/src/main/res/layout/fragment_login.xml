@@ -169,10 +169,10 @@
             android:text="@string/gender_label" />
 
         <RadioGroup
+            android:id="@+id/rgGender"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:weightSum="1"
-            android:id="@+id/rgGender"
             android:orientation="horizontal">
 
             <RadioButton

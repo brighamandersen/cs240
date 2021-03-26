@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import edu.byu.cs240.familymapclient.R;
+import edu.byu.cs240.familymapclient.model.DataCache;
 import requests.LoginRequest;
 
 public class MapFragment extends Fragment {
@@ -20,10 +21,10 @@ public class MapFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        return inflater.inflate(R.layout.fragment_map, container, false);
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         logoutButton = (Button) view.findViewById(R.id.btLogout);
         logoutButton.setOnClickListener(v -> {
+            logOut();
             renderLoginFragment();
         });
         return view;
@@ -34,5 +35,9 @@ public class MapFragment extends Fragment {
         LoginFragment loginFragment = new LoginFragment();
 
         fm.beginTransaction().replace(R.id.mainActivityFrameLayout, loginFragment).commit();
+    }
+
+    private void logOut() {
+        DataCache.clear();
     }
 }

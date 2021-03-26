@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -26,6 +27,9 @@ import edu.byu.cs240.familymapclient.R;
 import edu.byu.cs240.familymapclient.model.DataCache;
 import edu.byu.cs240.familymapclient.net.DataSyncTask;
 import edu.byu.cs240.familymapclient.net.LoginTask;
+import edu.byu.cs240.familymapclient.net.RegisterTask;
+import requests.LoginRequest;
+import requests.RegisterRequest;
 
 import static java.lang.Integer.parseInt;
 
@@ -41,6 +45,7 @@ public class LoginFragment extends Fragment {
     private EditText lastNameET;
     private EditText emailET;
     private RadioGroup genderRG;
+    private RadioButton genderRB;
     private Button loginButton;
     private Button registerButton;
 
@@ -76,11 +81,9 @@ public class LoginFragment extends Fragment {
         emailET.addTextChangedListener(registerWatcher);
 
         genderRG = (RadioGroup) view.findViewById(R.id.rgGender);
-        genderRG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                checkRegisterFilled();
-            }
+        genderRG.setOnCheckedChangeListener((RadioGroup.OnCheckedChangeListener) (group, checkedId) -> {
+            checkRegisterFilled();
+            genderRB = (RadioButton) view.findViewById(checkedId);
         });
 
         loginButton = (Button) view.findViewById(R.id.btLogin);
@@ -89,63 +92,17 @@ public class LoginFragment extends Fragment {
 
         registerButton = (Button) view.findViewById(R.id.btRegister);
         registerButton.setEnabled(false);
+        registerButton.setOnClickListener(v -> onRegisterClick());
+
         return view;
-    }
-
-    private void renderMapFragment() {
-        FragmentManager fm = this.getParentFragmentManager();
-        MapFragment mapFragment = new MapFragment();
-
-        fm.beginTransaction().replace(R.id.mainActivityFrameLayout, mapFragment).commit();
-    }
-
-    private void onLoginClick() {
-        Handler uiLoginHandler = new Handler(Looper.getMainLooper()) {
-            @Override
-            public void handleMessage(@NonNull Message msg) {
-                super.handleMessage(msg);
-
-                Bundle bundle = msg.getData();
-                String resUsername = bundle.getString("UsernameKey");
-                String resAuthtoken = bundle.getString("AuthtokenKey");
-                String userPersonID = bundle.getString("PersonIDKey");
-
-                if (resUsername == null || resAuthtoken == null) {
-                    Toast.makeText(getActivity(), "Login failed.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                Toast.makeText(getActivity(), "Login successful!  Username: " +
-                        resUsername, Toast.LENGTH_SHORT).show();
-
-//                performDataSync(resAuthtoken, userPersonID);
-
-                renderMapFragment();
-            }
-        };
-
-        LoginTask loginTask = new LoginTask(
-                uiLoginHandler,
-                serverHostET.getText().toString(),
-                parseInt(serverPortET.getText().toString()),
-                usernameET.getText().toString(),
-                passwordET.getText().toString()
-        );
-
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        executor.submit(loginTask);
     }
 
     TextWatcher loginWatcher = new TextWatcher() {
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
+        public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
         @Override
         public void afterTextChanged(Editable s) {
@@ -165,16 +122,60 @@ public class LoginFragment extends Fragment {
         loginButton.setEnabled(true);
     }
 
+    private void onLoginClick() {
+        Handler uiLoginHandler = new Handler(Looper.getMainLooper()) {
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+
+                Bundle bundle = msg.getData();
+                String resUsername = bundle.getString("UsernameKey");
+                String resAuthtoken = bundle.getString("AuthtokenKey");
+                String userPersonID = bundle.getString("PersonIDKey");
+
+                if (resUsername == null || resAuthtoken == null) {
+                    Toast.makeText(getActivity(), "Login failed.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+//                Toast.makeText(getActivity(), "Login successful!  Username: " +
+//                        resUsername, Toast.LENGTH_SHORT).show();
+
+                performDataSync(resAuthtoken, userPersonID);
+
+//                renderMapFragment();
+            }
+        };
+
+        LoginRequest loginRequest = new LoginRequest(
+                usernameET.getText().toString(),
+                passwordET.getText().toString()
+        );
+
+        LoginTask loginTask = new LoginTask(
+                uiLoginHandler,
+                serverHostET.getText().toString(),
+                parseInt(serverPortET.getText().toString()),
+                loginRequest
+        );
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(loginTask);
+    }
+
+    private void renderMapFragment() {
+        FragmentManager fm = this.getParentFragmentManager();
+        MapFragment mapFragment = new MapFragment();
+
+        fm.beginTransaction().replace(R.id.mainActivityFrameLayout, mapFragment).commit();
+    }
+
     TextWatcher registerWatcher = new TextWatcher() {
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
+        public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
         @Override
         public void afterTextChanged(Editable s) {
@@ -197,6 +198,56 @@ public class LoginFragment extends Fragment {
         }
 
         registerButton.setEnabled(true);
+    }
+
+    private void onRegisterClick() {
+        Handler uiRegisterHandler = new Handler(Looper.getMainLooper()) {
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+
+                Bundle bundle = msg.getData();
+                String resUsername = bundle.getString("UsernameKey");
+                String resAuthtoken = bundle.getString("AuthtokenKey");
+                String userPersonID = bundle.getString("PersonIDKey");
+
+                if (resUsername == null || resAuthtoken == null) {
+                    Toast.makeText(getActivity(), "Register failed.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+//                Toast.makeText(getActivity(), "Register successful!  Username: " +
+//                        resUsername, Toast.LENGTH_SHORT).show();
+
+                performDataSync(resAuthtoken, userPersonID);
+
+//                renderMapFragment();
+            }
+        };
+
+        String genderAbbreviation = "m";
+        if (genderRB.getText().toString().equals("Female")) {
+            genderAbbreviation = "f";
+        }
+
+        RegisterRequest registerRequest = new RegisterRequest(
+                usernameET.getText().toString(),
+                passwordET.getText().toString(),
+                emailET.getText().toString(),
+                firstNameET.getText().toString(),
+                lastNameET.getText().toString(),
+                genderAbbreviation
+        );
+
+        RegisterTask registerTask = new RegisterTask(
+                uiRegisterHandler,
+                serverHostET.getText().toString(),
+                parseInt(serverPortET.getText().toString()),
+                registerRequest
+        );
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(registerTask);
     }
 
     private void performDataSync(String authtoken, String userPersonID) {
