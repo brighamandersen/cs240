@@ -22,6 +22,8 @@ import edu.byu.cs240.familymapclient.model.DataCache;
 
 public class MapFragment extends Fragment {
 
+    private GoogleMap gMap;
+
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
         /**
@@ -35,9 +37,11 @@ public class MapFragment extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
+            gMap = googleMap;
+
             LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            gMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+            gMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         }
     };
 
@@ -68,5 +72,6 @@ public class MapFragment extends Fragment {
 
     private void logOut() {
         DataCache.clear();
+        // Also call invalidateOptionsMenu() so that you can reset the menu bar
     }
 }

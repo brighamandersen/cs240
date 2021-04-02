@@ -4,4 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="edu.byu.cs240.familymapclient.ui.MainActivity"
-    android:id="@+id/mainActivityFrameLayout" />
+    android:id="@+id/mainActivityFrameLayout"
+    android:name=".ui.MainActivity"
+    android:launchMode="singleTop"
+    />

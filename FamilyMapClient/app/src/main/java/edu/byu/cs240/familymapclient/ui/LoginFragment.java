@@ -168,6 +168,8 @@ public class LoginFragment extends Fragment {
         MapFragment mapFragment = new MapFragment();
 
         fm.beginTransaction().replace(R.id.mainActivityFrameLayout, mapFragment).commit();
+
+        // Also call invalidateOptionsMenu() so that you can reset the menu bar
     }
 
     TextWatcher registerWatcher = new TextWatcher() {
