@@ -1,14 +1,9 @@
 package edu.byu.cs240.familymapclient.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import edu.byu.cs240.familymapclient.R;
 import edu.byu.cs240.familymapclient.model.DataCache;
@@ -27,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fm = this.getSupportFragmentManager();
         LoginFragment loginFragment = new LoginFragment();
 
-        fm.beginTransaction().add(R.id.mainActivityFrameLayout, loginFragment).commit();
+        // renders login fragment
+//        fm.beginTransaction().add(R.id.mainActivityFrameLayout, loginFragment).commit();
+        // renders map fragment
+        MapFragment mapFragment = new MapFragment();
+        fm.beginTransaction().replace(R.id.mainActivityFrameLayout, mapFragment).commit();
     }
 }
