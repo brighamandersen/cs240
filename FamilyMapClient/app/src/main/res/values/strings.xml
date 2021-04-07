@@ -22,4 +22,17 @@
     <string name="login_button">LOG IN</string>
     <string name="register_button">REGISTER</string>
     <string name="logout_button">LOG OUT</string>
+    <string name="life_story_lines_label">Life Story Lines</string>
+    <string name="life_story_lines_description">SHOW LIFE STORY LINES</string>
+    <string name="family_tree_lines_label">Family Tree Lines</string>
+    <string name="family_tree_lines_description">SHOW FAMILY TREE LINES</string>
+    <string name="fathers_side_label">Father\'s Side</string>
+    <string name="fathers_side_description">FILTER BY FATHER\'S SIDE OF FAMILY</string>
+    <string name="mothers_side_label">Mother\'s Side</string>
+    <string name="mothers_side_description">FILTER BY MOTHER\'S SIDE OF FAMILY</string>
+    <string name="male_events_label">Male Events</string>
+    <string name="female_events_label">Female Events</string>
+    <string name="gender_events_description">FILTER BY EVENTS BASED ON GENDER</string>
+    <string name="logout_label">Logout</string>
+    <string name="logout_description">RETURN TO LOGIN SCREEN</string>
 </resources>

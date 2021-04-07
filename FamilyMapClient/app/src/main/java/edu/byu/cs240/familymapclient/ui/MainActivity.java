@@ -16,18 +16,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_settings);
 
-        DataCache.initialize();
-
-        FragmentManager fm = this.getSupportFragmentManager();
-        LoginFragment loginFragment = new LoginFragment();
+//        DataCache.initialize();
+//
+//        FragmentManager fm = this.getSupportFragmentManager();
+//        LoginFragment loginFragment = new LoginFragment();
 
         // renders login fragment
 //        fm.beginTransaction().add(R.id.mainActivityFrameLayout, loginFragment).commit();
         // renders map fragment
-        MapFragment mapFragment = new MapFragment();
-        fm.beginTransaction().replace(R.id.mainActivityFrameLayout, mapFragment).commit();
+//        MapFragment mapFragment = new MapFragment();
+//        fm.beginTransaction().replace(R.id.mainActivityFrameLayout, mapFragment).commit();
 
 
 
