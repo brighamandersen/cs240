@@ -3,6 +3,7 @@ package edu.byu.cs240.familymapclient.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 
@@ -17,8 +18,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
-        setContentView(R.layout.activity_settings);
-
+        setContentView(R.layout.activity_person);
 //        DataCache.initialize();
 //
 //        FragmentManager fm = this.getSupportFragmentManager();
@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
         // renders map fragment
 //        MapFragment mapFragment = new MapFragment();
 //        fm.beginTransaction().replace(R.id.mainActivityFrameLayout, mapFragment).commit();
-
-
 
         // When the app starts
             // check to see if user is logged in

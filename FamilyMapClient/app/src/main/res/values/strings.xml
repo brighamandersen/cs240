@@ -35,4 +35,6 @@
     <string name="gender_events_description">FILTER BY EVENTS BASED ON GENDER</string>
     <string name="logout_label">Logout</string>
     <string name="logout_description">RETURN TO LOGIN SCREEN</string>
+    <string name="person_last_name_label">Last Name</string>
+    <string name="person_gender_label">Gender</string>
 </resources>

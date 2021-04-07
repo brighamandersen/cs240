@@ -19,6 +19,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textStyle="bold"
                 android:text="@string/life_story_lines_label" />
 
             <TextView
@@ -51,6 +52,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textStyle="bold"
                 android:text="@string/family_tree_lines_label" />
 
             <TextView
@@ -82,6 +84,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textStyle="bold"
                 android:text="@string/fathers_side_label" />
 
             <TextView
@@ -113,6 +116,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textStyle="bold"
                 android:text="@string/mothers_side_label" />
 
             <TextView
@@ -144,6 +148,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textStyle="bold"
                 android:text="@string/male_events_label" />
 
             <TextView
@@ -175,6 +180,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textStyle="bold"
                 android:text="@string/female_events_label" />
 
             <TextView
@@ -201,6 +207,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textStyle="bold"
             android:text="@string/logout_label" />
 
         <TextView
