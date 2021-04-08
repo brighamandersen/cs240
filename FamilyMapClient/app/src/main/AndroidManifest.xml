@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FamilyMapClient"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.PersonActivity"></activity>
+        <activity android:name=".ui.PersonActivity" />
+        <activity android:name=".ui.SearchActivity" />
         <activity android:name=".ui.SettingsActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

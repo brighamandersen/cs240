@@ -10,14 +10,14 @@ import java.util.Objects;
 
 import edu.byu.cs240.familymapclient.R;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_search);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Family Map: Settings");
+        getSupportActionBar().setTitle("Family Map: Search");
     }
 
     /**

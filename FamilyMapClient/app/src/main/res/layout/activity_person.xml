@@ -13,12 +13,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="{FIRST NAME}" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="First Name" />
+            android:text="@string/person_first_name_label" />
 
     </LinearLayout>
 
@@ -32,6 +33,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="{LAST NAME}" />
 
         <TextView
@@ -51,6 +53,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="{GENDER}" />
 
         <TextView
@@ -62,4 +65,27 @@
 
     <View style="@style/Divider"/>
 
+    <ExpandableListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="0.5dp"
+        android:id="@+id/lifeEventsExpListView"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="hello" />
+<!--        check, might be match parent above-->
+
+<!--    <ExpandableListView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"-->
+<!--        android:divider="@android:color/darker_gray"-->
+<!--        android:dividerHeight="0.5dp"-->
+<!--        />-->
+    <!--        check, might be match parent above-->
 </LinearLayout>

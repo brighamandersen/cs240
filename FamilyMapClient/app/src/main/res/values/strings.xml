@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Family Map</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="map_fragment_placeholder">Hello from map fragment</string>
     <string name="server_host_label">Server Host:</string>
     <string name="server_host_placeholder">10.0.2.2</string>
     <string name="server_port_label">Server Port:</string>
@@ -35,6 +33,7 @@
     <string name="gender_events_description">FILTER BY EVENTS BASED ON GENDER</string>
     <string name="logout_label">Logout</string>
     <string name="logout_description">RETURN TO LOGIN SCREEN</string>
+    <string name="person_first_name_label">First Name</string>
     <string name="person_last_name_label">Last Name</string>
     <string name="person_gender_label">Gender</string>
 </resources>

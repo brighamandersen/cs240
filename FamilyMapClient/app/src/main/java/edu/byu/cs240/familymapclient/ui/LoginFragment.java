@@ -1,5 +1,6 @@
 package edu.byu.cs240.familymapclient.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -49,6 +50,13 @@ public class LoginFragment extends Fragment {
     private Button loginButton;
     private Button registerButton;
 
+    // FIXME -- DELETE THESE LATER
+
+    private Button mapButton;
+    private Button personButton;
+    private Button searchButton;
+    private Button settingsButton;
+
     private View.OnClickListener listener;
 
     @Override
@@ -94,6 +102,27 @@ public class LoginFragment extends Fragment {
         registerButton.setEnabled(false);
         registerButton.setOnClickListener(v -> onRegisterClick());
 
+        // FIXME -- These buttons are temporary just for navigation
+
+        mapButton = (Button) view.findViewById(R.id.btMap);
+        mapButton.setOnClickListener(v -> renderMapFragment());
+
+        personButton = (Button) view.findViewById(R.id.btPerson);
+        personButton.setOnClickListener(v -> onPersonClick());
+
+        searchButton = (Button) view.findViewById(R.id.btSearch);
+        searchButton.setOnClickListener(v -> onSearchClick());
+
+        settingsButton = (Button) view.findViewById(R.id.btSettings);
+        settingsButton.setOnClickListener(v -> onSettingsClick());
+
+        // FIXME -- DELETE LATER (Just setting fields to make login faster
+
+        serverHostET.setText("10.0.2.2");
+        serverPortET.setText("8080");
+        usernameET.setText("su");
+        passwordET.setText("su");
+
         return view;
     }
 
@@ -138,8 +167,7 @@ public class LoginFragment extends Fragment {
                     return;
                 }
 
-//                Toast.makeText(getActivity(), "Login successful!  Username: " +
-//                        resUsername, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Login successful!  Username: " + resUsername, Toast.LENGTH_SHORT).show();
 
                 performDataSync(resAuthtoken, userPersonID);
 
@@ -218,8 +246,7 @@ public class LoginFragment extends Fragment {
                     return;
                 }
 
-//                Toast.makeText(getActivity(), "Register successful!  Username: " +
-//                        resUsername, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Register successful!  Username: " + resUsername, Toast.LENGTH_SHORT).show();
 
                 performDataSync(resAuthtoken, userPersonID);
 
@@ -277,5 +304,20 @@ public class LoginFragment extends Fragment {
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.submit(dataSyncTask);
+    }
+
+    private void onPersonClick() {
+        Intent intent = new Intent(getActivity(), PersonActivity.class);
+        startActivity(intent);
+    }
+
+    private void onSearchClick() {
+        Intent intent = new Intent(getActivity(), SearchActivity.class);
+        startActivity(intent);
+    }
+
+    private void onSettingsClick() {
+        Intent intent = new Intent(getActivity(), SettingsActivity.class);
+        startActivity(intent);
     }
 }

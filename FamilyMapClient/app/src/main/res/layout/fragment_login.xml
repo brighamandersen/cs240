@@ -217,4 +217,36 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="MAP"
+        android:layout_margin="5dp" />
+
+    <Button
+        android:id="@+id/btPerson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="PERSON"
+        android:layout_margin="5dp" />
+
+    <Button
+        android:id="@+id/btSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="SEARCH"
+        android:layout_margin="5dp" />
+
+    <Button
+        android:id="@+id/btSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="SETTINGS"
+        android:layout_margin="5dp" />
+
 </LinearLayout>

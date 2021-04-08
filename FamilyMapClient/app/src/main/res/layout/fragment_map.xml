@@ -18,7 +18,7 @@ android:layout_height="match_parent">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="@string/map_fragment_placeholder"
+        android:text="MAP FRAGMENT - FIXME"
         android:layout_alignParentBottom="true"
         android:textAlignment="center"/>
 
