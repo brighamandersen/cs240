@@ -54,6 +54,7 @@ public class LoginFragment extends Fragment {
 
     private Button mapButton;
     private Button personButton;
+    private Button eventButton;
     private Button searchButton;
     private Button settingsButton;
 
@@ -109,6 +110,9 @@ public class LoginFragment extends Fragment {
 
         personButton = (Button) view.findViewById(R.id.btPerson);
         personButton.setOnClickListener(v -> onPersonClick());
+
+        eventButton = (Button) view.findViewById(R.id.btEvent);
+        eventButton.setOnClickListener(v -> onEventClick());
 
         searchButton = (Button) view.findViewById(R.id.btSearch);
         searchButton.setOnClickListener(v -> onSearchClick());
@@ -308,6 +312,11 @@ public class LoginFragment extends Fragment {
 
     private void onPersonClick() {
         Intent intent = new Intent(getActivity(), PersonActivity.class);
+        startActivity(intent);
+    }
+
+    private void onEventClick() {
+        Intent intent = new Intent(getActivity(), EventActivity.class);
         startActivity(intent);
     }
 

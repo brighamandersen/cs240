@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 
 import edu.byu.cs240.familymapclient.R;
 import edu.byu.cs240.familymapclient.model.DataCache;
@@ -39,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // if user is logged in
-            // instead search/settings menu
+            // install search/settings menu
+//                    MenuInflater inflater = getMenuInflater();
+//                    inflater.inflate(R.menu.menu, menu);
         // else
             // don't install a menu
 
