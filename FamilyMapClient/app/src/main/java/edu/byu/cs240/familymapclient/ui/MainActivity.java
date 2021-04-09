@@ -26,22 +26,15 @@ public class MainActivity extends AppCompatActivity {
 
         Iconify.with(new FontAwesomeModule());
 
-        FragmentManager fm = this.getSupportFragmentManager();
         LoginFragment loginFragment = new LoginFragment();
-//        MapFragment mapFragment = new MapFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.mainActivityFrameLayout, loginFragment).commit();
+    }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
 
-
-//        if (DataCache.getUser() != null) {
-//            // renders map fragment
-//            fm.beginTransaction().replace(R.id.mainActivityFrameLayout, mapFragment).commit();
-//        } else {
-            // renders login fragment
-            fm.beginTransaction().add(R.id.mainActivityFrameLayout, loginFragment).commit();
-//        }
-        // When the app starts
-            // check to see if user is logged in
-            // make sure the appropriate fragment is active
-            // call invalidateOptionsMenu() to force onCreateOptionsMenu(...) to be called again
+        LoginFragment loginFragment = new LoginFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainActivityFrameLayout, loginFragment).commit();
     }
 }

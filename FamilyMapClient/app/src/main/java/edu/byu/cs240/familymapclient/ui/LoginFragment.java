@@ -126,7 +126,7 @@ public class LoginFragment extends Fragment {
 
         // FIXME -- DELETE LATER (Just setting fields to make login faster
 
-        serverHostET.setText("192.168.253.177");
+        serverHostET.setText("192.168.1.116");
         serverPortET.setText("8080");
         usernameET.setText("su");
         passwordET.setText("su");
