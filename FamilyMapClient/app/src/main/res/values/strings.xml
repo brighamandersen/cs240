@@ -38,4 +38,5 @@
     <string name="person_gender_label">Gender</string>
     <string name="search_menu_item_label">Search</string>
     <string name="settings_menu_icon_label">SETTINGS</string>
+    <string name="map_detail_bar_placeholder">Click on a marker to see event details</string>
 </resources>

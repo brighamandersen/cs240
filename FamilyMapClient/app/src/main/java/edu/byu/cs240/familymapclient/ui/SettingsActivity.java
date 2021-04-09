@@ -15,6 +15,8 @@ import edu.byu.cs240.familymapclient.model.DataCache;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    // FIXME -- RETURNS A BOOLEAN TO TELL MAIN ACTIVITY IF SETTINGS CHANGED
+
     private LinearLayout logoutDiv;
 
     @Override

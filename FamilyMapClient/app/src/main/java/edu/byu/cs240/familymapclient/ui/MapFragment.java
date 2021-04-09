@@ -28,8 +28,12 @@ import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 
 import edu.byu.cs240.familymapclient.R;
 import edu.byu.cs240.familymapclient.model.DataCache;
+import models.Event;
 
 public class MapFragment extends Fragment {
+
+    // FIXME - TAKES AN EVENT ID AS A PARAMETER, IF NONE IS PASSED (MAIN ACTIVITY) THEN DON'T FOCUS ON ANYTHING
+        // FIXME - FOR EVENT ACTIVITY, IT WILL HAVE AN EVENT ID, YOU'LL FOCUS ON THAT
 
     private GoogleMap gMap;
     private TextView mapDetailBar;
@@ -53,7 +57,8 @@ public class MapFragment extends Fragment {
             gMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
             LatLng provo = new LatLng(40, 111);
             gMap.addMarker(new MarkerOptions().position(provo).title("Marker in Provo"));
-            gMap.moveCamera(CameraUpdateFactory.newLatLng(provo));
+
+            addPersonMarkers();
         }
     };
 
@@ -66,9 +71,9 @@ public class MapFragment extends Fragment {
 
         mapDetailBar = view.findViewById(R.id.tvMapDetailBar);
 
-        Drawable genderIcon = new IconDrawable(getActivity(), FontAwesomeIcons.fa_male).
-                colorRes(R.color.male_blue).sizeDp(40);
-        mapDetailBar.setCompoundDrawables(genderIcon, null, null, null);
+//        Drawable genderIcon = new IconDrawable(getActivity(), FontAwesomeIcons.fa_male).
+//                colorRes(R.color.male_blue).sizeDp(40);
+//        mapDetailBar.setCompoundDrawables(genderIcon, null, null, null);
 
         return view;
     }
@@ -118,18 +123,6 @@ public class MapFragment extends Fragment {
         }
     }
 
-    private void renderLoginFragment() {
-        FragmentManager fm = this.getParentFragmentManager();
-        LoginFragment loginFragment = new LoginFragment();
-
-        fm.beginTransaction().replace(R.id.mainActivityFrameLayout, loginFragment).commit();
-    }
-
-//    private void logOut() {
-//        DataCache.clear();
-//        // Also call invalidateOptionsMenu() so that you can reset the menu bar
-//    }
-
     private void goToSearch() {
         Intent intent = new Intent(getActivity(), SearchActivity.class);
         startActivity(intent);
@@ -138,5 +131,15 @@ public class MapFragment extends Fragment {
     private void goToSettings() {
         Intent intent = new Intent(getActivity(), SettingsActivity.class);
         startActivity(intent);
+    }
+
+    private void addPersonMarkers() {
+        // Add current user's markers
+        String userPersonID = DataCache.getUser().getPersonID();
+        Event userEvent = DataCache.getPersonEvents().get(userPersonID).get(0);
+
+        LatLng userBirthLoc = new LatLng(userEvent.getLatitude(), userEvent.getLongitude());
+        gMap.addMarker(new MarkerOptions().position(userBirthLoc).title(DataCache.getUser().getFirstName()));
+        gMap.moveCamera(CameraUpdateFactory.newLatLng(userBirthLoc));
     }
 }

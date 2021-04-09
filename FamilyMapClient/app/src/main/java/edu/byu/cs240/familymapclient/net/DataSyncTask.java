@@ -50,6 +50,8 @@ public class DataSyncTask implements Runnable {
 
         for (Event event : events) {
             DataCache.addEvent(event.getEventID(), event);
+
+            DataCache.addPersonEvent(event.getPersonID(), event);
         }
 
         sendMessage(DataCache.getUser().getFirstName(), DataCache.getUser().getLastName());

@@ -1,5 +1,6 @@
 package edu.byu.cs240.familymapclient.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,9 +32,9 @@ public class DataCache {
         instance = null;
     }
 
-    private Map<String, Person> persons;
-    private Map<String, Event> events;
-    private Map<String, List<Event>> personEvents;
+    private Map<String, Person> persons;    // String key is personID
+    private Map<String, Event> events;      // String key is eventID
+    private Map<String, List<Event>> personEvents;  // String key is personID, stores chronological person events
     private Person user;
 
     private DataCache() {
@@ -73,6 +74,16 @@ public class DataCache {
 
     public static void setPersonEvents(Map<String, List<Event>> personEvents) {
         DataCache.getInstance().personEvents = personEvents;
+    }
+
+    public static void addPersonEvent(String personID, Event event) {
+        if (getPersonEvents().containsKey(personID)) {
+            getPersonEvents().get(personID).add(event);
+        } else {
+            List<Event> events = new ArrayList<>();
+            events.add(event);
+            DataCache.getInstance().personEvents.put(personID, events);
+        }
     }
 
     public static Person getUser() {
