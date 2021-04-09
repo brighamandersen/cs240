@@ -16,12 +16,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
@@ -29,6 +32,7 @@ import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 import edu.byu.cs240.familymapclient.R;
 import edu.byu.cs240.familymapclient.model.DataCache;
 import models.Event;
+import models.Person;
 
 public class MapFragment extends Fragment {
 
@@ -52,6 +56,7 @@ public class MapFragment extends Fragment {
         @Override
         public void onMapReady(GoogleMap googleMap) {
             gMap = googleMap;
+            gMap.getUiSettings().setMapToolbarEnabled(false);
 
             addEventMarkers();
         }
@@ -66,10 +71,6 @@ public class MapFragment extends Fragment {
 
         mapDetailBar = view.findViewById(R.id.tvMapDetailBar);
         mapDetailBar.setOnClickListener(v -> goToPerson());
-
-//        Drawable genderIcon = new IconDrawable(getActivity(), FontAwesomeIcons.fa_male).
-//                colorRes(R.color.male_blue).sizeDp(40);
-//        mapDetailBar.setCompoundDrawables(genderIcon, null, null, null);
 
         return view;
     }
@@ -138,7 +139,14 @@ public class MapFragment extends Fragment {
     private void addEventMarkers() {
         for (Event event : DataCache.getEvents().values()) {
             LatLng userBirthLoc = new LatLng(event.getLatitude(), event.getLongitude());
-            gMap.addMarker(new MarkerOptions().position(userBirthLoc).title(generateMarkerTitle(event)));
+
+            addEventMarker(event, userBirthLoc);
+
+            gMap.setOnMarkerClickListener(marker -> {
+                displayMarkerDetails(marker);
+                addLinesFromMarker(marker);
+                return false;
+            });
 
             // Center map on logged-in user
             if (event.getPersonID().equals(DataCache.getUser().getPersonID())) {
@@ -147,7 +155,62 @@ public class MapFragment extends Fragment {
         }
     }
 
+    private void addEventMarker(Event event, LatLng userBirthLoc) {
+        float markerColor;
+
+        switch (event.getEventType()) {
+            case "birth":
+                markerColor = BitmapDescriptorFactory.HUE_GREEN;
+                break;
+            case "marriage":
+                markerColor = BitmapDescriptorFactory.HUE_YELLOW;
+                break;
+            case "death":
+                markerColor = BitmapDescriptorFactory.HUE_RED;
+                break;
+            default:    // If other event -- FIXME change this so other events group with their same type
+                markerColor = BitmapDescriptorFactory.HUE_ORANGE;
+                break;
+        }
+
+        Marker newMarker = gMap.addMarker(new MarkerOptions()
+                .position(userBirthLoc)
+                .title(generateMarkerTitle(event))
+                .icon(BitmapDescriptorFactory.defaultMarker(markerColor)));
+        newMarker.setTag(event);
+    }
+
     private String generateMarkerTitle(Event event) {
         return event.getCity() + ", " + event.getCountry();
+    }
+
+    /**
+     * Adds event details to map detail bar
+     */
+    private void displayMarkerDetails(Marker marker) {
+        Event event = (Event) marker.getTag();
+        assert event != null;
+        Person person = DataCache.getPersons().get(event.getPersonID());
+        assert person != null;
+
+        // Set icon to male by default
+        FontAwesomeIcons iconType = FontAwesomeIcons.fa_male;
+        int iconColor = R.color.male_blue;
+        // Switch to female icon accordingly
+        if (person.getGender().equals("f")) {
+            iconType = FontAwesomeIcons.fa_female;
+            iconColor = R.color.female_pink;
+        }
+
+        Drawable genderIcon = new IconDrawable(getActivity(), iconType).
+        colorRes(iconColor).sizeDp(40);
+        mapDetailBar.setCompoundDrawables(genderIcon, null, null, null);
+    }
+
+    /**
+     * Adds lines eminating from the marker
+     */
+    private void addLinesFromMarker(Marker marker) {
+
     }
 }
