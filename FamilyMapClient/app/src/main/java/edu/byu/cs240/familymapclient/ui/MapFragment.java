@@ -53,12 +53,7 @@ public class MapFragment extends Fragment {
         public void onMapReady(GoogleMap googleMap) {
             gMap = googleMap;
 
-            LatLng sydney = new LatLng(-34, 151);
-            gMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            LatLng provo = new LatLng(40, 111);
-            gMap.addMarker(new MarkerOptions().position(provo).title("Marker in Provo"));
-
-            addPersonMarkers();
+            addEventMarkers();
         }
     };
 
@@ -133,13 +128,19 @@ public class MapFragment extends Fragment {
         startActivity(intent);
     }
 
-    private void addPersonMarkers() {
-        // Add current user's markers
-        String userPersonID = DataCache.getUser().getPersonID();
-        Event userEvent = DataCache.getPersonEvents().get(userPersonID).get(0);
+    private void addEventMarkers() {
+        for (Event event : DataCache.getEvents().values()) {
+            LatLng userBirthLoc = new LatLng(event.getLatitude(), event.getLongitude());
+            gMap.addMarker(new MarkerOptions().position(userBirthLoc).title(generateMarkerTitle(event)));
 
-        LatLng userBirthLoc = new LatLng(userEvent.getLatitude(), userEvent.getLongitude());
-        gMap.addMarker(new MarkerOptions().position(userBirthLoc).title(DataCache.getUser().getFirstName()));
-        gMap.moveCamera(CameraUpdateFactory.newLatLng(userBirthLoc));
+            // Center map on logged-in user
+            if (event.getPersonID().equals(DataCache.getUser().getPersonID())) {
+                gMap.moveCamera(CameraUpdateFactory.newLatLng(userBirthLoc));
+            }
+        }
+    }
+
+    private String generateMarkerTitle(Event event) {
+        return event.getCity() + ", " + event.getCountry();
     }
 }

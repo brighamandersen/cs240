@@ -48,9 +48,9 @@ public class DataCache {
         return DataCache.getInstance().persons;
     }
 
-    public static void setPersons(Map<String, Person> persons) {
-        DataCache.getInstance().persons = persons;
-    }
+//    public static void setPersons(Map<String, Person> persons) {
+//        DataCache.getInstance().persons = persons;
+//    }
 
     public static void addPerson(String personID, Person person) {
         DataCache.getInstance().persons.put(personID, person);
@@ -60,9 +60,9 @@ public class DataCache {
         return DataCache.getInstance().events;
     }
 
-    public static void setEvents(Map<String, Event> events) {
-        DataCache.getInstance().events = events;
-    }
+//    public static void setEvents(Map<String, Event> events) {
+//        DataCache.getInstance().events = events;
+//    }
 
     public static void addEvent(String eventID, Event event) {
         DataCache.getInstance().events.put(eventID, event);
@@ -72,9 +72,9 @@ public class DataCache {
         return DataCache.getInstance().personEvents;
     }
 
-    public static void setPersonEvents(Map<String, List<Event>> personEvents) {
-        DataCache.getInstance().personEvents = personEvents;
-    }
+//    public static void setPersonEvents(Map<String, List<Event>> personEvents) {
+//        DataCache.getInstance().personEvents = personEvents;
+//    }
 
     public static void addPersonEvent(String personID, Event event) {
         if (getPersonEvents().containsKey(personID)) {
