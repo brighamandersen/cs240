@@ -4,12 +4,11 @@
     >
 
     <item android:id="@+id/searchMenuItem"
-        android:title="SEARCH"
+        android:title="@string/search_menu_item_label"
         app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/settingsMenuItem"
-        android:title="SETTINGS"
-        android:textColor="@color/white"
+        android:title="@string/settings_menu_icon_label"
         app:showAsAction="ifRoom" />
 
 </menu>

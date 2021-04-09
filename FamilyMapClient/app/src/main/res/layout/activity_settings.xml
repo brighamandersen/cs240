@@ -200,9 +200,12 @@
     <View style="@style/Divider"/>
 
     <LinearLayout
+        android:id="@+id/logoutDiv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true">
 
         <TextView
             android:layout_width="match_parent"

@@ -5,12 +5,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -18,6 +23,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.joanzapata.iconify.IconDrawable;
+import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 
 import edu.byu.cs240.familymapclient.R;
 import edu.byu.cs240.familymapclient.model.DataCache;
@@ -25,6 +32,7 @@ import edu.byu.cs240.familymapclient.model.DataCache;
 public class MapFragment extends Fragment {
 
     private GoogleMap gMap;
+    private TextView mapDetailBar;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -52,7 +60,15 @@ public class MapFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_map, container, false);
+        View view = inflater.inflate(R.layout.fragment_map, container, false);
+
+        mapDetailBar = view.findViewById(R.id.tvMapDetailBar);
+
+        Drawable genderIcon = new IconDrawable(getActivity(), FontAwesomeIcons.fa_male).
+                colorRes(R.color.male_blue).sizeDp(40);
+        mapDetailBar.setCompoundDrawables(genderIcon, null, null, null);
+
+        return view;
     }
 
     @Override
@@ -73,8 +89,31 @@ public class MapFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu, menu);
+        // Add search icon
+        menu.findItem(R.id.searchMenuItem).setIcon(
+                new IconDrawable(getActivity(), FontAwesomeIcons.fa_search).colorRes(R.color.white).actionBarSize());
+        // Add settings icon
+        menu.findItem(R.id.settingsMenuItem).setIcon(
+                new IconDrawable(getActivity(), FontAwesomeIcons.fa_gear).colorRes(R.color.white).actionBarSize());
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.searchMenuItem:
+                goToSearch();
+                return true;
+
+            case R.id.settingsMenuItem:
+                goToSettings();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void renderLoginFragment() {
@@ -84,8 +123,18 @@ public class MapFragment extends Fragment {
         fm.beginTransaction().replace(R.id.mainActivityFrameLayout, loginFragment).commit();
     }
 
-    private void logOut() {
-        DataCache.clear();
-        // Also call invalidateOptionsMenu() so that you can reset the menu bar
+//    private void logOut() {
+//        DataCache.clear();
+//        // Also call invalidateOptionsMenu() so that you can reset the menu bar
+//    }
+
+    private void goToSearch() {
+        Intent intent = new Intent(getActivity(), SearchActivity.class);
+        startActivity(intent);
+    }
+
+    private void goToSettings() {
+        Intent intent = new Intent(getActivity(), SettingsActivity.class);
+        startActivity(intent);
     }
 }

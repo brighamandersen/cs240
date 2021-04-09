@@ -64,6 +64,7 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
+
         serverHostET = view.findViewById(R.id.etServerHost);
         serverHostET.addTextChangedListener(loginWatcher);
         serverHostET.addTextChangedListener(registerWatcher);
@@ -109,20 +110,20 @@ public class LoginFragment extends Fragment {
         mapButton.setOnClickListener(v -> renderMapFragment());
 
         personButton = (Button) view.findViewById(R.id.btPerson);
-        personButton.setOnClickListener(v -> onPersonClick());
+        personButton.setOnClickListener(v -> goToPerson());
 
         eventButton = (Button) view.findViewById(R.id.btEvent);
-        eventButton.setOnClickListener(v -> onEventClick());
+        eventButton.setOnClickListener(v -> goToEvent());
 
         searchButton = (Button) view.findViewById(R.id.btSearch);
-        searchButton.setOnClickListener(v -> onSearchClick());
+        searchButton.setOnClickListener(v -> goToSearch());
 
         settingsButton = (Button) view.findViewById(R.id.btSettings);
-        settingsButton.setOnClickListener(v -> onSettingsClick());
+        settingsButton.setOnClickListener(v -> goToSettings());
 
         // FIXME -- DELETE LATER (Just setting fields to make login faster
 
-        serverHostET.setText("10.0.2.2");
+        serverHostET.setText("192.168.253.177");
         serverPortET.setText("8080");
         usernameET.setText("su");
         passwordET.setText("su");
@@ -310,22 +311,24 @@ public class LoginFragment extends Fragment {
         executor.submit(dataSyncTask);
     }
 
-    private void onPersonClick() {
+    // FIXME -- DELETE THESE LATER
+
+    private void goToPerson() {
         Intent intent = new Intent(getActivity(), PersonActivity.class);
         startActivity(intent);
     }
 
-    private void onEventClick() {
+    private void goToEvent() {
         Intent intent = new Intent(getActivity(), EventActivity.class);
         startActivity(intent);
     }
 
-    private void onSearchClick() {
+    private void goToSearch() {
         Intent intent = new Intent(getActivity(), SearchActivity.class);
         startActivity(intent);
     }
 
-    private void onSettingsClick() {
+    private void goToSettings() {
         Intent intent = new Intent(getActivity(), SettingsActivity.class);
         startActivity(intent);
     }

@@ -36,4 +36,6 @@
     <string name="person_first_name_label">First Name</string>
     <string name="person_last_name_label">Last Name</string>
     <string name="person_gender_label">Gender</string>
+    <string name="search_menu_item_label">Search</string>
+    <string name="settings_menu_icon_label">SETTINGS</string>
 </resources>

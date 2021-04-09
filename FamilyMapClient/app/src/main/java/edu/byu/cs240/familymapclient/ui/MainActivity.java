@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import com.joanzapata.iconify.Iconify;
+import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
 import edu.byu.cs240.familymapclient.R;
 import edu.byu.cs240.familymapclient.model.DataCache;
@@ -21,7 +23,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 //        setContentView(R.layout.activity_person);
 //        DataCache.initialize();
-//
+
+        Iconify.with(new FontAwesomeModule());
+
         FragmentManager fm = this.getSupportFragmentManager();
         LoginFragment loginFragment = new LoginFragment();
 

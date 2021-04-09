@@ -27,5 +27,7 @@ public class HelloWorld {
 
         Map<String, Person> map = DataCache.getPersons();
 
+        DataCache.clear();
+
     }
 }
