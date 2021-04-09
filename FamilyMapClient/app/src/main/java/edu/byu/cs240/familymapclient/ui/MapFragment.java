@@ -65,6 +65,7 @@ public class MapFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
         mapDetailBar = view.findViewById(R.id.tvMapDetailBar);
+        mapDetailBar.setOnClickListener(v -> goToPerson());
 
 //        Drawable genderIcon = new IconDrawable(getActivity(), FontAwesomeIcons.fa_male).
 //                colorRes(R.color.male_blue).sizeDp(40);
@@ -125,6 +126,12 @@ public class MapFragment extends Fragment {
 
     private void goToSettings() {
         Intent intent = new Intent(getActivity(), SettingsActivity.class);
+        startActivity(intent);
+    }
+
+    private void goToPerson() {
+        Intent intent = new Intent(getActivity(), PersonActivity.class);
+        // FIXME - Add EXTRA args that passes in personID
         startActivity(intent);
     }
 
