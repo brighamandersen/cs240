@@ -51,7 +51,9 @@ public class MapFragment extends Fragment {
 
             LatLng sydney = new LatLng(-34, 151);
             gMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            gMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            LatLng provo = new LatLng(40, 111);
+            gMap.addMarker(new MarkerOptions().position(provo).title("Marker in Provo"));
+            gMap.moveCamera(CameraUpdateFactory.newLatLng(provo));
         }
     };
 

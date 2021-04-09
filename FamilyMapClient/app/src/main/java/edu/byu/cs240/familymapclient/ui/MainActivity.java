@@ -21,35 +21,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        setContentView(R.layout.activity_person);
-//        DataCache.initialize();
+
+        DataCache.initialize();
 
         Iconify.with(new FontAwesomeModule());
 
         FragmentManager fm = this.getSupportFragmentManager();
         LoginFragment loginFragment = new LoginFragment();
-
-        // renders login fragment
-        fm.beginTransaction().add(R.id.mainActivityFrameLayout, loginFragment).commit();
-        // renders map fragment
 //        MapFragment mapFragment = new MapFragment();
-//        fm.beginTransaction().replace(R.id.mainActivityFrameLayout, mapFragment).commit();
 
+
+
+//        if (DataCache.getUser() != null) {
+//            // renders map fragment
+//            fm.beginTransaction().replace(R.id.mainActivityFrameLayout, mapFragment).commit();
+//        } else {
+            // renders login fragment
+            fm.beginTransaction().add(R.id.mainActivityFrameLayout, loginFragment).commit();
+//        }
         // When the app starts
             // check to see if user is logged in
             // make sure the appropriate fragment is active
             // call invalidateOptionsMenu() to force onCreateOptionsMenu(...) to be called again
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // if user is logged in
-            // install search/settings menu
-//                    MenuInflater inflater = getMenuInflater();
-//                    inflater.inflate(R.menu.menu, menu);
-        // else
-            // don't install a menu
-
-        return super.onCreateOptionsMenu(menu);
     }
 }

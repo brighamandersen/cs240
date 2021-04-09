@@ -1,5 +1,6 @@
 package edu.byu.cs240.familymapclient.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -49,6 +50,8 @@ public class LoginFragment extends Fragment {
     private RadioButton genderRB;
     private Button loginButton;
     private Button registerButton;
+
+    private Context context;
 
     // FIXME -- DELETE THESE LATER
 
@@ -131,6 +134,12 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
     TextWatcher loginWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -176,7 +185,7 @@ public class LoginFragment extends Fragment {
 
                 performDataSync(resAuthtoken, userPersonID);
 
-//                renderMapFragment();
+                renderMapFragment();
             }
         };
 
@@ -197,12 +206,8 @@ public class LoginFragment extends Fragment {
     }
 
     private void renderMapFragment() {
-        FragmentManager fm = this.getParentFragmentManager();
         MapFragment mapFragment = new MapFragment();
-
-        fm.beginTransaction().replace(R.id.mainActivityFrameLayout, mapFragment).commit();
-
-        // Also call invalidateOptionsMenu() so that you can reset the menu bar
+        getParentFragmentManager().beginTransaction().replace(R.id.mainActivityFrameLayout, mapFragment).commit();
     }
 
     TextWatcher registerWatcher = new TextWatcher() {
@@ -255,7 +260,7 @@ public class LoginFragment extends Fragment {
 
                 performDataSync(resAuthtoken, userPersonID);
 
-//                renderMapFragment();
+                renderMapFragment();
             }
         };
 
@@ -294,7 +299,7 @@ public class LoginFragment extends Fragment {
                 String firstName = bundle.getString("FirstNameKey");
                 String lastName = bundle.getString("LastNameKey");
 
-                Toast.makeText(getActivity(), "Your name: " + firstName +
+                Toast.makeText(context, "Your name: " + firstName +
                         " " + lastName, Toast.LENGTH_SHORT).show();
             }
         };
