@@ -175,13 +175,9 @@ public class MapFragment extends Fragment {
 
         Marker newMarker = gMap.addMarker(new MarkerOptions()
                 .position(userBirthLoc)
-                .title(generateMarkerTitle(event))
+                .title(stringifyFullLocation(event))
                 .icon(BitmapDescriptorFactory.defaultMarker(markerColor)));
         newMarker.setTag(event);
-    }
-
-    private String generateMarkerTitle(Event event) {
-        return event.getCity() + ", " + event.getCountry();
     }
 
     /**
@@ -202,9 +198,13 @@ public class MapFragment extends Fragment {
             iconColor = R.color.female_pink;
         }
 
+        // Update icon
         Drawable genderIcon = new IconDrawable(getActivity(), iconType).
         colorRes(iconColor).sizeDp(40);
         mapDetailBar.setCompoundDrawables(genderIcon, null, null, null);
+
+        // Update detail bar text
+        mapDetailBar.setText(stringifyEventDetails(event, person));
     }
 
     /**
@@ -212,5 +212,19 @@ public class MapFragment extends Fragment {
      */
     private void addLinesFromMarker(Marker marker) {
 
+    }
+
+    private String stringifyEventDetails(Event event, Person person) {
+        String details = stringifyFullName(person) + "\n";
+        details += event.getEventType().toUpperCase() + ": " + stringifyFullLocation(event) + " (" + event.getYear() + ")";
+        return details;
+    }
+
+    private String stringifyFullLocation(Event event) {
+        return event.getCity() + ", " + event.getCountry();
+    }
+
+    private String stringifyFullName(Person person) {
+        return person.getFirstName() + " " + person.getLastName();
     }
 }

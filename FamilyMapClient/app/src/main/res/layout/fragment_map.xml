@@ -19,11 +19,12 @@ android:layout_height="match_parent">
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/ic_launcher_foreground"
         android:drawableTint="@color/black"
-        android:layout_margin="8dp"
+        android:layout_margin="35dp"
         android:text="@string/map_detail_bar_placeholder"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:layout_alignParentBottom="true"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:gravity="center"/>
 
 </RelativeLayout>
