@@ -52,6 +52,8 @@ public class DataSyncTask implements Runnable {
             DataCache.addEvent(event.getEventID(), event);
 
             DataCache.addPersonEvent(event.getPersonID(), event);
+
+            addToEventTypes(event.getEventID());
         }
 
         sendMessage(DataCache.getUser().getFirstName(), DataCache.getUser().getLastName());
@@ -67,5 +69,11 @@ public class DataSyncTask implements Runnable {
         message.setData(messageBundle);
 
         messageHandler.sendMessage(message);
+    }
+
+    private void addToEventTypes(String eventID) {
+        if (!DataCache.getEventTypes().contains(eventID)) {
+            DataCache.addEventType(eventID);
+        }
     }
 }

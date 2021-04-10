@@ -35,22 +35,20 @@ public class DataCache {
     private Map<String, Person> persons;    // String key is personID
     private Map<String, Event> events;      // String key is eventID
     private Map<String, List<Event>> personEvents;  // String key is personID, stores chronological person events
+    private List<String> eventTypes;
     private Person user;
 
     private DataCache() {
         persons = new HashMap<>();
         events = new HashMap<>();
         personEvents = new HashMap<>();
+        eventTypes = new ArrayList<>();
         user = null;
     }
 
     public static Map<String, Person> getPersons() {
         return DataCache.getInstance().persons;
     }
-
-//    public static void setPersons(Map<String, Person> persons) {
-//        DataCache.getInstance().persons = persons;
-//    }
 
     public static void addPerson(String personID, Person person) {
         DataCache.getInstance().persons.put(personID, person);
@@ -60,10 +58,6 @@ public class DataCache {
         return DataCache.getInstance().events;
     }
 
-//    public static void setEvents(Map<String, Event> events) {
-//        DataCache.getInstance().events = events;
-//    }
-
     public static void addEvent(String eventID, Event event) {
         DataCache.getInstance().events.put(eventID, event);
     }
@@ -71,10 +65,6 @@ public class DataCache {
     public static Map<String, List<Event>> getPersonEvents() {
         return DataCache.getInstance().personEvents;
     }
-
-//    public static void setPersonEvents(Map<String, List<Event>> personEvents) {
-//        DataCache.getInstance().personEvents = personEvents;
-//    }
 
     public static void addPersonEvent(String personID, Event event) {
         if (getPersonEvents().containsKey(personID)) {
@@ -84,6 +74,14 @@ public class DataCache {
             events.add(event);
             DataCache.getInstance().personEvents.put(personID, events);
         }
+    }
+
+    public static List<String> getEventTypes() {
+        return DataCache.getInstance().eventTypes;
+    }
+
+    public static void addEventType(String eventType) {
+        DataCache.getInstance().eventTypes.add(eventType);
     }
 
     public static Person getUser() {

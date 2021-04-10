@@ -34,10 +34,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPostResume() {
         super.onPostResume();
 
-        if (DataCache.getUser() != null) {  // If logged in, render map
-            MapFragment mapFragment = new MapFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.mainActivityFrameLayout, mapFragment).commit();
-        } else {    // Otherwise render login
+        if (DataCache.getUser() == null) {
             LoginFragment loginFragment = new LoginFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.mainActivityFrameLayout, loginFragment).commit();
         }
