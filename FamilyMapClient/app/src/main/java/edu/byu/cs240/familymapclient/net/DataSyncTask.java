@@ -12,6 +12,8 @@ import models.Person;
 import results.EventFamilyResult;
 import results.PersonFamilyResult;
 
+import static edu.byu.cs240.familymapclient.model.DataCache.addEventColor;
+
 /**
  * Calls server asynchronously on background thread to retrieve family and event data.
  */
@@ -53,7 +55,10 @@ public class DataSyncTask implements Runnable {
 
             DataCache.addPersonEvent(event.getPersonID(), event);
 
-            addToEventTypes(event.getEventID());
+            // If unique event, add a different color
+            if (!DataCache.getEventColors().containsKey(event.getEventType().toLowerCase())) {
+                addEventColor(event.getEventType().toLowerCase());
+            }
         }
 
         sendMessage(DataCache.getUser().getFirstName(), DataCache.getUser().getLastName());
@@ -69,11 +74,5 @@ public class DataSyncTask implements Runnable {
         message.setData(messageBundle);
 
         messageHandler.sendMessage(message);
-    }
-
-    private void addToEventTypes(String eventID) {
-        if (!DataCache.getEventTypes().contains(eventID)) {
-            DataCache.addEventType(eventID);
-        }
     }
 }

@@ -1,5 +1,7 @@
 package edu.byu.cs240.familymapclient.model;
 
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,14 +37,21 @@ public class DataCache {
     private Map<String, Person> persons;    // String key is personID
     private Map<String, Event> events;      // String key is eventID
     private Map<String, List<Event>> personEvents;  // String key is personID, stores chronological person events
-    private List<String> eventTypes;
+    private Map<String, Float> eventColors;
+    private int extraMarkerIndex;
+    
     private Person user;
 
     private DataCache() {
         persons = new HashMap<>();
         events = new HashMap<>();
         personEvents = new HashMap<>();
-        eventTypes = new ArrayList<>();
+        eventColors = new HashMap<String, Float>() {{
+            put("birth", BitmapDescriptorFactory.HUE_GREEN);
+            put("marriage", BitmapDescriptorFactory.HUE_YELLOW);
+            put("death", BitmapDescriptorFactory.HUE_RED);
+        }};
+        extraMarkerIndex = 0;
         user = null;
     }
 
@@ -76,12 +85,29 @@ public class DataCache {
         }
     }
 
-    public static List<String> getEventTypes() {
-        return DataCache.getInstance().eventTypes;
+    float[] extraMarkerColors = new float[] {
+            BitmapDescriptorFactory.HUE_BLUE,
+            BitmapDescriptorFactory.HUE_MAGENTA,
+            BitmapDescriptorFactory.HUE_ORANGE,
+            BitmapDescriptorFactory.HUE_ROSE,
+            BitmapDescriptorFactory.HUE_VIOLET
+    };
+
+    public static Map<String, Float> getEventColors() {
+        return DataCache.getInstance().eventColors;
     }
 
-    public static void addEventType(String eventType) {
-        DataCache.getInstance().eventTypes.add(eventType);
+    public static void addEventColor(String eventType) {
+        int index = DataCache.getInstance().extraMarkerIndex;
+        float newMarkerColor = DataCache.getInstance().extraMarkerColors[index];
+
+        DataCache.getInstance().eventColors.put(eventType, newMarkerColor);
+
+        // Loop back to beginning of extra marker array if fully looped
+        DataCache.getInstance().extraMarkerIndex++;
+        if (DataCache.getInstance().extraMarkerIndex == 5) {
+            DataCache.getInstance().extraMarkerIndex = 0;
+        }
     }
 
     public static Person getUser() {

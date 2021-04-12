@@ -109,27 +109,29 @@ public class LoginFragment extends Fragment {
 
         // FIXME -- These buttons are temporary just for navigation
 
-        mapButton = (Button) view.findViewById(R.id.btMap);
-        mapButton.setOnClickListener(v -> renderMapFragment());
-
-        personButton = (Button) view.findViewById(R.id.btPerson);
-        personButton.setOnClickListener(v -> goToPerson());
-
-        eventButton = (Button) view.findViewById(R.id.btEvent);
-        eventButton.setOnClickListener(v -> goToEvent());
-
-        searchButton = (Button) view.findViewById(R.id.btSearch);
-        searchButton.setOnClickListener(v -> goToSearch());
-
-        settingsButton = (Button) view.findViewById(R.id.btSettings);
-        settingsButton.setOnClickListener(v -> goToSettings());
+//        mapButton = (Button) view.findViewById(R.id.btMap);
+//        mapButton.setOnClickListener(v -> renderMapFragment());
+//
+//        personButton = (Button) view.findViewById(R.id.btPerson);
+//        personButton.setOnClickListener(v -> goToPerson());
+//
+//        eventButton = (Button) view.findViewById(R.id.btEvent);
+//        eventButton.setOnClickListener(v -> goToEvent());
+//
+//        searchButton = (Button) view.findViewById(R.id.btSearch);
+//        searchButton.setOnClickListener(v -> goToSearch());
+//
+//        settingsButton = (Button) view.findViewById(R.id.btSettings);
+//        settingsButton.setOnClickListener(v -> goToSettings());
 
         // FIXME -- DELETE LATER (Just setting fields to make login faster
 
-        serverHostET.setText("192.168.1.116");
+        serverHostET.setText("192.168.253.57");
         serverPortET.setText("8080");
-        usernameET.setText("su");
-        passwordET.setText("su");
+//        usernameET.setText("su");
+        usernameET.setText("sheila");
+//        passwordET.setText("su");
+        passwordET.setText("parker");
 
         return view;
     }

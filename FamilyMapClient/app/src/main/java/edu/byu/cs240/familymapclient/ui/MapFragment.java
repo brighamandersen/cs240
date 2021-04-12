@@ -156,22 +156,7 @@ public class MapFragment extends Fragment {
     }
 
     private void addEventMarker(Event event, LatLng userBirthLoc) {
-        float markerColor;
-
-        switch (event.getEventType()) {
-            case "birth":
-                markerColor = BitmapDescriptorFactory.HUE_GREEN;
-                break;
-            case "marriage":
-                markerColor = BitmapDescriptorFactory.HUE_YELLOW;
-                break;
-            case "death":
-                markerColor = BitmapDescriptorFactory.HUE_RED;
-                break;
-            default:    // If other event -- FIXME change this so other events group with their same type
-                markerColor = BitmapDescriptorFactory.HUE_ORANGE;
-                break;
-        }
+        float markerColor = DataCache.getEventColors().get(event.getEventType().toLowerCase());
 
         Marker newMarker = gMap.addMarker(new MarkerOptions()
                 .position(userBirthLoc)
