@@ -39,6 +39,7 @@ import static java.lang.Integer.parseInt;
  * Implements the login/register screens.
  */
 public class LoginFragment extends Fragment {
+
     private EditText serverHostET;
     private EditText serverPortET;
     private EditText usernameET;

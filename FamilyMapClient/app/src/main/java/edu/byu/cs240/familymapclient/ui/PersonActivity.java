@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,8 +16,20 @@ import java.util.Objects;
 
 import edu.byu.cs240.familymapclient.R;
 import edu.byu.cs240.familymapclient.helpers.ExpandableListAdapter;
+import edu.byu.cs240.familymapclient.model.DataCache;
+import models.Person;
+
+import static edu.byu.cs240.familymapclient.helpers.Stringify.wordifyGender;
 
 public class PersonActivity extends AppCompatActivity {
+
+    private TextView firstNameTV;
+    private TextView lastNameTV;
+    private TextView genderTV;
+
+    String personID;
+
+    // FIXME -- Delete these below?
 
     ExpandableListAdapter expandableListAdapter;
     ExpandableListView expandableListView;
@@ -29,6 +42,20 @@ public class PersonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_person);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Family Map: Person Details");
+
+        personID = getIntent().getStringExtra("PERSON_ID");
+        Person person = DataCache.getPersons().get(personID);
+
+        firstNameTV = findViewById(R.id.tvFirstName);
+        firstNameTV.setText(person.getFirstName());
+
+        lastNameTV = findViewById(R.id.tvLastName);
+        lastNameTV.setText(person.getLastName());
+
+        genderTV = findViewById(R.id.tvGender);
+        genderTV.setText(wordifyGender(person.getGender()));
+
+        // FIXME -- Customize this below
 
         expandableListView = (ExpandableListView) findViewById(R.id.lifeEventsExpListView);
 
@@ -45,9 +72,6 @@ public class PersonActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-//            Intent intent = new Intent(this, MainActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//            startActivity(intent);
             finish();
             return true;
         }

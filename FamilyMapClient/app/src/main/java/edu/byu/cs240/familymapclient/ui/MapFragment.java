@@ -34,6 +34,9 @@ import edu.byu.cs240.familymapclient.model.DataCache;
 import models.Event;
 import models.Person;
 
+import static edu.byu.cs240.familymapclient.helpers.Stringify.stringifyEventDetails;
+import static edu.byu.cs240.familymapclient.helpers.Stringify.stringifyFullLocation;
+
 public class MapFragment extends Fragment {
 
     // FIXME - TAKES AN EVENT ID AS A PARAMETER, IF NONE IS PASSED (MAIN ACTIVITY) THEN DON'T FOCUS ON ANYTHING
@@ -70,7 +73,7 @@ public class MapFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
         mapDetailBar = view.findViewById(R.id.tvMapDetailBar);
-        mapDetailBar.setOnClickListener(v -> goToPerson());
+        mapDetailBar.setOnClickListener(v -> onDetailBarClick());
 
         return view;
     }
@@ -130,9 +133,17 @@ public class MapFragment extends Fragment {
         startActivity(intent);
     }
 
-    private void goToPerson() {
+    /**
+     * Start person activity with a person ID when marker is clicked.
+     */
+    private void onDetailBarClick() {
+        Event selectedEvent = (Event) mapDetailBar.getTag();
+        if (selectedEvent == null) return;
+
+        String personID = selectedEvent.getPersonID();
+
         Intent intent = new Intent(getActivity(), PersonActivity.class);
-        // FIXME - Add EXTRA args that passes in personID
+        intent.putExtra("PERSON_ID", personID);
         startActivity(intent);
     }
 
@@ -190,6 +201,9 @@ public class MapFragment extends Fragment {
 
         // Update detail bar text
         mapDetailBar.setText(stringifyEventDetails(event, person));
+
+        // Update detail bar tag
+        mapDetailBar.setTag(event);
     }
 
     /**
@@ -197,19 +211,5 @@ public class MapFragment extends Fragment {
      */
     private void addLinesFromMarker(Marker marker) {
 
-    }
-
-    private String stringifyEventDetails(Event event, Person person) {
-        String details = stringifyFullName(person) + "\n";
-        details += event.getEventType().toUpperCase() + ": " + stringifyFullLocation(event) + " (" + event.getYear() + ")";
-        return details;
-    }
-
-    private String stringifyFullLocation(Event event) {
-        return event.getCity() + ", " + event.getCountry();
-    }
-
-    private String stringifyFullName(Person person) {
-        return person.getFirstName() + " " + person.getLastName();
     }
 }
