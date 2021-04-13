@@ -3,11 +3,16 @@ package edu.byu.cs240.familymapclient.ui;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
@@ -20,7 +25,6 @@ import java.util.List;
 import java.util.Objects;
 
 import edu.byu.cs240.familymapclient.R;
-import edu.byu.cs240.familymapclient.helpers.ExpandableListAdapter;
 import edu.byu.cs240.familymapclient.model.DataCache;
 import models.Event;
 import models.Person;
@@ -30,6 +34,9 @@ import static edu.byu.cs240.familymapclient.helpers.StringUtils.stringifyLifeEve
 import static edu.byu.cs240.familymapclient.helpers.StringUtils.wordifyGender;
 
 public class PersonActivity extends AppCompatActivity {
+
+    private static final int LIFE_EVENT_POS = 0;
+    private static final int FAMILY_POS = 1;
 
     private TextView firstNameTV;
     private TextView lastNameTV;
@@ -65,8 +72,6 @@ public class PersonActivity extends AppCompatActivity {
         genderTV = findViewById(R.id.tvGender);
         genderTV.setText(wordifyGender(person.getGender()));
 
-        // FIXME -- Customize this below
-
         expandableListView = (ExpandableListView) findViewById(R.id.lifeEventsExpListView);
 
         prepareListData();
@@ -76,19 +81,13 @@ public class PersonActivity extends AppCompatActivity {
         expandableListView.setAdapter(expandableListAdapter);
 
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
-            goToEvent(groupPosition, childPosition);
+            if (groupPosition == LIFE_EVENT_POS) {
+                onLifeEventClick(childPosition);
+            } else {
+                onFamilyClick(childPosition);
+            }
             return false;
         });
-
-//        for (int i = 0; i < expandableListView.getChildCount(); i++) {
-//            TextView tv = expandableListView.getChildAt(i).findViewById(R.id.lblListItem);
-//            tv.setTag("hello");
-//        }
-
-//        TextView listItem = findViewById(R.id.lblListItem);
-//        Drawable locationIcon = new IconDrawable(this, FontAwesomeIcons.fa_map_marker)
-//                .colorRes(R.color.black).sizeDp(40);;
-//        listItem.setCompoundDrawables(locationIcon, null, null, null);
     }
 
     /**
@@ -117,28 +116,26 @@ public class PersonActivity extends AppCompatActivity {
         // Adding family members
         List<String> familyItems = addFamilyItems();
 
-        headerChildren.put(headers.get(0), lifeEventItems);
-        headerChildren.put(headers.get(1), familyItems);
+        headerChildren.put(headers.get(LIFE_EVENT_POS), lifeEventItems);
+        headerChildren.put(headers.get(FAMILY_POS), familyItems);
     }
 
-    private void goToEvent(int groupPosition, int childPosition) {
-        String EVENT_ID_HARDCODED = "HARD_CODED";
+    private void onLifeEventClick(int childPosition) {
+        Event event = lifeEvents.get(childPosition);
 
-        if (groupPosition == 0) {   // If life event selected
-            Event event = lifeEvents.get(childPosition);
+        Intent intent = new Intent(this, EventActivity.class);
+        intent.putExtra("EVENT_ID", event.getEventID());
+        finish();
+        startActivity(intent);
+    }
 
-            Intent intent = new Intent(this, EventActivity.class);
-            intent.putExtra("EVENT_ID", event.getEventID());
-            finish();
-            startActivity(intent);
-        } else {    // If family selected
-            Person person = relatives.get(childPosition);
+    private void onFamilyClick(int childPosition) {
+        Person person = relatives.get(childPosition);
 
-            Intent intent = new Intent(this, PersonActivity.class);
-            intent.putExtra("PERSON_ID", person.getPersonID());
-            finish();
-            startActivity(intent);
-        }
+        Intent intent = new Intent(this, PersonActivity.class);
+        intent.putExtra("PERSON_ID", person.getPersonID());
+        finish();
+        startActivity(intent);
     }
 
     private List<String> addLifeEventItems(String personID) {
@@ -182,5 +179,114 @@ public class PersonActivity extends AppCompatActivity {
             return "\nChild";
         }
         return "";
+    }
+
+    public class ExpandableListAdapter extends BaseExpandableListAdapter {
+
+        private Context _context;
+        private List<String> _listDataHeader; // header titles
+        // child data in format of header title, child title
+        private HashMap<String, List<String>> _listDataChild;
+
+        public ExpandableListAdapter(Context context, List<String> listDataHeader,
+                                     HashMap<String, List<String>> listChildData) {
+            this._context = context;
+            this._listDataHeader = listDataHeader;
+            this._listDataChild = listChildData;
+        }
+
+        @Override
+        public Object getChild(int groupPosition, int childPosititon) {
+            return this._listDataChild.get(this._listDataHeader.get(groupPosition))
+                    .get(childPosititon);
+        }
+
+        @Override
+        public long getChildId(int groupPosition, int childPosition) {
+            return childPosition;
+        }
+
+        @Override
+        public View getChildView(int groupPosition, final int childPosition,
+                                 boolean isLastChild, View convertView, ViewGroup parent) {
+
+            final String childText = (String) getChild(groupPosition, childPosition);
+
+            if (convertView == null) {
+                LayoutInflater infalInflater = (LayoutInflater) this._context
+                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = infalInflater.inflate(R.layout.list_item, null);
+            }
+
+            TextView txtListChild = (TextView) convertView
+                    .findViewById(R.id.lblListItem);
+
+            Drawable icon = assignIcon(groupPosition, childPosition);
+            txtListChild.setCompoundDrawables(icon, null, null, null);
+
+            txtListChild.setText(childText);
+            return convertView;
+        }
+
+        private Drawable assignIcon(int groupPosition, int childPosition) {
+            if (groupPosition == LIFE_EVENT_POS) {      // Life event
+                return new IconDrawable(PersonActivity.this, FontAwesomeIcons.fa_map_marker).colorRes(R.color.black).sizeDp(40);
+            }
+
+            if (relatives.get(childPosition).getGender().equals("m")) {     // Male family member
+                return new IconDrawable(PersonActivity.this, FontAwesomeIcons.fa_male).colorRes(R.color.male_blue).sizeDp(40);
+            }
+            // Female family member
+            return new IconDrawable(PersonActivity.this, FontAwesomeIcons.fa_female).colorRes(R.color.female_pink).sizeDp(40);
+        }
+
+        @Override
+        public int getChildrenCount(int groupPosition) {
+            return this._listDataChild.get(this._listDataHeader.get(groupPosition))
+                    .size();
+        }
+
+        @Override
+        public Object getGroup(int groupPosition) {
+            return this._listDataHeader.get(groupPosition);
+        }
+
+        @Override
+        public int getGroupCount() {
+            return this._listDataHeader.size();
+        }
+
+        @Override
+        public long getGroupId(int groupPosition) {
+            return groupPosition;
+        }
+
+        @Override
+        public View getGroupView(int groupPosition, boolean isExpanded,
+                                 View convertView, ViewGroup parent) {
+            String headerTitle = (String) getGroup(groupPosition);
+            if (convertView == null) {
+                LayoutInflater infalInflater = (LayoutInflater) this._context
+                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = infalInflater.inflate(R.layout.list_group, null);
+            }
+
+            TextView lblListHeader = (TextView) convertView
+                    .findViewById(R.id.lblListHeader);
+            lblListHeader.setTypeface(null, Typeface.BOLD);
+            lblListHeader.setText(headerTitle);
+
+            return convertView;
+        }
+
+        @Override
+        public boolean hasStableIds() {
+            return false;
+        }
+
+        @Override
+        public boolean isChildSelectable(int groupPosition, int childPosition) {
+            return true;
+        }
     }
 }

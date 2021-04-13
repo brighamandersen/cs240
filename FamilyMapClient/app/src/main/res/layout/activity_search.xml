@@ -6,9 +6,17 @@
     android:orientation="vertical"
     tools:context=".ui.SearchActivity">
 
-    <TextView
+    <EditText
+        android:id="@+id/etSearchBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SEARCH ACTIVITY" />
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/search_bar_placeholder" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchRecyclerView" />
 
 </LinearLayout>

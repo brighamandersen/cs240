@@ -54,16 +54,6 @@ public class LoginFragment extends Fragment {
 
     private Context context;
 
-    // FIXME -- DELETE THESE LATER
-
-    private Button mapButton;
-    private Button personButton;
-    private Button eventButton;
-    private Button searchButton;
-    private Button settingsButton;
-
-    private View.OnClickListener listener;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -107,25 +97,6 @@ public class LoginFragment extends Fragment {
         registerButton = (Button) view.findViewById(R.id.btRegister);
         registerButton.setEnabled(false);
         registerButton.setOnClickListener(v -> onRegisterClick());
-
-        // FIXME -- These buttons are temporary just for navigation
-
-//        mapButton = (Button) view.findViewById(R.id.btMap);
-//        mapButton.setOnClickListener(v -> renderMapFragment());
-//
-//        personButton = (Button) view.findViewById(R.id.btPerson);
-//        personButton.setOnClickListener(v -> goToPerson());
-//
-//        eventButton = (Button) view.findViewById(R.id.btEvent);
-//        eventButton.setOnClickListener(v -> goToEvent());
-//
-//        searchButton = (Button) view.findViewById(R.id.btSearch);
-//        searchButton.setOnClickListener(v -> goToSearch());
-//
-//        settingsButton = (Button) view.findViewById(R.id.btSettings);
-//        settingsButton.setOnClickListener(v -> goToSettings());
-
-        // FIXME -- DELETE LATER (Just setting fields to make login faster
 
         serverHostET.setText("192.168.1.111");
         serverPortET.setText("8080");
@@ -317,24 +288,5 @@ public class LoginFragment extends Fragment {
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.submit(dataSyncTask);
-    }
-
-    // FIXME -- DELETE THESE LATER
-
-    private void goToPerson() {
-        Intent intent = new Intent(getActivity(), PersonActivity.class);
-        startActivity(intent);
-    }
-
-
-
-    private void goToSearch() {
-        Intent intent = new Intent(getActivity(), SearchActivity.class);
-        startActivity(intent);
-    }
-
-    private void goToSettings() {
-        Intent intent = new Intent(getActivity(), SettingsActivity.class);
-        startActivity(intent);
     }
 }

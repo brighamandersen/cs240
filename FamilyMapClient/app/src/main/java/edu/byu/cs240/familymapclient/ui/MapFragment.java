@@ -47,6 +47,8 @@ public class MapFragment extends Fragment {
 
     private String eventID;
 
+    private LatLng focusLocation;
+
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
         /**
@@ -157,9 +159,9 @@ public class MapFragment extends Fragment {
 
     private void addEventMarkers() {
         for (Event event : DataCache.getEvents().values()) {
-            LatLng userBirthLoc = new LatLng(event.getLatitude(), event.getLongitude());
+            LatLng location = new LatLng(event.getLatitude(), event.getLongitude());
 
-            addEventMarker(event, userBirthLoc);
+            Marker newMarker = addEventMarker(event, location);
 
             gMap.setOnMarkerClickListener(marker -> {
                 displayMarkerDetails(marker);
@@ -167,21 +169,30 @@ public class MapFragment extends Fragment {
                 return false;
             });
 
-            // Center map on logged-in user
-            if (event.getPersonID().equals(DataCache.getUser().getPersonID())) {
-                gMap.moveCamera(CameraUpdateFactory.newLatLng(userBirthLoc));
+            // Make map focus the logged-in user's birth
+            if (eventID != null && event.getEventID().equals(eventID)) {
+//                focusLocation = location;
+                gMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+                displayMarkerDetails(newMarker);
+            }
+            if (eventID == null &&
+                    event.getPersonID().equals(DataCache.getUser().getPersonID())) {
+//                focusLocation = location;
+                gMap.moveCamera(CameraUpdateFactory.newLatLng(location));
             }
         }
     }
 
-    private void addEventMarker(Event event, LatLng userBirthLoc) {
+    private Marker addEventMarker(Event event, LatLng location) {
         float markerColor = DataCache.getEventColors().get(event.getEventType().toLowerCase());
 
         Marker newMarker = gMap.addMarker(new MarkerOptions()
-                .position(userBirthLoc)
+                .position(location)
                 .title(stringifyFullLocation(event))
                 .icon(BitmapDescriptorFactory.defaultMarker(markerColor)));
         newMarker.setTag(event);
+
+        return newMarker;
     }
 
     /**
