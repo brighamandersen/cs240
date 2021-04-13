@@ -38,8 +38,8 @@ public class PersonActivity extends AppCompatActivity {
     private String personID;
     private Person person;
 
-    List<Event> lifeEvents;
-//    List<Person>
+    List<Event> lifeEvents = new ArrayList<>();
+    List<Person> relatives = new ArrayList<>();
 
     ExpandableListAdapter expandableListAdapter;
     ExpandableListView expandableListView;
@@ -76,7 +76,7 @@ public class PersonActivity extends AppCompatActivity {
         expandableListView.setAdapter(expandableListAdapter);
 
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
-            goToEvent();
+            goToEvent(groupPosition, childPosition);
             return false;
         });
 
@@ -121,13 +121,24 @@ public class PersonActivity extends AppCompatActivity {
         headerChildren.put(headers.get(1), familyItems);
     }
 
-    private void goToEvent() {
+    private void goToEvent(int groupPosition, int childPosition) {
         String EVENT_ID_HARDCODED = "HARD_CODED";
 
-        Intent intent = new Intent(this, EventActivity.class);
-        intent.putExtra("EVENT_ID", EVENT_ID_HARDCODED);
-        finish();
-        startActivity(intent);
+        if (groupPosition == 0) {   // If life event selected
+            Event event = lifeEvents.get(childPosition);
+
+            Intent intent = new Intent(this, EventActivity.class);
+            intent.putExtra("EVENT_ID", event.getEventID());
+            finish();
+            startActivity(intent);
+        } else {    // If family selected
+            Person person = relatives.get(childPosition);
+
+            Intent intent = new Intent(this, PersonActivity.class);
+            intent.putExtra("PERSON_ID", person.getPersonID());
+            finish();
+            startActivity(intent);
+        }
     }
 
     private List<String> addLifeEventItems(String personID) {
@@ -150,6 +161,7 @@ public class PersonActivity extends AppCompatActivity {
             if (individual.getAssociatedUsername().equals(person.getAssociatedUsername()) &&
                     !individual.getPersonID().equals(personID)) {
                 if (!stringifyRelation(individual).equals("")) {
+                    relatives.add(individual);
                     items.add(stringifyFullName(individual) + stringifyRelation(individual));
                 }
             }
