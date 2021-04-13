@@ -38,6 +38,9 @@ public class PersonActivity extends AppCompatActivity {
     private String personID;
     private Person person;
 
+    List<Event> lifeEvents;
+//    List<Person>
+
     ExpandableListAdapter expandableListAdapter;
     ExpandableListView expandableListView;
     List<String> headers;
@@ -119,13 +122,17 @@ public class PersonActivity extends AppCompatActivity {
     }
 
     private void goToEvent() {
+        String EVENT_ID_HARDCODED = "HARD_CODED";
+
         Intent intent = new Intent(this, EventActivity.class);
+        intent.putExtra("EVENT_ID", EVENT_ID_HARDCODED);
+        finish();
         startActivity(intent);
     }
 
     private List<String> addLifeEventItems(String personID) {
         List<String> items = new ArrayList<>();
-        List<Event> lifeEvents = DataCache.getPersonEvents().get(personID);
+        lifeEvents = DataCache.getPersonEvents().get(personID);
 
         for (Event event : lifeEvents) {
             Person person = DataCache.getPersons().get(event.getPersonID());

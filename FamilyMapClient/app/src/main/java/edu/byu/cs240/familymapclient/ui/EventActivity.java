@@ -13,7 +13,7 @@ import edu.byu.cs240.familymapclient.R;
 
 public class EventActivity extends AppCompatActivity {
 
-    private String eventID = "HARD_CODED";
+    private String eventID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +21,10 @@ public class EventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+        // Get event ID from person activity
+        eventID = getIntent().getStringExtra("EVENT_ID");
+
+        // Embed map fragment (pass in event ID)
         Bundle bundle = new Bundle();
         bundle.putString("EventIDKey", eventID);
         MapFragment mapFragment = new MapFragment();
