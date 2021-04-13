@@ -24,6 +24,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 
@@ -42,6 +44,8 @@ public class MapFragment extends Fragment {
 
     private GoogleMap gMap;
     private TextView mapDetailBar;
+
+    private String eventID;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -70,6 +74,10 @@ public class MapFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
+        if (getArguments() != null) {
+            eventID = getArguments().getString("EventIDKey");
+        }
+
         mapDetailBar = view.findViewById(R.id.tvMapDetailBar);
         mapDetailBar.setOnClickListener(v -> onDetailBarClick());
 
@@ -89,7 +97,13 @@ public class MapFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+
+        if (eventID != null && !eventID.equals("")) {
+            setHasOptionsMenu(true);
+        } else {
+            setHasOptionsMenu(false);
+        }
+//        setHasOptionsMenu(true);
     }
 
     @Override
@@ -208,6 +222,23 @@ public class MapFragment extends Fragment {
      * Adds lines eminating from the marker
      */
     private void addLinesFromMarker(Marker marker) {
+        addLifeStoryLines();
+        addFamilyTreeLines();
+        addSpouseLines(marker);
+    }
 
+    private void addLifeStoryLines() {
+    }
+
+    private void addFamilyTreeLines() {
+    }
+
+    private void addSpouseLines(Marker marker) {
+//        Event event = (Event) marker.getTag();
+//        assert event != null;
+//        Person person = DataCache.getPersons().get(event.getPersonID());
+//        assert person != null;
+
+//        Polyline line = gMap.addPolyline(new PolylineOptions().add())
     }
 }

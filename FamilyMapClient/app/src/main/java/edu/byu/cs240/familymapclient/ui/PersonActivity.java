@@ -4,11 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+
+import com.joanzapata.iconify.IconDrawable;
+import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,7 +40,7 @@ public class PersonActivity extends AppCompatActivity {
 
     ExpandableListAdapter expandableListAdapter;
     ExpandableListView expandableListView;
-    List<String> headers; // = Arrays.asList("header1", "header2", "header3");
+    List<String> headers;
     HashMap<String, List<String>> headerChildren;
 
     @Override
@@ -64,14 +68,24 @@ public class PersonActivity extends AppCompatActivity {
 
         prepareListData();
 
+        expandableListAdapter = new ExpandableListAdapter(this, headers, headerChildren);
+
+        expandableListView.setAdapter(expandableListAdapter);
+
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
             goToEvent();
             return false;
         });
 
-        expandableListAdapter = new ExpandableListAdapter(this, headers, headerChildren);
+//        for (int i = 0; i < expandableListView.getChildCount(); i++) {
+//            TextView tv = expandableListView.getChildAt(i).findViewById(R.id.lblListItem);
+//            tv.setTag("hello");
+//        }
 
-        expandableListView.setAdapter(expandableListAdapter);
+//        TextView listItem = findViewById(R.id.lblListItem);
+//        Drawable locationIcon = new IconDrawable(this, FontAwesomeIcons.fa_map_marker)
+//                .colorRes(R.color.black).sizeDp(40);;
+//        listItem.setCompoundDrawables(locationIcon, null, null, null);
     }
 
     /**

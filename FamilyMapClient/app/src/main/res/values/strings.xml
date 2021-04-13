@@ -24,6 +24,8 @@
     <string name="life_story_lines_description">SHOW LIFE STORY LINES</string>
     <string name="family_tree_lines_label">Family Tree Lines</string>
     <string name="family_tree_lines_description">SHOW FAMILY TREE LINES</string>
+    <string name="spouse_lines_label">Spouse Lines</string>
+    <string name="spouse_lines_description">SHOW SPOUSE LINES</string>
     <string name="fathers_side_label">Father\'s Side</string>
     <string name="fathers_side_description">FILTER BY FATHER\'S SIDE OF FAMILY</string>
     <string name="mothers_side_label">Mother\'s Side</string>
