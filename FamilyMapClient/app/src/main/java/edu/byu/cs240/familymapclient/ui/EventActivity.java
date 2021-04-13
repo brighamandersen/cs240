@@ -13,7 +13,7 @@ import edu.byu.cs240.familymapclient.R;
 
 public class EventActivity extends AppCompatActivity {
 
-    private String eventID;
+    private String eventID = "HARD_CODED";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

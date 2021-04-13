@@ -74,10 +74,6 @@ public class MapFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
-        if (getArguments() != null) {
-            eventID = getArguments().getString("EventIDKey");
-        }
-
         mapDetailBar = view.findViewById(R.id.tvMapDetailBar);
         mapDetailBar.setOnClickListener(v -> onDetailBarClick());
 
@@ -98,12 +94,12 @@ public class MapFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (eventID != null && !eventID.equals("")) {
-            setHasOptionsMenu(true);
-        } else {
+        if (getArguments() != null) {
+            eventID = getArguments().getString("EventIDKey");
             setHasOptionsMenu(false);
+        } else {
+            setHasOptionsMenu(true);
         }
-//        setHasOptionsMenu(true);
     }
 
     @Override
