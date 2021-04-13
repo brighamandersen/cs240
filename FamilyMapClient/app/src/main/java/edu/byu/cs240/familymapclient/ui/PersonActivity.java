@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
@@ -17,9 +18,12 @@ import java.util.Objects;
 import edu.byu.cs240.familymapclient.R;
 import edu.byu.cs240.familymapclient.helpers.ExpandableListAdapter;
 import edu.byu.cs240.familymapclient.model.DataCache;
+import models.Event;
 import models.Person;
 
-import static edu.byu.cs240.familymapclient.helpers.Stringify.wordifyGender;
+import static edu.byu.cs240.familymapclient.helpers.StringUtils.stringifyFullName;
+import static edu.byu.cs240.familymapclient.helpers.StringUtils.stringifyLifeEventDetails;
+import static edu.byu.cs240.familymapclient.helpers.StringUtils.wordifyGender;
 
 public class PersonActivity extends AppCompatActivity {
 
@@ -27,9 +31,8 @@ public class PersonActivity extends AppCompatActivity {
     private TextView lastNameTV;
     private TextView genderTV;
 
-    String personID;
-
-    // FIXME -- Delete these below?
+    private String personID;
+    private Person person;
 
     ExpandableListAdapter expandableListAdapter;
     ExpandableListView expandableListView;
@@ -44,7 +47,7 @@ public class PersonActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Family Map: Person Details");
 
         personID = getIntent().getStringExtra("PERSON_ID");
-        Person person = DataCache.getPersons().get(personID);
+        person = DataCache.getPersons().get(personID);
 
         firstNameTV = findViewById(R.id.tvFirstName);
         firstNameTV.setText(person.getFirstName());
@@ -60,6 +63,11 @@ public class PersonActivity extends AppCompatActivity {
         expandableListView = (ExpandableListView) findViewById(R.id.lifeEventsExpListView);
 
         prepareListData();
+
+        expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
+            goToEvent();
+            return false;
+        });
 
         expandableListAdapter = new ExpandableListAdapter(this, headers, headerChildren);
 
@@ -82,38 +90,64 @@ public class PersonActivity extends AppCompatActivity {
         headers = new ArrayList<String>();
         headerChildren = new HashMap<String, List<String>>();
 
-        // Adding child data
-        headers.add("Top 250");
-        headers.add("Now Showing");
-        headers.add("Coming Soon..");
+        // Adding headers
+        headers.add("LIFE EVENTS");
+        headers.add("FAMILY");
 
-        // Adding child data
-        List<String> top250 = new ArrayList<String>();
-        top250.add("The Shawshank Redemption");
-        top250.add("The Godfather");
-        top250.add("The Godfather: Part II");
-        top250.add("Pulp Fiction");
-        top250.add("The Good, the Bad and the Ugly");
-        top250.add("The Dark Knight");
-        top250.add("12 Angry Men");
+        // Adding life events
+        List<String> lifeEventItems = addLifeEventItems(personID);
 
-        List<String> nowShowing = new ArrayList<String>();
-        nowShowing.add("The Conjuring");
-        nowShowing.add("Despicable Me 2");
-        nowShowing.add("Turbo");
-        nowShowing.add("Grown Ups 2");
-        nowShowing.add("Red 2");
-        nowShowing.add("The Wolverine");
+        // Adding family members
+        List<String> familyItems = addFamilyItems();
 
-        List<String> comingSoon = new ArrayList<String>();
-        comingSoon.add("2 Guns");
-        comingSoon.add("The Smurfs 2");
-        comingSoon.add("The Spectacular Now");
-        comingSoon.add("The Canyons");
-        comingSoon.add("Europa Report");
+        headerChildren.put(headers.get(0), lifeEventItems);
+        headerChildren.put(headers.get(1), familyItems);
+    }
 
-        headerChildren.put(headers.get(0), top250); // Header, Child data
-        headerChildren.put(headers.get(1), nowShowing);
-        headerChildren.put(headers.get(2), comingSoon);
+    private void goToEvent() {
+        Intent intent = new Intent(this, EventActivity.class);
+        startActivity(intent);
+    }
+
+    private List<String> addLifeEventItems(String personID) {
+        List<String> items = new ArrayList<>();
+        List<Event> lifeEvents = DataCache.getPersonEvents().get(personID);
+
+        for (Event event : lifeEvents) {
+            Person person = DataCache.getPersons().get(event.getPersonID());
+            items.add(stringifyLifeEventDetails(event, person));
+        }
+
+        return items;
+    }
+
+    private List<String> addFamilyItems() {
+        List<String> items = new ArrayList<>();
+
+        // Find relatives besides the current person
+        for (Person individual : DataCache.getPersons().values()) {
+            if (individual.getAssociatedUsername().equals(person.getAssociatedUsername()) &&
+                    !individual.getPersonID().equals(personID)) {
+                if (!stringifyRelation(individual).equals("")) {
+                    items.add(stringifyFullName(individual) + stringifyRelation(individual));
+                }
+            }
+        }
+
+        return items;
+    }
+
+    private String stringifyRelation(Person relative) {
+        if (person.getFatherID() != null && relative.getPersonID() != null &&
+                person.getFatherID().equals(relative.getPersonID())) return "\nFather";
+        if (person.getMotherID() != null && relative.getPersonID() != null &&
+                person.getMotherID().equals(relative.getPersonID())) return "\nMother";
+        if (person.getSpouseID() != null && relative.getPersonID() != null &&
+                person.getSpouseID().equals(relative.getPersonID())) return "\nSpouse";
+        if ((relative.getFatherID() != null && relative.getFatherID().equals(personID)) ||
+                (relative.getMotherID() != null && relative.getMotherID().equals(personID))) {
+            return "\nChild";
+        }
+        return "";
     }
 }

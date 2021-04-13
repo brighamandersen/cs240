@@ -3,7 +3,6 @@ package edu.byu.cs240.familymapclient.ui;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -16,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -34,8 +32,8 @@ import edu.byu.cs240.familymapclient.model.DataCache;
 import models.Event;
 import models.Person;
 
-import static edu.byu.cs240.familymapclient.helpers.Stringify.stringifyEventDetails;
-import static edu.byu.cs240.familymapclient.helpers.Stringify.stringifyFullLocation;
+import static edu.byu.cs240.familymapclient.helpers.StringUtils.stringifyBarDetails;
+import static edu.byu.cs240.familymapclient.helpers.StringUtils.stringifyFullLocation;
 
 public class MapFragment extends Fragment {
 
@@ -200,7 +198,7 @@ public class MapFragment extends Fragment {
         mapDetailBar.setCompoundDrawables(genderIcon, null, null, null);
 
         // Update detail bar text
-        mapDetailBar.setText(stringifyEventDetails(event, person));
+        mapDetailBar.setText(stringifyBarDetails(event, person));
 
         // Update detail bar tag
         mapDetailBar.setTag(event);

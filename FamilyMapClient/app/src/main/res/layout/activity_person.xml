@@ -14,8 +14,7 @@
             android:id="@+id/tvFirstName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="{FIRST NAME}" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -35,8 +34,7 @@
             android:id="@+id/tvLastName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="{LAST NAME}" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -56,8 +54,7 @@
             android:id="@+id/tvGender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="{GENDER}" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -77,18 +74,4 @@
         android:id="@+id/lifeEventsExpListView"
         />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="hello" />
-<!--        check, might be match parent above-->
-
-<!--    <ExpandableListView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"-->
-<!--        android:divider="@android:color/darker_gray"-->
-<!--        android:dividerHeight="0.5dp"-->
-<!--        />-->
-    <!--        check, might be match parent above-->
 </LinearLayout>

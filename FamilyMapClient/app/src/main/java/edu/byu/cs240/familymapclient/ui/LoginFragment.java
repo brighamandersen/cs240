@@ -127,7 +127,7 @@ public class LoginFragment extends Fragment {
 
         // FIXME -- DELETE LATER (Just setting fields to make login faster
 
-        serverHostET.setText("192.168.253.57");
+        serverHostET.setText("192.168.1.111");
         serverPortET.setText("8080");
 //        usernameET.setText("su");
         usernameET.setText("sheila");
@@ -326,10 +326,7 @@ public class LoginFragment extends Fragment {
         startActivity(intent);
     }
 
-    private void goToEvent() {
-        Intent intent = new Intent(getActivity(), EventActivity.class);
-        startActivity(intent);
-    }
+
 
     private void goToSearch() {
         Intent intent = new Intent(getActivity(), SearchActivity.class);
