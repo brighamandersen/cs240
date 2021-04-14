@@ -57,22 +57,29 @@ public class ServerProxy {
         return deserializeJson(resData, EventFamilyResult.class);
     }
 
+    public void clear() {
+        String resData = sendRequest("clear", "POST", null, null);
+
+        deserializeJson(resData, Result.class);
+    }
+
     private String sendRequest(String endpoint, String reqMethod, String authtoken, String reqData) {
         try {
+            if (!reqMethod.equalsIgnoreCase("get") && !reqMethod.equalsIgnoreCase("post")) {
+                throw new IOException("Bad request method");
+            }
+
             URL url = new URL("http://" + serverHostName + ":" + serverPortNumber + "/" + endpoint);
 
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
 
-            if (reqMethod.equalsIgnoreCase("get")) {
-                assert reqData == null;
-                http.setDoOutput(false);    // No request body
-            } else if (reqMethod.equalsIgnoreCase("post")) {
-                assert reqData != null;
-                http.setDoOutput(true);     // Has a request body
-            } else {
-                throw new IOException("Bad request method");
-            }
             http.setRequestMethod(reqMethod);
+
+            if (reqData != null) {
+                http.setDoOutput(true);
+            } else {
+                http.setDoOutput(false);
+            }
 
             if (authtoken != null) {
                 http.addRequestProperty("Authorization", authtoken);
@@ -81,7 +88,7 @@ public class ServerProxy {
 
             http.connect();
 
-            if (reqMethod.equalsIgnoreCase("post")) {
+            if (reqData != null) {
                 OutputStream reqBody = http.getOutputStream();
                 writeString(reqData, reqBody);
                 reqBody.close();
@@ -91,7 +98,7 @@ public class ServerProxy {
             if (http.getResponseCode()  == HttpURLConnection.HTTP_OK) {
                 resBody = http.getInputStream();
             } else {
-                resBody = http.getErrorStream();
+                throw new IOException("Bad response code");
             }
 
             return readString(resBody);
