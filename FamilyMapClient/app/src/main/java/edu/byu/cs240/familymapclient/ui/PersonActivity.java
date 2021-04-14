@@ -219,7 +219,7 @@ public class PersonActivity extends AppCompatActivity {
             }
 
             TextView txtListChild = (TextView) convertView
-                    .findViewById(R.id.lblListItem);
+                    .findViewById(R.id.listItem);
 
             Drawable icon = assignIcon(groupPosition, childPosition);
             txtListChild.setCompoundDrawables(icon, null, null, null);

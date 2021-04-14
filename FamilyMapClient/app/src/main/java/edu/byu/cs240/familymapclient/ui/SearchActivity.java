@@ -9,14 +9,21 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.List;
 import java.util.Objects;
 
 import edu.byu.cs240.familymapclient.R;
+import models.Event;
+import models.Person;
 
 public class SearchActivity extends AppCompatActivity {
+
+    private static final int PERSON_ITEM_VIEW_TYPE = 0;
+    private static final int EVENT_ITEM_VIEW_TYPE = 1;
 
     private EditText searchBar;
     private String searchText;
@@ -61,10 +68,33 @@ public class SearchActivity extends AppCompatActivity {
 
     private void updateResults() {
         Toast.makeText(this, "Hello", Toast.LENGTH_SHORT).show();
-
     }
 
-//    public class SearchAdapter extends RecyclerView.Adapter<> {
+//    public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> {
+//        private final List<Person> persons;
+//        private final List<Event> events;
+//
+//        SearchAdapter(List<Person> persons, List<Event> events) {
+//            this.persons = persons;
+//            this.events = events;
+//        }
+//
+//        @Override
+//        public int getItemViewType(int position) {
+//            return position < persons.size() ? PERSON_ITEM_VIEW_TYPE : EVENT_ITEM_VIEW_TYPE;
+//        }
+//
+//        @NonNull
+//        @Override
+//        public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//            View view;
+//
+//            if (viewType == PERSON_ITEM_VIEW_TYPE) {
+//                view = getLayoutInflater().inflate(R.layout.list_item);
+//            }
+//        }
+//
+//
 //    }
 //
 //    public class SearchViewHolder extends RecyclerView.ViewHolder {

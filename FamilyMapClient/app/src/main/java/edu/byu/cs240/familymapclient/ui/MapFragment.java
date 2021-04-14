@@ -47,8 +47,8 @@ public class MapFragment extends Fragment {
     private TextView mapDetailBar;
 
     private String eventID;
+    private Event currentEvent;
 
-    private Marker currentMarker;
     private List<Polyline> lines = new ArrayList<>();
 
     private final OnMapReadyCallback callback = new OnMapReadyCallback() {
@@ -139,10 +139,10 @@ public class MapFragment extends Fragment {
      * Start person activity with a person ID when marker is clicked.
      */
     private void onDetailBarClick() {
-        Event selectedEvent = (Event) mapDetailBar.getTag();
-        if (selectedEvent == null) return;
+        currentEvent = (Event) mapDetailBar.getTag();
+        if (currentEvent == null) return;
 
-        String personID = selectedEvent.getPersonID();
+        String personID = currentEvent.getPersonID();
 
         Intent intent = new Intent(getActivity(), PersonActivity.class);
         intent.putExtra("PERSON_ID", personID);
@@ -156,15 +156,16 @@ public class MapFragment extends Fragment {
             addEventMarker(event, location);
 
             gMap.setOnMarkerClickListener(marker -> {
-                displayMarkerDetails(marker);
-                addLines(marker);
+                currentEvent = (Event) marker.getTag();
+                updateDetailBar();
+                addLines();
                 return false;
             });
 
             // Make map focus the logged-in user's birth
             if (eventID != null && event.getEventID().equals(eventID)) {
                 gMap.moveCamera(CameraUpdateFactory.newLatLng(location));
-                displayMarkerDetails(currentMarker);
+                updateDetailBar();
             }
             if (eventID == null &&
                     event.getPersonID().equals(DataCache.getUser().getPersonID())) {
@@ -176,20 +177,20 @@ public class MapFragment extends Fragment {
     private void addEventMarker(Event event, LatLng location) {
         float markerColor = DataCache.getEventColors().get(event.getEventType().toLowerCase());
 
-        currentMarker = gMap.addMarker(new MarkerOptions()
+        Marker marker = gMap.addMarker(new MarkerOptions()
                 .position(location)
                 .title(stringifyFullLocation(event))
                 .icon(BitmapDescriptorFactory.defaultMarker(markerColor)));
-        currentMarker.setTag(event);
+        marker.setTag(event);
     }
 
     /**
      * Adds event details to map detail bar
      */
-    private void displayMarkerDetails(Marker marker) {
-        Event event = (Event) marker.getTag();
-        assert event != null;
-        Person person = DataCache.getPersons().get(event.getPersonID());
+    private void updateDetailBar() {
+        if (currentEvent == null) return;
+
+        Person person = DataCache.getPersons().get(currentEvent.getPersonID());
         assert person != null;
 
         // Set icon to male by default
@@ -207,68 +208,66 @@ public class MapFragment extends Fragment {
         mapDetailBar.setCompoundDrawables(genderIcon, null, null, null);
 
         // Update detail bar text
-        mapDetailBar.setText(stringifyBarDetails(event, person));
+        mapDetailBar.setText(stringifyBarDetails(currentEvent, person));
 
         // Update detail bar tag
-        mapDetailBar.setTag(event);
+        mapDetailBar.setTag(currentEvent);
     }
 
     /**
      * Adds lines eminating from the marker
      */
-    private void addLines(Marker marker) {
+    private void addLines() {
+        if (currentEvent == null) return;
+
         clearLines();
         if (DataCache.getShowLifeStoryLines()) {
-            addLifeStoryLines(marker);
+            addLifeStoryLines();
         }
         if (DataCache.getShowFamilyTreeLines()) {
-            addFamilyTreeLines(marker);
+            addFamilyTreeLines();
         }
         if (DataCache.getShowSpouseLines()) {
-            addSpouseLine(marker);
+            addSpouseLine();
         }
     }
 
-    private void addLifeStoryLines(Marker marker) {
-        Event event = (Event) marker.getTag();
-        if (event == null) return;
-        Person person = DataCache.getPersons().get(event.getPersonID());
+    private void addLifeStoryLines() {
+        Person person = DataCache.getPersons().get(currentEvent.getPersonID());
         if (person == null) return;
 
         for (Event lifeEvent : DataCache.getPersonEvents().get(person.getPersonID())) {
             Polyline line = gMap.addPolyline(new PolylineOptions().add(
-                    getLatLng(event),
+                    getLatLng(currentEvent),
                     getLatLng(lifeEvent)
             ).color(Color.BLUE));
             lines.add(line);
         }
     }
 
-    private void addFamilyTreeLines(Marker marker) {
-        Event event = (Event) marker.getTag();
-        if (event == null) return;
-        Person person = DataCache.getPersons().get(event.getPersonID());
+    private void addFamilyTreeLines() {
+        Person person = DataCache.getPersons().get(currentEvent.getPersonID());
         if (person == null) return;
 
         float lineWidth = 40.0f;
 
         // Add line to father
         Person father = DataCache.getPersons().get(person.getFatherID());
-        addParentLine(event, father, lineWidth);
+        addParentLine(currentEvent, father, lineWidth);
 
         // Add line to mother
         Person mother = DataCache.getPersons().get(person.getFatherID());
-        addParentLine(event, mother, lineWidth);
+        addParentLine(currentEvent, mother, lineWidth);
     }
 
-    private void addParentLine(Event currentEvent, Person parent, float lineWidth) {
+    private void addParentLine(Event event, Person parent, float lineWidth) {
         if (parent == null) return;
 
         lineWidth = lineWidth / 2;
 
         Event firstParentEvent = DataCache.getPersonEvents().get(parent.getPersonID()).get(0);
         Polyline line = gMap.addPolyline(new PolylineOptions().add(
-                getLatLng(currentEvent),
+                getLatLng(event),
                 getLatLng(firstParentEvent)
         ).color(Color.DKGRAY).width(lineWidth));
         lines.add(line);
@@ -282,10 +281,8 @@ public class MapFragment extends Fragment {
         addParentLine(firstParentEvent, grandmother, lineWidth);
     }
 
-    private void addSpouseLine(Marker marker) {
-        Event event = (Event) marker.getTag();
-        if (event == null) return;
-        Person person = DataCache.getPersons().get(event.getPersonID());
+    private void addSpouseLine() {
+        Person person = DataCache.getPersons().get(currentEvent.getPersonID());
         if (person == null) return;
 
         Person spouse = DataCache.getPersons().get(person.getSpouseID());
@@ -293,7 +290,7 @@ public class MapFragment extends Fragment {
             Event firstSpouseEvent = DataCache.getPersonEvents().get(spouse.getPersonID()).get(0);
 
             Polyline line = gMap.addPolyline(new PolylineOptions().add(
-                    getLatLng(event),
+                    getLatLng(currentEvent),
                     getLatLng(firstSpouseEvent)
             ).color(Color.MAGENTA));
             lines.add(line);
@@ -314,9 +311,6 @@ public class MapFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        if (currentMarker == null) return;
-
-        addLines(currentMarker);
+        addLines();
     }
 }
