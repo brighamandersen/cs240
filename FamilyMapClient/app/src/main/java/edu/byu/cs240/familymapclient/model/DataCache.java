@@ -44,6 +44,12 @@ public class DataCache {
     private boolean showFamilyTreeLines;
     private boolean showLifeStoryLines;
 
+    // FIELDS TO ADD FOR FILTERING
+//    private List<Person> males;
+//    private List<Person> females;
+//    private List<Person> fathersSide;
+//    private List<Person> mothersSide;
+
     private DataCache() {
         persons = new HashMap<>();
         events = new HashMap<>();
