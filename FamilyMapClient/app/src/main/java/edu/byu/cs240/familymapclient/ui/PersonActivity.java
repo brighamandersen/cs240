@@ -124,6 +124,7 @@ public class PersonActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, EventActivity.class);
         intent.putExtra("EVENT_ID", event.getEventID());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         finish();
         startActivity(intent);
     }
