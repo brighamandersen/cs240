@@ -181,8 +181,6 @@ public class MapFragment extends Fragment {
                 .title(stringifyFullLocation(event))
                 .icon(BitmapDescriptorFactory.defaultMarker(markerColor)));
         currentMarker.setTag(event);
-
-//        return newMarker;
     }
 
     /**
@@ -220,34 +218,86 @@ public class MapFragment extends Fragment {
      */
     private void addLines(Marker marker) {
         clearLines();
-        addLifeStoryLines();
-        addFamilyTreeLines();
+        if (DataCache.getShowLifeStoryLines()) {
+            addLifeStoryLines(marker);
+        }
+        if (DataCache.getShowFamilyTreeLines()) {
+            addFamilyTreeLines(marker);
+        }
         if (DataCache.getShowSpouseLines()) {
             addSpouseLine(marker);
         }
     }
 
-    private void addLifeStoryLines() {
+    private void addLifeStoryLines(Marker marker) {
+        Event event = (Event) marker.getTag();
+        if (event == null) return;
+        Person person = DataCache.getPersons().get(event.getPersonID());
+        if (person == null) return;
+
+        for (Event lifeEvent : DataCache.getPersonEvents().get(person.getPersonID())) {
+            Polyline line = gMap.addPolyline(new PolylineOptions().add(
+                    getLatLng(event),
+                    getLatLng(lifeEvent)
+            ).color(Color.BLUE));
+            lines.add(line);
+        }
     }
 
-    private void addFamilyTreeLines() {
+    private void addFamilyTreeLines(Marker marker) {
+        Event event = (Event) marker.getTag();
+        if (event == null) return;
+        Person person = DataCache.getPersons().get(event.getPersonID());
+        if (person == null) return;
+
+        float lineWidth = 40.0f;
+
+        // Add line to father
+        Person father = DataCache.getPersons().get(person.getFatherID());
+        addParentLine(event, father, lineWidth);
+
+        // Add line to mother
+        Person mother = DataCache.getPersons().get(person.getFatherID());
+        addParentLine(event, mother, lineWidth);
+    }
+
+    private void addParentLine(Event currentEvent, Person parent, float lineWidth) {
+        if (parent == null) return;
+
+        lineWidth = lineWidth / 2;
+
+        Event firstParentEvent = DataCache.getPersonEvents().get(parent.getPersonID()).get(0);
+        Polyline line = gMap.addPolyline(new PolylineOptions().add(
+                getLatLng(currentEvent),
+                getLatLng(firstParentEvent)
+        ).color(Color.DKGRAY).width(lineWidth));
+        lines.add(line);
+
+        Person grandfather = DataCache.getPersons().get(parent.getFatherID());
+        if (grandfather == null) return;
+        addParentLine(firstParentEvent, grandfather, lineWidth);
+
+        Person grandmother = DataCache.getPersons().get(parent.getMotherID());
+        if (grandmother == null) return;
+        addParentLine(firstParentEvent, grandmother, lineWidth);
     }
 
     private void addSpouseLine(Marker marker) {
         Event event = (Event) marker.getTag();
-        assert event != null;
+        if (event == null) return;
         Person person = DataCache.getPersons().get(event.getPersonID());
-        assert person != null;
+        if (person == null) return;
 
         Person spouse = DataCache.getPersons().get(person.getSpouseID());
-        assert spouse != null;
-        Event firstSpouseEvent = DataCache.getPersonEvents().get(spouse.getPersonID()).get(0);
+        if (spouse != null) {
+            Event firstSpouseEvent = DataCache.getPersonEvents().get(spouse.getPersonID()).get(0);
 
-        Polyline line = gMap.addPolyline(new PolylineOptions().add(
-                getLatLng(event),
-                getLatLng(firstSpouseEvent)
-        ).color(Color.DKGRAY));
-        lines.add(line);
+            Polyline line = gMap.addPolyline(new PolylineOptions().add(
+                    getLatLng(event),
+                    getLatLng(firstSpouseEvent)
+            ).color(Color.MAGENTA));
+            lines.add(line);
+        }
     }
 
     private void clearLines() {
@@ -265,10 +315,8 @@ public class MapFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        if (currentMarker != null) {
-            addLines(currentMarker);
-        } else {
-            clearLines();
-        }
+        if (currentMarker == null) return;
+
+        addLines(currentMarker);
     }
 }

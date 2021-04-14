@@ -41,6 +41,8 @@ public class DataCache {
     private int extraMarkerIndex;
     private Person user;
     private boolean showSpouseLines;
+    private boolean showFamilyTreeLines;
+    private boolean showLifeStoryLines;
 
     private DataCache() {
         persons = new HashMap<>();
@@ -54,6 +56,8 @@ public class DataCache {
         extraMarkerIndex = 0;
         user = null;
         showSpouseLines = true;
+        showFamilyTreeLines = true;
+        showLifeStoryLines = true;
     }
 
     public static Map<String, Person> getPersons() {
@@ -125,5 +129,21 @@ public class DataCache {
 
     public static void setShowSpouseLines(boolean b) {
         DataCache.getInstance().showSpouseLines = b;
+    }
+
+    public static boolean getShowFamilyTreeLines() {
+        return DataCache.getInstance().showFamilyTreeLines;
+    }
+
+    public static void setShowFamilyTreeLines(boolean b) {
+        DataCache.getInstance().showFamilyTreeLines = b;
+    }
+
+    public static boolean getShowLifeStoryLines() {
+        return DataCache.getInstance().showLifeStoryLines;
+    }
+
+    public static void setShowLifeStoryLines(boolean b) {
+        DataCache.getInstance().showLifeStoryLines = b;
     }
 }

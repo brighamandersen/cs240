@@ -17,10 +17,10 @@ import edu.byu.cs240.familymapclient.model.DataCache;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    // FIXME -- RETURNS A BOOLEAN TO TELL MAIN ACTIVITY IF SETTINGS CHANGED
-
     private LinearLayout logoutDiv;
     private SwitchCompat spouseLinesSwitch;
+    private SwitchCompat familyTreeLinesSwitch;
+    private SwitchCompat lifeStoryLinesSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,18 @@ public class SettingsActivity extends AppCompatActivity {
 
         logoutDiv = findViewById(R.id.logoutDiv);
         logoutDiv.setOnClickListener(v -> logOut());
+
+        lifeStoryLinesSwitch = findViewById(R.id.lifeStoryLinesSwitch);
+        lifeStoryLinesSwitch.setChecked(DataCache.getShowLifeStoryLines());
+        lifeStoryLinesSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            DataCache.setShowLifeStoryLines(isChecked);
+        });
+
+        familyTreeLinesSwitch = findViewById(R.id.familyTreeLinesSwitch);
+        familyTreeLinesSwitch.setChecked(DataCache.getShowFamilyTreeLines());
+        familyTreeLinesSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            DataCache.setShowFamilyTreeLines(isChecked);
+        });
 
         spouseLinesSwitch = findViewById(R.id.spouseLinesSwitch);
         spouseLinesSwitch.setChecked(DataCache.getShowSpouseLines());
