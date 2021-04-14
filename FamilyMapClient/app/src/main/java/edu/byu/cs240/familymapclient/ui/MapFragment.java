@@ -38,6 +38,7 @@ import edu.byu.cs240.familymapclient.model.DataCache;
 import models.Event;
 import models.Person;
 
+import static edu.byu.cs240.familymapclient.helpers.IconUtils.getGenderIcon;
 import static edu.byu.cs240.familymapclient.helpers.StringUtils.stringifyBarDetails;
 import static edu.byu.cs240.familymapclient.helpers.StringUtils.stringifyFullLocation;
 
@@ -195,19 +196,9 @@ public class MapFragment extends Fragment {
         Person person = DataCache.getPersons().get(currentEvent.getPersonID());
         assert person != null;
 
-        // Set icon to male by default
-        FontAwesomeIcons iconType = FontAwesomeIcons.fa_male;
-        int iconColor = R.color.male_blue;
-        // Switch to female icon accordingly
-        if (person.getGender().equals("f")) {
-            iconType = FontAwesomeIcons.fa_female;
-            iconColor = R.color.female_pink;
-        }
-
         // Update icon
-        Drawable genderIcon = new IconDrawable(getActivity(), iconType).
-        colorRes(iconColor).sizeDp(40);
-        mapDetailBar.setCompoundDrawables(genderIcon, null, null, null);
+        Drawable icon = getGenderIcon(getActivity(), person.getGender());
+        mapDetailBar.setCompoundDrawables(icon, null, null, null);
 
         // Update detail bar text
         mapDetailBar.setText(stringifyBarDetails(currentEvent, person));

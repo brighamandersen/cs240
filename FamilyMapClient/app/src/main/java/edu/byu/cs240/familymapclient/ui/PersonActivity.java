@@ -16,9 +16,6 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-import com.joanzapata.iconify.IconDrawable;
-import com.joanzapata.iconify.fonts.FontAwesomeIcons;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +26,8 @@ import edu.byu.cs240.familymapclient.model.DataCache;
 import models.Event;
 import models.Person;
 
+import static edu.byu.cs240.familymapclient.helpers.IconUtils.getGenderIcon;
+import static edu.byu.cs240.familymapclient.helpers.IconUtils.getEventIcon;
 import static edu.byu.cs240.familymapclient.helpers.StringUtils.stringifyFullName;
 import static edu.byu.cs240.familymapclient.helpers.StringUtils.stringifyLifeEventDetails;
 import static edu.byu.cs240.familymapclient.helpers.StringUtils.wordifyGender;
@@ -230,14 +229,9 @@ public class PersonActivity extends AppCompatActivity {
 
         private Drawable assignIcon(int groupPosition, int childPosition) {
             if (groupPosition == LIFE_EVENT_POS) {      // Life event
-                return new IconDrawable(PersonActivity.this, FontAwesomeIcons.fa_map_marker).colorRes(R.color.black).sizeDp(40);
-            }
-
-            if (relatives.get(childPosition).getGender().equals("m")) {     // Male family member
-                return new IconDrawable(PersonActivity.this, FontAwesomeIcons.fa_male).colorRes(R.color.male_blue).sizeDp(40);
-            }
-            // Female family member
-            return new IconDrawable(PersonActivity.this, FontAwesomeIcons.fa_female).colorRes(R.color.female_pink).sizeDp(40);
+                return getEventIcon(PersonActivity.this);
+            }       // Family
+            return getGenderIcon(PersonActivity.this, relatives.get(childPosition).getGender());
         }
 
         @Override

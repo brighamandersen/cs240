@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,8 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.joanzapata.iconify.IconDrawable;
+import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +30,17 @@ import edu.byu.cs240.familymapclient.model.DataCache;
 import models.Event;
 import models.Person;
 
+import static edu.byu.cs240.familymapclient.helpers.IconUtils.getEventIcon;
+import static edu.byu.cs240.familymapclient.helpers.IconUtils.getGenderIcon;
+import static edu.byu.cs240.familymapclient.helpers.StringUtils.stringifyFullName;
+import static edu.byu.cs240.familymapclient.helpers.StringUtils.stringifyLifeEventDetails;
+
 public class SearchActivity extends AppCompatActivity {
 
     private static final int PERSON_ITEM_VIEW_TYPE = 0;
     private static final int EVENT_ITEM_VIEW_TYPE = 1;
 
-    private EditText searchBar;
-    private String searchText;
+    private SearchView searchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +53,43 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         searchBar = findViewById(R.id.etSearchBar);
-        searchBar.addTextChangedListener(searchQueryWatcher);
+        searchBar.setIconified(false);
+        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
-        List<Person> persons = new ArrayList<>(DataCache.getPersons().values());
-        List<Event> events = new ArrayList<>(DataCache.getEvents().values());
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                List<Person> persons = new ArrayList<>();
+                List<Event> events = new ArrayList<>();
 
-        SearchAdapter searchAdapter = new SearchAdapter(persons, events);
-        recyclerView.setAdapter(searchAdapter);
+                for (Person person : DataCache.getPersons().values()) {
+                    if (containsIgnoreCase(person.getFirstName(), newText) || containsIgnoreCase(person.getLastName(), newText)) {
+                        persons.add(person);
+                    }
+                }
+
+                for (Event event : DataCache.getEvents().values()) {
+                    if (containsIgnoreCase(event.getCountry(), newText) ||
+                            containsIgnoreCase(event.getCity(), newText) ||
+                            containsIgnoreCase(event.getEventType(), newText) ||
+                            containsIgnoreCase(String.valueOf(event.getYear()), newText)) {
+                        events.add(event);
+                    }
+                }
+
+                SearchAdapter searchAdapter = new SearchAdapter(persons, events);
+                recyclerView.setAdapter(searchAdapter);
+
+                return false;
+            }
+        });
+    }
+
+    private boolean containsIgnoreCase(String data, String query) {
+        return data.toLowerCase().contains(query.toLowerCase());
     }
 
     /**
@@ -63,25 +102,6 @@ public class SearchActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    TextWatcher searchQueryWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            searchText = s.toString();
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            updateResults();
-        }
-    };
-
-    private void updateResults() {
-        Toast.makeText(this, "Hello", Toast.LENGTH_SHORT).show();
     }
 
     private class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> {
@@ -135,28 +155,37 @@ public class SearchActivity extends AppCompatActivity {
 
             view.setOnClickListener(this);
 
-            itemData = itemView.findViewById(R.id.listItem);
+            itemData = view.findViewById(R.id.listItem);
         }
 
         private void bind(Person person) {
             this.person = person;
-            itemData.setText(person.getFirstName());    // FIXME
+            itemData.setText(stringifyFullName(person));
+
+            Drawable icon = getGenderIcon(SearchActivity.this, person.getGender());
+            itemData.setCompoundDrawables(icon, null, null, null);
         }
 
         private void bind(Event event) {
             this.event = event;
-            itemData.setText(event.getEventType());     // FIXME
+            Person person = DataCache.getPersons().get(event.getPersonID());
+            itemData.setText(stringifyLifeEventDetails(event, person));
+
+            Drawable icon = getEventIcon(SearchActivity.this);
+            itemData.setCompoundDrawables(icon, null, null, null);
         }
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent();
             if (viewType == PERSON_ITEM_VIEW_TYPE) {    // Person
+                Intent intent = new Intent(SearchActivity.this, PersonActivity.class);
                 intent.putExtra("PERSON_ID", person.getPersonID());
+                startActivity(intent);
             } else {    // Event
+                Intent intent = new Intent(SearchActivity.this, EventActivity.class);
                 intent.putExtra("EVENT_ID", event.getEventID());
+                startActivity(intent);
             }
-            startActivity(intent);
         }
     }
 }
