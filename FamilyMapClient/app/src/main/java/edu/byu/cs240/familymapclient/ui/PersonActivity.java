@@ -37,10 +37,6 @@ public class PersonActivity extends AppCompatActivity {
     private static final int LIFE_EVENT_POS = 0;
     private static final int FAMILY_POS = 1;
 
-    private TextView firstNameTV;
-    private TextView lastNameTV;
-    private TextView genderTV;
-
     private String personID;
     private Person person;
 
@@ -62,13 +58,13 @@ public class PersonActivity extends AppCompatActivity {
         personID = getIntent().getStringExtra("PERSON_ID");
         person = DataCache.getPersons().get(personID);
 
-        firstNameTV = findViewById(R.id.tvFirstName);
+        TextView firstNameTV = findViewById(R.id.tvFirstName);
         firstNameTV.setText(person.getFirstName());
 
-        lastNameTV = findViewById(R.id.tvLastName);
+        TextView lastNameTV = findViewById(R.id.tvLastName);
         lastNameTV.setText(person.getLastName());
 
-        genderTV = findViewById(R.id.tvGender);
+        TextView genderTV = findViewById(R.id.tvGender);
         genderTV.setText(wordifyGender(person.getGender()));
 
         expandableListView = (ExpandableListView) findViewById(R.id.lifeEventsExpListView);
@@ -134,6 +130,7 @@ public class PersonActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, PersonActivity.class);
         intent.putExtra("PERSON_ID", person.getPersonID());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         finish();
         startActivity(intent);
     }

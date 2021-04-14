@@ -98,12 +98,8 @@ public class LoginFragment extends Fragment {
         registerButton.setEnabled(false);
         registerButton.setOnClickListener(v -> onRegisterClick());
 
-        serverHostET.setText("192.168.1.111");
-        serverPortET.setText("8080");
-//        usernameET.setText("su");
-        usernameET.setText("sheila");
-//        passwordET.setText("su");
-        passwordET.setText("parker");
+        serverHostET.setText(R.string.server_host_placeholder);
+        serverPortET.setText(R.string.server_port_placeholder);
 
         return view;
     }

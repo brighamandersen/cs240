@@ -43,12 +43,10 @@ public class DataCache {
     private boolean showSpouseLines;
     private boolean showFamilyTreeLines;
     private boolean showLifeStoryLines;
-
-    // FIELDS TO ADD FOR FILTERING
-//    private List<Person> males;
-//    private List<Person> females;
-//    private List<Person> fathersSide;
-//    private List<Person> mothersSide;
+    private boolean showFathersSide;
+    private boolean showMothersSide;
+    private boolean showMaleEvents;
+    private boolean showFemaleEvents;
 
     private DataCache() {
         persons = new HashMap<>();
@@ -64,6 +62,10 @@ public class DataCache {
         showSpouseLines = true;
         showFamilyTreeLines = true;
         showLifeStoryLines = true;
+        showFathersSide = false;
+        showMothersSide = false;
+        showMaleEvents = false;
+        showFemaleEvents = false;
     }
 
     public static Map<String, Person> getPersons() {
@@ -151,5 +153,37 @@ public class DataCache {
 
     public static void setShowLifeStoryLines(boolean b) {
         DataCache.getInstance().showLifeStoryLines = b;
+    }
+
+    public static boolean getShowFathersSide() {
+        return DataCache.getInstance().showFathersSide;
+    }
+
+    public static void setShowFathersSide(boolean b) {
+        DataCache.getInstance().showFathersSide = b;
+    }
+
+    public static boolean getShowMothersSide() {
+        return DataCache.getInstance().showMothersSide;
+    }
+
+    public static void setShowMothersSide(boolean b) {
+        DataCache.getInstance().showMothersSide = b;
+    }
+
+    public static boolean getShowMaleEvents() {
+        return DataCache.getInstance().showMaleEvents;
+    }
+
+    public static void setShowMaleEvents(boolean b) {
+        DataCache.getInstance().showMaleEvents = b;
+    }
+
+    public static boolean getShowFemaleEvents() {
+        return DataCache.getInstance().showFemaleEvents;
+    }
+
+    public static void setShowFemaleEvents(boolean b) {
+        DataCache.getInstance().showFemaleEvents = b;
     }
 }

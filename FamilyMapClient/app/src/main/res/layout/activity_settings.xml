@@ -30,10 +30,10 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/lifeStoryLinesSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:id="@+id/lifeStoryLinesSwitch"/>
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 
@@ -64,10 +64,10 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/familyTreeLinesSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:id="@+id/familyTreeLinesSwitch"/>
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 
@@ -98,10 +98,10 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/spouseLinesSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:id="@+id/spouseLinesSwitch"/>
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 
@@ -131,6 +131,7 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/fathersSideSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"/>
@@ -163,6 +164,7 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/mothersSideSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"/>
@@ -195,6 +197,7 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/maleEventsSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"/>
@@ -227,6 +230,7 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/femaleEventsSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"/>

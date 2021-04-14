@@ -6,7 +6,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import edu.byu.cs240.familymapclient.model.DataCache;
 import requests.LoginRequest;
 import requests.RegisterRequest;
 import results.EventFamilyResult;

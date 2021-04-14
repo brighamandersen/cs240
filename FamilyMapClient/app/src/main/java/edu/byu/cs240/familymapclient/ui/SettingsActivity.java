@@ -6,8 +6,6 @@ import androidx.appcompat.widget.SwitchCompat;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
 import java.util.Objects;
@@ -17,11 +15,6 @@ import edu.byu.cs240.familymapclient.model.DataCache;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private LinearLayout logoutDiv;
-    private SwitchCompat spouseLinesSwitch;
-    private SwitchCompat familyTreeLinesSwitch;
-    private SwitchCompat lifeStoryLinesSwitch;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,26 +22,51 @@ public class SettingsActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Family Map: Settings");
 
-        logoutDiv = findViewById(R.id.logoutDiv);
+        LinearLayout logoutDiv = findViewById(R.id.logoutDiv);
         logoutDiv.setOnClickListener(v -> logOut());
 
-        lifeStoryLinesSwitch = findViewById(R.id.lifeStoryLinesSwitch);
+        SwitchCompat lifeStoryLinesSwitch = findViewById(R.id.lifeStoryLinesSwitch);
         lifeStoryLinesSwitch.setChecked(DataCache.getShowLifeStoryLines());
         lifeStoryLinesSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             DataCache.setShowLifeStoryLines(isChecked);
         });
 
-        familyTreeLinesSwitch = findViewById(R.id.familyTreeLinesSwitch);
+        SwitchCompat familyTreeLinesSwitch = findViewById(R.id.familyTreeLinesSwitch);
         familyTreeLinesSwitch.setChecked(DataCache.getShowFamilyTreeLines());
         familyTreeLinesSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             DataCache.setShowFamilyTreeLines(isChecked);
         });
 
-        spouseLinesSwitch = findViewById(R.id.spouseLinesSwitch);
+        SwitchCompat spouseLinesSwitch = findViewById(R.id.spouseLinesSwitch);
         spouseLinesSwitch.setChecked(DataCache.getShowSpouseLines());
         spouseLinesSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             DataCache.setShowSpouseLines(isChecked);
         });
+
+        SwitchCompat fathersSideSwitch = findViewById(R.id.fathersSideSwitch);
+        fathersSideSwitch.setChecked(DataCache.getShowFathersSide());
+        fathersSideSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            DataCache.setShowFathersSide(isChecked);
+        });
+
+        SwitchCompat mothersSideSwitch = findViewById(R.id.mothersSideSwitch);
+        mothersSideSwitch.setChecked(DataCache.getShowMothersSide());
+        mothersSideSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            DataCache.setShowMothersSide(isChecked);
+        });
+
+        SwitchCompat maleEventsSwitch = findViewById(R.id.maleEventsSwitch);
+        maleEventsSwitch.setChecked(DataCache.getShowMaleEvents());
+        maleEventsSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            DataCache.setShowMaleEvents(isChecked);
+        });
+
+        SwitchCompat femaleEventsSwitch = findViewById(R.id.femaleEventsSwitch);
+        femaleEventsSwitch.setChecked(DataCache.getShowFemaleEvents());
+        femaleEventsSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            DataCache.setShowFemaleEvents(isChecked);
+        });
+
     }
 
     /**
