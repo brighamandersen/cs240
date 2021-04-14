@@ -249,7 +249,7 @@ public class MapFragment extends Fragment {
         addParentLine(currentEvent, father, lineWidth);
 
         // Add line to mother
-        Person mother = DataCache.getPersons().get(person.getFatherID());
+        Person mother = DataCache.getPersons().get(person.getMotherID());
         addParentLine(currentEvent, mother, lineWidth);
     }
 
