@@ -2,10 +2,12 @@ package edu.byu.cs240.familymapclient.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
 import java.util.Objects;
@@ -18,6 +20,7 @@ public class SettingsActivity extends AppCompatActivity {
     // FIXME -- RETURNS A BOOLEAN TO TELL MAIN ACTIVITY IF SETTINGS CHANGED
 
     private LinearLayout logoutDiv;
+    private SwitchCompat spouseLinesSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,12 @@ public class SettingsActivity extends AppCompatActivity {
 
         logoutDiv = findViewById(R.id.logoutDiv);
         logoutDiv.setOnClickListener(v -> logOut());
+
+        spouseLinesSwitch = findViewById(R.id.spouseLinesSwitch);
+        spouseLinesSwitch.setChecked(DataCache.getShowSpouseLines());
+        spouseLinesSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            DataCache.setShowSpouseLines(isChecked);
+        });
     }
 
     /**

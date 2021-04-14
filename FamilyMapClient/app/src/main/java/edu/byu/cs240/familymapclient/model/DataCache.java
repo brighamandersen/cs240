@@ -39,8 +39,8 @@ public class DataCache {
     private Map<String, List<Event>> personEvents;  // String key is personID, stores chronological person events
     private Map<String, Float> eventColors;
     private int extraMarkerIndex;
-    
     private Person user;
+    private boolean showSpouseLines;
 
     private DataCache() {
         persons = new HashMap<>();
@@ -53,6 +53,7 @@ public class DataCache {
         }};
         extraMarkerIndex = 0;
         user = null;
+        showSpouseLines = true;
     }
 
     public static Map<String, Person> getPersons() {
@@ -116,5 +117,13 @@ public class DataCache {
 
     public static void setUser(Person user) {
         DataCache.getInstance().user = user;
+    }
+
+    public static boolean getShowSpouseLines() {
+        return DataCache.getInstance().showSpouseLines;
+    }
+
+    public static void setShowSpouseLines(boolean b) {
+        DataCache.getInstance().showSpouseLines = b;
     }
 }

@@ -2,11 +2,13 @@ package edu.byu.cs240.familymapclient.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -61,4 +63,30 @@ public class SearchActivity extends AppCompatActivity {
         Toast.makeText(this, "Hello", Toast.LENGTH_SHORT).show();
 
     }
+
+//    public class SearchAdapter extends RecyclerView.Adapter<> {
+//    }
+//
+//    public class SearchViewHolder extends RecyclerView.ViewHolder {
+//
+//        private static final int PERSON_VIEW_TYPE = 0;
+//        private static final int EVENT_VIEW_TYPE = 1;
+//
+//        private final int viewType;
+//
+//        SearchViewHolder(View view, int viewType) {
+//            super(view);
+//            this.viewType = viewType;
+//
+//            view.setOnClickListener(v -> {
+//
+//            });
+//
+//            if (viewType == PERSON_VIEW_TYPE) {     // Person
+//
+//            } else {    // Event
+//
+//            }
+//        }
+//    }
 }

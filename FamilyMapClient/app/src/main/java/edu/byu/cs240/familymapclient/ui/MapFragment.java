@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,6 +30,9 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.byu.cs240.familymapclient.R;
 import edu.byu.cs240.familymapclient.model.DataCache;
 import models.Event;
@@ -39,27 +43,15 @@ import static edu.byu.cs240.familymapclient.helpers.StringUtils.stringifyFullLoc
 
 public class MapFragment extends Fragment {
 
-    // FIXME - TAKES AN EVENT ID AS A PARAMETER, IF NONE IS PASSED (MAIN ACTIVITY) THEN DON'T FOCUS ON ANYTHING
-        // FIXME - FOR EVENT ACTIVITY, IT WILL HAVE AN EVENT ID, YOU'LL FOCUS ON THAT
-
     private GoogleMap gMap;
     private TextView mapDetailBar;
 
     private String eventID;
 
-    private LatLng focusLocation;
+    private Marker currentMarker;
+    private List<Polyline> lines = new ArrayList<>();
 
-    private OnMapReadyCallback callback = new OnMapReadyCallback() {
-
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
+    private final OnMapReadyCallback callback = new OnMapReadyCallback() {
         @Override
         public void onMapReady(GoogleMap googleMap) {
             gMap = googleMap;
@@ -161,38 +153,36 @@ public class MapFragment extends Fragment {
         for (Event event : DataCache.getEvents().values()) {
             LatLng location = new LatLng(event.getLatitude(), event.getLongitude());
 
-            Marker newMarker = addEventMarker(event, location);
+            addEventMarker(event, location);
 
             gMap.setOnMarkerClickListener(marker -> {
                 displayMarkerDetails(marker);
-                addLinesFromMarker(marker);
+                addLines(marker);
                 return false;
             });
 
             // Make map focus the logged-in user's birth
             if (eventID != null && event.getEventID().equals(eventID)) {
-//                focusLocation = location;
                 gMap.moveCamera(CameraUpdateFactory.newLatLng(location));
-                displayMarkerDetails(newMarker);
+                displayMarkerDetails(currentMarker);
             }
             if (eventID == null &&
                     event.getPersonID().equals(DataCache.getUser().getPersonID())) {
-//                focusLocation = location;
                 gMap.moveCamera(CameraUpdateFactory.newLatLng(location));
             }
         }
     }
 
-    private Marker addEventMarker(Event event, LatLng location) {
+    private void addEventMarker(Event event, LatLng location) {
         float markerColor = DataCache.getEventColors().get(event.getEventType().toLowerCase());
 
-        Marker newMarker = gMap.addMarker(new MarkerOptions()
+        currentMarker = gMap.addMarker(new MarkerOptions()
                 .position(location)
                 .title(stringifyFullLocation(event))
                 .icon(BitmapDescriptorFactory.defaultMarker(markerColor)));
-        newMarker.setTag(event);
+        currentMarker.setTag(event);
 
-        return newMarker;
+//        return newMarker;
     }
 
     /**
@@ -228,10 +218,13 @@ public class MapFragment extends Fragment {
     /**
      * Adds lines eminating from the marker
      */
-    private void addLinesFromMarker(Marker marker) {
+    private void addLines(Marker marker) {
+        clearLines();
         addLifeStoryLines();
         addFamilyTreeLines();
-        addSpouseLines(marker);
+        if (DataCache.getShowSpouseLines()) {
+            addSpouseLine(marker);
+        }
     }
 
     private void addLifeStoryLines() {
@@ -240,12 +233,42 @@ public class MapFragment extends Fragment {
     private void addFamilyTreeLines() {
     }
 
-    private void addSpouseLines(Marker marker) {
-//        Event event = (Event) marker.getTag();
-//        assert event != null;
-//        Person person = DataCache.getPersons().get(event.getPersonID());
-//        assert person != null;
+    private void addSpouseLine(Marker marker) {
+        Event event = (Event) marker.getTag();
+        assert event != null;
+        Person person = DataCache.getPersons().get(event.getPersonID());
+        assert person != null;
 
-//        Polyline line = gMap.addPolyline(new PolylineOptions().add())
+        Person spouse = DataCache.getPersons().get(person.getSpouseID());
+        assert spouse != null;
+        Event firstSpouseEvent = DataCache.getPersonEvents().get(spouse.getPersonID()).get(0);
+
+        Polyline line = gMap.addPolyline(new PolylineOptions().add(
+                getLatLng(event),
+                getLatLng(firstSpouseEvent)
+        ).color(Color.DKGRAY));
+        lines.add(line);
+    }
+
+    private void clearLines() {
+        for (Polyline line : lines) {
+            line.remove();
+        }
+        lines.clear();
+    }
+
+    private LatLng getLatLng (Event event) {
+        return new LatLng(event.getLatitude(), event.getLongitude());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (currentMarker != null) {
+            addLines(currentMarker);
+        } else {
+            clearLines();
+        }
     }
 }
