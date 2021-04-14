@@ -181,7 +181,7 @@ public class PersonActivity extends AppCompatActivity {
         return "";
     }
 
-    public class ExpandableListAdapter extends BaseExpandableListAdapter {
+    private class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         private Context _context;
         private List<String> _listDataHeader; // header titles

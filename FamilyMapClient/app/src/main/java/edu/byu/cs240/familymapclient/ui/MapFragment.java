@@ -165,7 +165,9 @@ public class MapFragment extends Fragment {
             // Make map focus the logged-in user's birth
             if (eventID != null && event.getEventID().equals(eventID)) {
                 gMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+                currentEvent = DataCache.getEvents().get(eventID);
                 updateDetailBar();
+                addLines();
             }
             if (eventID == null &&
                     event.getPersonID().equals(DataCache.getUser().getPersonID())) {
