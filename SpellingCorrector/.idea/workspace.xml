@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2de8c568-192d-4dbc-89cf-628c1084af4e" name="Default Changelist" comment="Basic setup">
-      <change beforePath="$PROJECT_DIR$/../FamilyMapServer/FamilyMapServer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../FamilyMapServer/FamilyMapServer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FamilyMapServer/database/fms-db.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/../FamilyMapServer/database/fms-db.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FamilyMapServer/src/main/java/handlers/ClearHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../FamilyMapServer/src/main/java/handlers/ClearHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FamilyMapServer/src/main/java/handlers/LoginHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../FamilyMapServer/src/main/java/handlers/LoginHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FamilyMapServer/src/main/java/services/ClearService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../FamilyMapServer/src/main/java/services/ClearService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FamilyMapServer/src/main/java/services/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../FamilyMapServer/src/main/java/services/LoginService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FamilyMapServer/target/classes/handlers/ClearHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../FamilyMapServer/target/classes/handlers/ClearHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FamilyMapServer/target/classes/handlers/LoginHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../FamilyMapServer/target/classes/handlers/LoginHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FamilyMapServer/target/classes/services/ClearService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../FamilyMapServer/target/classes/services/ClearService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FamilyMapServer/target/classes/services/LoginService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../FamilyMapServer/target/classes/services/LoginService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="2de8c568-192d-4dbc-89cf-628c1084af4e" name="Default Changelist" comment="Basic setup" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,17 +31,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/Users/brig/code/cs240/SpellingCorrector"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Coding\cs240\SpellingCorrector" />
@@ -194,7 +178,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Basic setup" />
